@@ -25,7 +25,7 @@ export const dynamo_send = async (command) => {
         console.log("dynamo_send()");
         //console.log(command);
         const data = await dynamo.send(command);
-        console.log("Ok:", data);
+        console.log("data:", data);
         return data;
     } catch (error) {
         console.error("Error:", error);
@@ -46,7 +46,7 @@ export const fnDynamoQuery = async (params_) => {
             ":skidv": "0"
         }
     };
-    if (params_.skid !== undefined) {
+    if (params_ !== null && params_.skid !== undefined) {
         params.KeyConditionExpression = "pkid = :pkidv AND skid = :skidv"
         params.ExpressionAttributeValues = {
             ":pkidv": "0",
@@ -57,7 +57,6 @@ export const fnDynamoQuery = async (params_) => {
     console.log("fnDynamoQuery():", params);
     const command = new QueryCommand(params);
     const data = await dynamo_send(command);
-    console.log("data:", data);
     return {
         statusCode: data.$metadata.httpStatusCode,
         data: data.Items
@@ -78,7 +77,6 @@ export const fnDynamoPut = async (item) => {
 
     const command = new PutCommand(params);
     const data = await dynamo_send(command);
-    console.log("data:", data);
     return {
         statusCode: data.$metadata.httpStatusCode,
         skid: item.skid
@@ -104,7 +102,6 @@ export const fnDynamoDelete = async (skid) => {
 
     const command = new DeleteCommand(params);
     const data = await dynamo_send(command);
-    console.log("data:", data);
     return {
         statusCode: data.$metadata.httpStatusCode,
     };

@@ -1,14 +1,7 @@
 import { dynamo_query, dynamo_put, dynamo_update, dynamo_delete } from './fn_dynamo_serv.mjs'
 
 /**
- * Demonstrates a simple HTTP endpoint using API Gateway. You have full
- * access to the request and response payload, including headers and
- * status code.
- *
- * To scan a DynamoDB table, make a GET request with the TableName as a
- * query string parameter. To put, update, or delete an item, make a POST,
- * PUT, or DELETE request respectively, passing in the payload to the
- * DynamoDB API as a JSON body.
+ * Demonstrates a simple HTTP endpoint using API Gateway. 
  */
 export const handler = async (event) => {
     //console.log('Received event:', JSON.stringify(event, null, 2));
@@ -17,7 +10,7 @@ export const handler = async (event) => {
     console.log("event.body:", event.body);
     console.log("event.queryStringParameters:", event.queryStringParameters);
 
-    let body = "2";
+    let body = "";
     let statusCode = '200';
     const headers = {
         'Content-Type': 'application/json',

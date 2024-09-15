@@ -3,3 +3,5 @@ source ./sh/cfg.sh   # Or use . ./vars.sh
 
 curl -X GET $URL
 
+#curl -X GET $URL?skid=0
+

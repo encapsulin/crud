@@ -20,20 +20,19 @@ const dynamo = DynamoDBDocumentClient.from(client);
 const tableName = 'tbCrud2';
 
 ////////////////////////////////////////////////
-export const dynamo_send = async (command) => {
-    try {
-        console.log("dynamo_send()");
-        //console.log(command);
-        const data = await dynamo.send(command);
-        console.log("data:", data);
-        return data;
-    } catch (error) {
-        console.error("Error:", error);
-        throw error;
-    } finally {
-        //console.log("asdf 41");
-    }
-};
+// export const dynamo_send = async (command) => {
+//     try {
+//         console.log("dynamo_send()");
+//         const data = await dynamo.send(command);
+//         console.log("data:", data);
+//         return data;
+//     } catch (error) {
+//         console.error("Error:", error);
+//         throw error;
+//     } finally {
+//         //console.log("finally");
+//     }
+// };
 
 /////////////////////////////////////////////////
 export const fnDynamoQuery = async (params_) => {
@@ -56,11 +55,19 @@ export const fnDynamoQuery = async (params_) => {
 
     console.log("fnDynamoQuery():", params);
     const command = new QueryCommand(params);
-    const data = await dynamo_send(command);
-    return {
-        statusCode: data.$metadata.httpStatusCode,
-        data: data.Items
-    };
+    try {
+        const data = await dynamo.send(command);
+        return {
+            statusCode: data.$metadata.httpStatusCode,
+            data: data.Items
+        };
+    } catch (error) {
+        console.log(error)
+        return {
+            statusCode: error.$metadata.httpStatusCode,
+            data: error.messgae
+        };
+    }
 };
 
 /////////////////////////////////////////////
@@ -76,11 +83,19 @@ export const fnDynamoPut = async (item) => {
     };
 
     const command = new PutCommand(params);
-    const data = await dynamo_send(command);
-    return {
-        statusCode: data.$metadata.httpStatusCode,
-        skid: item.skid
-    };
+    try {
+        const data = await dynamo.send(command);
+        return {
+            statusCode: data.$metadata.httpStatusCode,
+            data: item.skid
+        };
+    } catch (error) {
+        console.log(error)
+        return {
+            statusCode: data.$metadata.httpStatusCode,
+            data: error.message
+        };
+    }
 
 };
 
@@ -101,8 +116,54 @@ export const fnDynamoDelete = async (skid) => {
     };
 
     const command = new DeleteCommand(params);
-    const data = await dynamo_send(command);
-    return {
-        statusCode: data.$metadata.httpStatusCode,
+    try {
+        const data = await dynamo.send(command);
+        return {
+            statusCode: data.$metadata.httpStatusCode,
+        };
+    } catch (error) {
+        console.log(error)
+        return {
+            statusCode: error.$metadata.httpStatusCode,
+            data: error.message
+        };
+    }
+};
+
+/////////////////////////////////////////////
+export const fnDynamoUpdate = async (data_) => {
+    console.log("fnDynamoUpdate():", data_);
+
+    const params = {
+        TableName: tableName,
+        Key: {
+            "pkid": "0",
+            "skid": data_.skid
+        },
+        UpdateExpression: "set #attrName = :newValue",  // Update expression to set new values
+        ExpressionAttributeNames: {
+            "#attrName": data_.key   // Replace with the attribute you want to update
+        },
+        ExpressionAttributeValues: {
+            ":newValue": data_.value  // Replace with the new value for the attribute
+        },
+        // ReturnValues: "ALL_NEW"  // Optional: returns the updated item after the operation
     };
+
+    const command = new UpdateCommand(params);
+    try {
+        const data = await dynamo.send(command);
+        console.log(data);
+        return {
+            statusCode: data.$metadata.httpStatusCode,
+            // data: data
+        };
+    } catch (error) {
+        console.log(error)
+        return {
+            statusCode: error.$metadata.httpStatusCode,
+            data: error.message
+        };
+    }
+
 };

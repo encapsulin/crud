@@ -30,7 +30,7 @@ export const handler = async (event) => {
                 body = await dynamo_delete(event.queryStringParameters.skid);
                 break;
             case 'PATCH':
-                body = await dynamo_update(JSON.parse(event.body));
+                body = await dynamo_update(event.queryStringParameters.skid, JSON.parse(event.body));
                 break;
             default: {
                 throw new Error(`Unsupported method "${event.httpMethod}"`);

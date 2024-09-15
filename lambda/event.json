@@ -1,0 +1,8 @@
+{
+    "body": "{\"key1\":\"value1\", \"key2\":\"value2\"}",
+    "httpMethod": "POST",
+    "isBase64Encoded": false,
+    "queryStringParameters": {
+        "foo": "bar"
+    }
+}

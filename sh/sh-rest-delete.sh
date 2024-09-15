@@ -1,0 +1,3 @@
+
+
+curl -X DELETE $URL

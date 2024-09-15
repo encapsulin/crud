@@ -1,4 +1,5 @@
 # crud
+https://crud.encaps.click
 So, this is CRUD framework. Non-commercial, free of charge, no limitations or restrictions.
 - UI is based on React.js app, which is served on AWS S3 (static website hosting)
 - UI sends REST requests to AWS API Gateway

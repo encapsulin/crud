@@ -1,4 +1,4 @@
-import { dynamo_scan, dynamo_put, dynamo_update, dynamo_delete } from './fn_dynamo_serv.mjs'
+import { dynamo_query, dynamo_put, dynamo_update, dynamo_delete } from './fn_dynamo_serv.mjs'
 
 /**
  * Demonstrates a simple HTTP endpoint using API Gateway. You have full
@@ -15,6 +15,7 @@ export const handler = async (event) => {
     console.log('event:', event);
     console.log("event.httpMethod:", event.httpMethod);
     console.log("event.body:", event.body);
+    console.log("event.queryStringParameters:", event.queryStringParameters);
 
     let body = "2";
     let statusCode = '200';
@@ -26,15 +27,16 @@ export const handler = async (event) => {
 
         switch (event.httpMethod) {
             case 'GET':
-                body = await dynamo_scan({ TableName: event.queryStringParameters });
+                body = await dynamo_query(event.queryStringParameters);
                 break;
             case 'POST':
+            case 'PUT':
                 body = await dynamo_put(JSON.parse(event.body));
                 break;
             case 'DELETE':
-                body = await dynamo_delete(JSON.parse(event.body));
+                body = await dynamo_delete(event.queryStringParameters.skid);
                 break;
-            case 'PUT':
+            case 'PATCH':
                 body = await dynamo_update(JSON.parse(event.body));
                 break;
             default: {

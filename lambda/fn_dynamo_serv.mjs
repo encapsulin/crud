@@ -1,16 +1,8 @@
-import { fnDynamoSendQuery, fnDynamoPut } from './fn_dynamo_repo.mjs';
+import { fnDynamoQuery, fnDynamoPut, fnDynamoDelete } from './fn_dynamo_repo.mjs';
 
-export const dynamo_scan = async (params_) => {
-    console.log("dynamo_scan():", params_);
-    let params = {
-        KeyConditionExpression: "pkid = :pkidv AND skid >= :skidv",
-        ExpressionAttributeValues: {
-            ":pkidv": "0",  // Partition key value
-            ":skidv": "0"
-        }
-    };
-
-    let data = await fnDynamoSendQuery(params);
+export const dynamo_query = async (params_) => {
+    console.log("dynamo_query():", params_);
+    let data = await fnDynamoQuery(params_);
     return data;
 };
 
@@ -25,8 +17,9 @@ export const dynamo_update = async (params_) => {
     return { "serv": "dynamo_update" };
 };
 
-export const dynamo_delete = async (params_) => {
-    console.log("dynamo_delete():", params_);
-    return { "serv": "dynamo_delete" };
+export const dynamo_delete = async (param_) => {
+    //console.log("dynamo_delete():", params_);
+    let data = await fnDynamoDelete(param_)
+    return data;
 };
 

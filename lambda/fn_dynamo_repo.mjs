@@ -7,7 +7,7 @@ import { fnDatePlusDHM, fnTtlMins, fnDateToIso } from './fn_datez.mjs'
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
     DynamoDBDocumentClient,
-    ScanCommand,
+    // ScanCommand, //not recommended
     PutCommand,
     GetCommand,
     DeleteCommand,
@@ -23,11 +23,12 @@ const tableName = 'tbCrud2';
 export const dynamo_send = async (command) => {
     try {
         console.log("dynamo_send()");
-        const response = await dynamo.send(command);
-        console.log("Query OK:", response);
-        return response.Items;
+        //console.log(command);
+        const data = await dynamo.send(command);
+        console.log("Ok:", data);
+        return data;
     } catch (error) {
-        console.error("Query Error:", error);
+        console.error("Error:", error);
         throw error;
     } finally {
         //console.log("asdf 41");
@@ -35,15 +36,32 @@ export const dynamo_send = async (command) => {
 };
 
 /////////////////////////////////////////////////
-export const fnDynamoSendQuery = async (params) => {
-    params.TableName = tableName;
-    params.ScanIndexForward = false;
-    console.log("fnDynamoSendQuery():", params);
+export const fnDynamoQuery = async (params_) => {
+    let params = {
+        TableName: tableName,
+        ScanIndexForward: false,
+        KeyConditionExpression: "pkid = :pkidv AND skid >= :skidv",
+        ExpressionAttributeValues: {
+            ":pkidv": "0",
+            ":skidv": "0"
+        }
+    };
+    if (params_.skid !== undefined) {
+        params.KeyConditionExpression = "pkid = :pkidv AND skid = :skidv"
+        params.ExpressionAttributeValues = {
+            ":pkidv": "0",
+            ":skidv": params_.skid
+        }
+    }
+
+    console.log("fnDynamoQuery():", params);
     const command = new QueryCommand(params);
     const data = await dynamo_send(command);
-    console.log("asdf3 data:", data);
-    return data;
-
+    console.log("data:", data);
+    return {
+        statusCode: data.$metadata.httpStatusCode,
+        data: data.Items
+    };
 };
 
 /////////////////////////////////////////////
@@ -53,27 +71,41 @@ export const fnDynamoPut = async (item) => {
     item.skid = fnDateToIso(fnDatePlusDHM(new Date(), 0, 2));
     item.pkid = "0";
 
-
-    // Define the parameters for the put operation
     const params = {
         TableName: tableName,
         Item: item
     };
 
-    try {
-        await dynamo.send(
-            new PutCommand(params)
-        );
+    const command = new PutCommand(params);
+    const data = await dynamo_send(command);
+    console.log("data:", data);
+    return {
+        statusCode: data.$metadata.httpStatusCode,
+        skid: item.skid
+    };
 
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ skid: item.skid })
-        };
-    } catch (error) {
-        console.error('Error inserting item:', error);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ message: 'Failed to insert item.', error: error.message })
-        };
-    }
+};
+
+/////////////////////////////////////////////////
+export const fnDynamoDelete = async (skid) => {
+    console.log("fnDynamoDelete():", skid);
+    const params = {
+        TableName: tableName,    // Replace with your DynamoDB table name
+        Key: {
+            // Replace with the primary key of the item you want to delete
+            "pkid": "0",
+            // If your table has a composite key (PartitionKey and SortKey), add the SortKey here:
+            "skid": skid
+        },
+        // Optional: You can add a condition expression if needed
+        // ConditionExpression: "attribute_exists(PrimaryKeyAttribute)"
+        //ScanIndexForward: false
+    };
+
+    const command = new DeleteCommand(params);
+    const data = await dynamo_send(command);
+    console.log("data:", data);
+    return {
+        statusCode: data.$metadata.httpStatusCode,
+    };
 };

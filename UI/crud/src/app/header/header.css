@@ -1,0 +1,31 @@
+.bgdark {
+    border: 1px solid grey;
+    background-color: rgb(255, 255, 255);
+    color: grey;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+
+.Header {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+
+    display: flex;
+    justify-content: space-between;
+    /* Optional: Adjust spacing */
+    align-items: center;
+    /* Optional: Align items vertically */
+}
+
+.Header * {
+    color: grey;
+}
+
+.Header input {
+    float: right;
+    color: grey;
+
+}

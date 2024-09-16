@@ -4,9 +4,9 @@ import { fn_file } from './fn_file.mjs';
 //let event = await fn_file("_test_event.json");
 let event = {
     body: "{\"title\":\"value1\", \"descr\":\"value2\"}",
-    httpMethod: "PATCH",
+    httpMethod: "GET",
     queryStringParameters: {
-        "skid": "20240915_231828_202"
+        "skid": "20240915_231828_2020"
     }
 }
 //console.log(typeof event);

@@ -57,6 +57,7 @@ export const fnDynamoQuery = async (params_) => {
     const command = new QueryCommand(params);
     try {
         const data = await dynamo.send(command);
+        console.log(data)
         return {
             statusCode: data.$metadata.httpStatusCode,
             data: data.Items

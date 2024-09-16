@@ -8,16 +8,10 @@
 
 
 .Header {
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-bottom: 5px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-bottom: 0.5rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-
-    display: flex;
-    justify-content: space-between;
-    /* Optional: Adjust spacing */
-    align-items: center;
-    /* Optional: Align items vertically */
 }
 
 .Header * {

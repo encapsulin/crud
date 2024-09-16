@@ -155,11 +155,12 @@ export default function CrudTree() {
     const [items, setItems] = useState(dataGet());
 
     return (<div className="containerCell">
-        <h3>Navi</h3><hr />
-        <ul>
-            {items.map((item, key) => (
-                <li key={key}>{item.title}</li>
-            ))}
-        </ul>
+        <img src='img/plus-square.svg' alt='add' />&nbsp;<b>Navi</b>
+        <hr />
+
+        {items.map((item, key) => (
+            <div key={key}><img src='img/pencil-square.svg' alt='edit' /> {item.title}</div>
+        ))}
+
     </div >)
 }

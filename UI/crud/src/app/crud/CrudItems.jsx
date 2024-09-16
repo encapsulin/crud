@@ -318,10 +318,13 @@ export default function CrudItems() {
     const [data, setData] = useState(dataGet())
 
     return (<div className="containerCell">
-        <h3>Items</h3><hr />
+
+        <img src='img/plus-square.svg' alt='add' />&nbsp;<b>Items</b>
+
+        <hr />
 
         {data.map((item, key) => (
-            <div key={key}>{item.title}</div>
+            <div key={key}><img src='img/pencil-square.svg' alt='edit' /> {item.title}</div>
         ))}
 
     </div>)

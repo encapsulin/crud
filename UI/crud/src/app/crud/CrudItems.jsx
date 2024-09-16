@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function CrudItems() {
+export default function CrudItems({ callbackModalShow }) {
 
     function dataGet() {
         let data = [
@@ -319,12 +319,12 @@ export default function CrudItems() {
 
     return (<div className="containerCell">
 
-        <img src='img/plus-square.svg' alt='add' />&nbsp;<b>Items</b>
+        <img src='img/plus-square.svg' alt='add' onClick={callbackModalShow} />&nbsp;<b>Items</b>
 
         <hr />
 
         {data.map((item, key) => (
-            <div key={key}><img src='img/pencil-square.svg' alt='edit' /> {item.title}</div>
+            <div key={key}><img src='img/pencil-square.svg' alt='edit' onClick={callbackModalShow} /> {item.title}</div>
         ))}
 
     </div>)

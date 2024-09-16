@@ -1,14 +1,7 @@
-import { useState } from 'react'
-import ModalDialog from '../ModalDialog';
-import { useRef } from 'react';
-import { Link } from 'react-router-dom'
+import { useState } from 'react';
 
-export default function CrudTree() {
+export default function CrudTree({ callbackModalShow }) {
 
-    const refModal = useRef();
-    function modalShow() {
-        refModal.current.showModal();
-    }
 
     function dataGet() {
         let data = [
@@ -159,42 +152,27 @@ export default function CrudTree() {
         ]
         return data;
     }
+    const [data, setData] = useState(dataGet());
 
-    const [items, setItems] = useState(dataGet());
+    const [formdata, setFormdata] = useState({
+        title: "",
+        descr: "",
+        parent: 0
+    })
 
     return (<><div className="containerCell">
-        <img src='img/plus-square.svg' alt='add' onClick={modalShow} className='cursorPointer' />&nbsp;<b>Navi</b>
+        <img src='img/plus-square.svg' alt='add' onClick={callbackModalShow} className='cursorPointer' />&nbsp;<b>Navi</b>
         <hr />
 
-        {items.map((item, key) => (
+        {data.map((item, key) => (
             <div key={key}>
-                <img src='img/pencil-square.svg' alt='edit' onClick={modalShow}
+                <img src='img/pencil-square.svg' alt='edit' onClick={callbackModalShow}
                     className='cursorPointer' />
                 <a href="#">{item.title}</a></div>
         ))}
 
     </div >
 
-        <ModalDialog ref={refModal} title="Add new">
-            <form>
-                Parent:
-                <select>
-                    <option>/</option>
-                </select>
-                <br />
-                <input type='text' placeholder='Title:' className='input-field' />
-                <br />
-                <textarea placeholder='Description:' className='textarea-field'></textarea>
-                <br />
-                <div className='containerRowSides'>
-                    <button type='submit' className='submit'>Submit</button>
-                    <form method="dialog" >
-                        <button className='cancel'>Cancel</button>
-                    </form>
-                    <button className='delete'>Delete</button>
-                </div>
-            </form>
-        </ModalDialog>
     </>
     )
 }

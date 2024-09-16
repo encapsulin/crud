@@ -182,11 +182,17 @@ export default function CrudTree() {
                     <option>/</option>
                 </select>
                 <br />
-
-                <input type='text' placeholder='Title:' />
+                <input type='text' placeholder='Title:' className='input-field' />
                 <br />
-                <textarea placeholder='Description:'></textarea>
-                <button type='submit'>Submit</button>
+                <textarea placeholder='Description:' className='textarea-field'></textarea>
+                <br />
+                <div className='containerRowSides'>
+                    <button type='submit' className='submit'>Submit</button>
+                    <form method="dialog" >
+                        <button className='cancel'>Cancel</button>
+                    </form>
+                    <button className='delete'>Delete</button>
+                </div>
             </form>
         </ModalDialog>
     </>

@@ -1,0 +1,63 @@
+button {
+    padding: 0.5rem 1rem;
+    border: 1px solid rgb(65, 65, 65);
+    border-radius: 4px;
+    background: slategray;
+    color: white;
+    cursor: pointer;
+    width: fit-content;
+    margin: 0.5rem;
+}
+
+button:hover {
+    background: slategray;
+}
+
+button.submit {
+    background-color: darkslategray;
+    border: 1px solid rgb(65, 65, 65);
+    color: white;
+}
+
+button.submit:hover {
+    font-weight: bold;
+    color: white;
+}
+
+button.cancel {
+    background-color: lightgray;
+    border: 1px solid darkslategray;
+    color: darkslategray;
+}
+
+button.cancel:hover {
+    background: darkslategray;
+    color: white;
+}
+
+button.delete {
+    background-color: lightpink;
+    border: 1px solid red;
+    color: red;
+}
+
+button.delete:hover {
+    background: red;
+    color: white;
+}
+
+.input-field,
+.textarea-field {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    /* Ensures padding and border are included in the width */
+}
+
+
+form {
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}

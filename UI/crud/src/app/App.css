@@ -69,7 +69,14 @@
   /* Optional: Adjust spacing */
   align-items: center;
   /* Optional: Align items vertically */
+}
 
+.containerRowSides {
+  display: flex;
+  justify-content: space-between;
+  /* Optional: Adjust spacing */
+  align-items: center;
+  /* Optional: Align items vertically */
 }
 
 .cursorPointer:hover {

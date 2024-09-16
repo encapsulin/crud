@@ -1,5 +1,6 @@
 
 import './App.css';
+import './forms.css';
 import Header from './header/Header'
 import CrudTree from './crud/CrudTree'
 import CrudItems from './crud/CrudItems'

@@ -72,8 +72,7 @@
 
 }
 
-.classCursorPointer:hover {
+.cursorPointer:hover {
   font-weight: bold;
   cursor: pointer;
-
 }

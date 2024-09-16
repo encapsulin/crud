@@ -1,6 +1,6 @@
 import './header.css';
 import ModalDialog from '../ModalDialog';
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 
 export default function Header() {
 
@@ -11,10 +11,12 @@ export default function Header() {
 
     return (<><div className="Header bgdark containerRowCenter">
         <b>CRUD</b>
-        <input type="text" placeholder='search:' />
-        <img src='img/person-circle.svg' alt="person" onClick={modalShow} className='classCursorPointer' />
+        <input type="text" placeholder='Search:' />
+        <img src='img/person-circle.svg' alt="person" onClick={modalShow} className='cursorPointer' />
     </div>
-        <ModalDialog ref={refModal} title="asdf">Bootstrap Icons
+        <ModalDialog ref={refModal} title="Profile">Bootstrap Icons
+            Free, high quality, open source icon library with over 2,000 icons. Include them anyway you like—SVGs, SVG sprite, or web fonts. Use them with or without Bootstrap in any project.
+        </ModalDialog>
 
-            Free, high quality, open source icon library with over 2,000 icons. Include them anyway you like—SVGs, SVG sprite, or web fonts. Use them with or without Bootstrap in any project.</ModalDialog></>)
+    </>)
 }

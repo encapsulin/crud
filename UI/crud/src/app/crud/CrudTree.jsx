@@ -1,6 +1,14 @@
 import { useState } from 'react'
+import ModalDialog from '../ModalDialog';
+import { useRef } from 'react';
+import { Link } from 'react-router-dom'
 
 export default function CrudTree() {
+
+    const refModal = useRef();
+    function modalShow() {
+        refModal.current.showModal();
+    }
 
     function dataGet() {
         let data = [
@@ -154,13 +162,33 @@ export default function CrudTree() {
 
     const [items, setItems] = useState(dataGet());
 
-    return (<div className="containerCell">
-        <img src='img/plus-square.svg' alt='add' />&nbsp;<b>Navi</b>
+    return (<><div className="containerCell">
+        <img src='img/plus-square.svg' alt='add' onClick={modalShow} className='cursorPointer' />&nbsp;<b>Navi</b>
         <hr />
 
         {items.map((item, key) => (
-            <div key={key}><img src='img/pencil-square.svg' alt='edit' /> {item.title}</div>
+            <div key={key}>
+                <img src='img/pencil-square.svg' alt='edit' onClick={modalShow}
+                    className='cursorPointer' />
+                <a href="#">{item.title}</a></div>
         ))}
 
-    </div >)
+    </div >
+
+        <ModalDialog ref={refModal} title="Add new">
+            <form>
+                Parent:
+                <select>
+                    <option>/</option>
+                </select>
+                <br />
+
+                <input type='text' placeholder='Title:' />
+                <br />
+                <textarea placeholder='Description:'></textarea>
+                <button type='submit'>Submit</button>
+            </form>
+        </ModalDialog>
+    </>
+    )
 }

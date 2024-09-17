@@ -1,7 +1,7 @@
 import ModalDialog from '../ModalDialog';
 import { useRef, useState, useEffect } from 'react';
 import Loading from '../loading/Loading'
-const URL_API = "https://klzkhtbeq3.execute-api.us-east-1.amazonaws.com/default/fnCrud"
+import config from '../config.js'
 
 export default function CrudItemEdit({ data }) {
 
@@ -27,7 +27,7 @@ export default function CrudItemEdit({ data }) {
             descr: e.target.elements.descr.value
         }
         try {
-            const resp = await fetch(URL_API, {
+            const resp = await fetch(config.URL_API, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

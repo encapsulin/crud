@@ -26,12 +26,6 @@ export default function CrudTree({ callbackModalShow }) {
         fetchData();
     }, []);
 
-    // const [formdata, setFormdata] = useState({
-    //     title: "",
-    //     descr: "",
-    //     parent: 0
-    // })
-
     return (<><div className="containerCell">
         <img src='img/plus-square.svg' alt='add' onClick={callbackModalShow} className='cursorPointer' />&nbsp;<b>Navi</b>
         <hr />

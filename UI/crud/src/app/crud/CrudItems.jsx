@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import config from '../config.js'
+import Loading from '../loading/Loading'
 
 export default function CrudItems({ callbackModalShow }) {
 
@@ -33,7 +34,7 @@ export default function CrudItems({ callbackModalShow }) {
         <img src='img/plus-square.svg' alt='add' onClick={callbackModalShow} />&nbsp;<b>Items</b>
 
         <hr />
-
+        <Loading loading={loading} />
         {data.map((item, key) => (
             <div key={key}><img src='img/pencil-square.svg' alt='edit' onClick={callbackModalShow} /> {item.title}</div>
         ))}

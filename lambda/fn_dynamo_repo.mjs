@@ -23,7 +23,7 @@ const tableName = 'tbCrud2';
 export const fnDynamoQuery = async (args_) => {
     let params = {
         TableName: tableName,
-        ScanIndexForward: true,
+        ScanIndexForward: false,
         KeyConditionExpression: "#partKey = :partVal AND #sortKey >= :sortVal",
         ExpressionAttributeNames: {
             '#partKey': 'pkid', // Partition key

@@ -61,3 +61,24 @@ form {
     margin: 0;
     padding: 0;
 }
+
+.containerRowSides {
+    display: flex;
+    justify-content: space-between;
+    /* Optional: Adjust spacing */
+    align-items: center;
+    /* Optional: Align items vertically */
+}
+
+.horizontal-align input,
+.horizontal-align img {
+    vertical-align: middle;
+    /* Aligns the input and image to the middle of the line */
+    /* margin-right: 10px; */
+    /* Optional: Add spacing between the elements */
+}
+
+.horizontal-align {
+    display: inline-block;
+    /* Ensure the span acts as a block but still inline */
+}

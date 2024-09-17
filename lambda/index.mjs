@@ -1,4 +1,4 @@
-import { dynamo_query, dynamo_put, dynamo_update, dynamo_delete } from './fn_dynamo_serv.mjs'
+import { dynamo_serv_query_plain, dynamo_serv_query_recur, dynamo_serv_put, dynamo_serv_update, dynamo_serv_delete } from './fn_dynamo_serv.mjs'
 
 /**
  * Demonstrates a simple HTTP endpoint using API Gateway. 
@@ -24,17 +24,22 @@ export const handler = async (event) => {
 
         switch (event.httpMethod) {
             case 'GET':
-                body = await dynamo_query(event.queryStringParameters);
+                if (event.queryStringParameters === null || event.queryStringParameters.format === undefined) {
+                    body = await dynamo_serv_query_plain(event.queryStringParameters);
+                }
+                else if (event.queryStringParameters.format === "recur") {
+                    body = await dynamo_serv_query_recur(event.queryStringParameters);
+                }
                 break;
             case 'POST':
             case 'PUT':
-                body = await dynamo_put(JSON.parse(event.body));
+                body = await dynamo_serv_put(JSON.parse(event.body));
                 break;
             case 'DELETE':
-                body = await dynamo_delete(event.queryStringParameters.skid);
+                body = await dynamo_serv_delete(event.queryStringParameters.skid);
                 break;
             case 'PATCH':
-                body = await dynamo_update(event.queryStringParameters.skid, JSON.parse(event.body));
+                body = await dynamo_serv_update(event.queryStringParameters.skid, JSON.parse(event.body));
                 break;
             case 'OPTIONS':
                 body = "";
@@ -44,7 +49,7 @@ export const handler = async (event) => {
             }
         }
     } catch (err) {
-        statusCode = '404';
+        statusCode = '400';
         body = err.message;
 
     } finally {

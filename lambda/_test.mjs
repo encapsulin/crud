@@ -6,7 +6,8 @@ let event = {
     httpMethod: "GET",
     queryStringParameters: {
         // "skid": "20240915_231828_2020"
-        parent: 0
+        //parent: 0
+        format: "recur"
     }
 }
 //console.log(typeof event);

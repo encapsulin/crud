@@ -36,7 +36,7 @@ const tableName = 'tbCrud2';
 export const fnDynamoQuery = async (params_) => {
     let params = {
         TableName: tableName,
-        ScanIndexForward: false,
+        ScanIndexForward: true,
         KeyConditionExpression: "pkid = :pkidv AND skid >= :skidv",
         ExpressionAttributeValues: {
             ":pkidv": "0",
@@ -70,7 +70,7 @@ export const fnDynamoQuery = async (params_) => {
 
     if (params_ !== null && params_.parent !== undefined) {
         params.IndexName = 'parent-index';  // Name of your LSI
-        params.KeyConditionExpression = 'pkid = :pkidV  AND parent = :parentV';
+        params.KeyConditionExpression = 'pkid = :pkidV AND parent = :parentV';
         // params.ExpressionAttributeNames = {
         //     ":pkidv": "0",
         //     ":skidv": "0",

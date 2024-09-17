@@ -9,17 +9,6 @@
     grid-column-end: 3;
 }
 
-.loading i {
-    /* background-image: url('./img/loading.gif'); */
-    width: 20px;
-    height: 20px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border: none !important;
-    outline: none;
-
-}
-
 @keyframes infinite-rotate {
     from {
         transform: rotate(0deg);
@@ -30,8 +19,14 @@
     }
 }
 
-.rotating {
+.loading {
     animation: infinite-rotate 2s linear infinite;
     width: 1rem;
     height: 1rem;
+}
+
+img {
+    margin: 0px;
+    padding: 0px;
+    /* border: 0px solid red; */
 }

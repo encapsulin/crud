@@ -1,6 +1,6 @@
 import ModalDialog from '../ModalDialog';
 import { useRef, useState, useEffect } from 'react';
-//import AppLoading from './loading/AppLoading'
+import Loading from '../loading/Loading'
 const URL_API = "https://klzkhtbeq3.execute-api.us-east-1.amazonaws.com/default/fnCrud"
 
 export default function CrudItemEdit({ data }) {
@@ -18,7 +18,7 @@ export default function CrudItemEdit({ data }) {
     async function handleSubmit(e) {
         e.preventDefault();
         //(window.event).preventDefault();
-        //setLoading(true)
+        setLoading(true)
 
         console.log(e.target.elements.title.value);
         // console.log(e.title.value);
@@ -49,6 +49,7 @@ export default function CrudItemEdit({ data }) {
                 // setTimeout(function () {
                 //     window.location.reload();
                 // }, 1000);
+                refModal.current.close();
             }
             else
                 setMsgError("Auth error")
@@ -72,19 +73,23 @@ export default function CrudItemEdit({ data }) {
                         <option value="0">/</option>
                     </select>
                     <br />
-                    <input type='text' placeholder='Title:' className='input-field' name="title" value="asdf" />
+                    <input type='text' placeholder='Title:' className='input-field'
+                        name="title" />
                     <br />
-                    <textarea placeholder='Description:' className='textarea-field' name="descr">qwer</textarea>
+                    <textarea placeholder='Description:' className='textarea-field'
+                        name="descr">qwer</textarea>
                     <br />
                     <div className='containerRowSides'>
+                        <Loading loading={loading} />
                         <button type='submit' className='submit'>Submit</button>
                         <form method="dialog" >
                             <button className='cancel'>Cancel</button>
                         </form>
                         <button className='delete'>Delete</button>
                     </div>
+
                 </form>
-                {/* <AppLoading /> */}
+
             </ModalDialog>
 
         </>

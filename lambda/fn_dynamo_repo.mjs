@@ -37,8 +37,8 @@ export const fnDynamoQuery = async (args_) => {
     };
 
     if (args_ !== null && args_.index !== undefined) {
-        params.KeyConditionExpression = "#partKey = :partVal AND #sortKey = :sortVal",
-            params.ExpressionAttributeValues = { ":partVal": "0", ":sortVal": args_.indexVal }
+        params.KeyConditionExpression = "#partKey = :partVal AND #sortKey = :sortVal";
+        params.ExpressionAttributeValues = { ":partVal": "0", ":sortVal": args_.indexVal }
 
         if (args_.index === "skid") {
             params.ExpressionAttributeNames = { '#partKey': 'pkid', '#sortKey': 'skid' }
@@ -50,6 +50,13 @@ export const fnDynamoQuery = async (args_) => {
             params.ExpressionAttributeNames = { '#partKey': 'pkid', '#sortKey': 'role' }
         }
     }
+
+    if (args_ !== null && args_.filter !== undefined) {
+        params.FilterExpression = '#filterKey = :filterVal'
+        params.ExpressionAttributeNames["#filterKey"] = args_.filter
+        params.ExpressionAttributeValues[":filterVal"] = args_.filterVal
+    }
+
     console.log("QueryCommand():", params);
 
     const command = new QueryCommand(params);

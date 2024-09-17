@@ -8,7 +8,8 @@ let event = {
         //filter:, filterVal:
         // skid: "20240917_133512_234",
         //role: "dir",
-        parent: "0"
+        parent: "0",
+        filter: "role", filterVal: "dir"
     }
 }
 //console.log(typeof event);

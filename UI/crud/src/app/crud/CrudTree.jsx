@@ -26,18 +26,31 @@ export default function CrudTree({ callbackModalShow }) {
         fetchData();
     }, []);
 
+    function drawTree(data_) {
+
+    }
+
+    const renderTree = (data_) => {
+        return data_.map((item) => (
+            <div key={item.skid}>
+                <img src='img/pencil-square.svg' alt='edit' onClick={callbackModalShow}
+                    className='cursorPointer' />
+                <a href="#">{item.title}</a>
+                {item.children && item.children.length > 0 && (
+                    <div>{renderTree(item.children)}</div>
+                )}
+            </div>
+
+        ))
+    }
+
     return (<><div className="containerCell">
         <img src='img/plus-square.svg' alt='add' onClick={callbackModalShow} className='cursorPointer' />&nbsp;<b>Navi</b>
         <hr />
 
         <Loading loading={loading} />
 
-        {data.map((item, key) => (
-            <div key={key}>
-                <img src='img/pencil-square.svg' alt='edit' onClick={callbackModalShow}
-                    className='cursorPointer' />
-                <a href="#">{item.title}</a></div>
-        ))}
+        {renderTree(data)}
 
     </div >
 

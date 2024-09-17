@@ -102,10 +102,10 @@ export default function CrudItemEdit({ data }) {
 
                         <span className="horizontal-align">
                             <label><input type='radio' name="role" value="dir"
-                                checked={selectedRole === 'dir'} // Control checked state
+                                checked={selectedRole === 'dir'}
                                 onChange={handleRadioChange} /><img src='img/folder.svg' alt="folder" /></label>
                             <label> <input type='radio' name="role" value="doc"
-                                checked={selectedRole === 'doc'} // Control checked state
+                                checked={selectedRole === 'doc'}
                                 onChange={handleRadioChange} /><img src='img/file.svg' alt="file" /></label>
                         </span>
                     </div>

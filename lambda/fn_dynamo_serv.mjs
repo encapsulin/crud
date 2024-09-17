@@ -4,31 +4,49 @@ import { fnDatePlusDHM, fnTtlMins, fnDateToIso } from './fn_datez.mjs'
 //let data = await getParentsRecurs("0")
 //console.log(data)
 
-async function getParentsRecurs(parentId) {
-    let params = { parent: parentId };
-    let res = await fnDynamoQuery(params);
-    let data = res.data;
-    for (let i = 0; i < data.length; i++) {
-        let item = data[i];
-        item.kids = await getParentsRecurs(item.skid)
+export const dynamo_serv_query = async (args) => {
+    console.log("dynamo_serv_query():", args);
+    let data = [];
+
+    if (args.skid !== undefined) {
+        args.index = "skid"
+        args.indexVal = args.skid;
     }
+
+    if (args.role !== undefined) {
+        args.index = "role"
+        args.indexVal = args.role;
+    }
+
+    if (args.parent !== undefined) {
+        args.index = "parent"
+        args.indexVal = args.parent;
+        data = await dynamo_serv_query_recur_for_parent(args);
+    }
+    else
+        data = await fnDynamoQuery(args);
+
     return data;
-}
-
-export const dynamo_serv_query_recur = async (dataIn) => {
-    console.log("dynamo_serv_query_recur():", dataIn);
-
-    if (dataIn.parent === undefined)
-        dataIn.parent = "0"
-
-    let dataOut = await getParentsRecurs(dataIn.parent)
-    return dataOut;
 };
 
-export const dynamo_serv_query_plain = async (dataIn) => {
-    console.log("dynamo_serv_query_plain():", dataIn);
-    let dataOut = await fnDynamoQuery(dataIn);
-    return dataOut;
+export const dynamo_serv_query_recur_for_parent = async (args) => {
+    console.log("dynamo_serv_query_recur():", args);
+
+    // let params = {};
+    // if (args_ === null && args.index === undefined) {
+    //     params.index = "parent";
+    //     params.indexVal = "0";
+    // } else params = args_;
+
+    let res = await fnDynamoQuery(args);
+    let data = res.data;
+
+    for (let i = 0; i < data.length; i++) {
+        args.indexVal = data[i].skid;
+        data[i].kids = await dynamo_serv_query_recur_for_parent(args)
+    }
+
+    return data;
 };
 
 export const dynamo_serv_put = async (data_) => {

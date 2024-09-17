@@ -1,4 +1,4 @@
-import { dynamo_serv_query_plain, dynamo_serv_query_recur, dynamo_serv_put, dynamo_serv_update, dynamo_serv_delete } from './fn_dynamo_serv.mjs'
+import { dynamo_serv_query, dynamo_serv_put, dynamo_serv_update, dynamo_serv_delete } from './fn_dynamo_serv.mjs'
 
 /**
  * Demonstrates a simple HTTP endpoint using API Gateway. 
@@ -24,12 +24,12 @@ export const handler = async (event) => {
 
         switch (event.httpMethod) {
             case 'GET':
-                if (event.queryStringParameters === null || event.queryStringParameters.format === undefined) {
-                    body = await dynamo_serv_query_plain(event.queryStringParameters);
-                }
-                else if (event.queryStringParameters.format === "recur") {
-                    body = await dynamo_serv_query_recur(event.queryStringParameters);
-                }
+                let args = {}
+
+                if (event.queryStringParameters !== null)
+                    args = event.queryStringParameters;
+
+                body = await dynamo_serv_query(args);
                 break;
             case 'POST':
             case 'PUT':

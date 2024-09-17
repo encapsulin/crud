@@ -18,72 +18,40 @@ const dynamo = DynamoDBDocumentClient.from(client);
 const tableName = 'tbCrud2';
 
 ////////////////////////////////////////////////
-// export const dynamo_send = async (command) => {
-//     try {
-//         console.log("dynamo_send()");
-//         const data = await dynamo.send(command);
-//         console.log("data:", data);
-//         return data;
-//     } catch (error) {
-//         console.error("Error:", error);
-//         throw error;
-//     } finally {
-//         //console.log("finally");
-//     }
-// };
 
 /////////////////////////////////////////////////
-export const fnDynamoQuery = async (params_) => {
+export const fnDynamoQuery = async (args_) => {
     let params = {
         TableName: tableName,
         ScanIndexForward: true,
-        KeyConditionExpression: "pkid = :pkidv AND skid >= :skidv",
+        KeyConditionExpression: "#partKey = :partVal AND #sortKey >= :sortVal",
+        ExpressionAttributeNames: {
+            '#partKey': 'pkid', // Partition key
+            '#sortKey': 'skid', // LSI sort key
+        },
         ExpressionAttributeValues: {
-            ":pkidv": "0",
-            ":skidv": "0"
+            ":partVal": "0",
+            ":sortVal": "0"
         }
+        //ProjectionExpression: 'orderId, orderDate, totalAmount',  // Specify the attributes you want
     };
 
-    if (params_ !== null && params_.skid !== undefined) {
-        params.KeyConditionExpression = "pkid = :pkidv AND skid = :skidv"
-        params.ExpressionAttributeValues = {
-            ":pkidv": "0",
-            ":skidv": params_.skid
+    if (args_ !== null && args_.index !== undefined) {
+        params.KeyConditionExpression = "#partKey = :partVal AND #sortKey = :sortVal",
+            params.ExpressionAttributeValues = { ":partVal": "0", ":sortVal": args_.indexVal }
+
+        if (args_.index === "skid") {
+            params.ExpressionAttributeNames = { '#partKey': 'pkid', '#sortKey': 'skid' }
+        } else if (args_.index === "parent") {
+            params.IndexName = 'parent-index';  // Name of your LSI
+            params.ExpressionAttributeNames = { '#partKey': 'pkid', '#sortKey': 'parent' }
+        } else if (args_.index === "role") {
+            params.IndexName = 'role-index';  // Name of your LSI
+            params.ExpressionAttributeNames = { '#partKey': 'pkid', '#sortKey': 'role' }
         }
     }
+    console.log("QueryCommand():", params);
 
-    // const params = {
-    //     TableName: 'Orders',  // Your table name
-    //     IndexName: 'OrderDateIndex',  // Name of your LSI
-    //     KeyConditionExpression: '#userId = :userId AND #orderDate BETWEEN :startDate AND :endDate',
-    //     ExpressionAttributeNames: {
-    //       '#userId': 'userId',       // Partition key
-    //       '#orderDate': 'orderDate', // LSI sort key
-    //     },
-    //     ExpressionAttributeValues: {
-    //       ':userId': 'user123',         // Partition key value
-    //       ':startDate': '2023-01-01',   // Start date for the LSI sort key
-    //       ':endDate': '2023-12-31',     // End date for the LSI sort key
-    //     },
-    //     ProjectionExpression: 'orderId, orderDate, totalAmount',  // Specify the attributes you want
-    //   };
-
-    if (params_ !== null && params_.parent !== undefined) {
-        params.IndexName = 'parent-index';  // Name of your LSI
-        params.KeyConditionExpression = 'pkid = :pkidV AND parent = :parentV';
-        // params.ExpressionAttributeNames = {
-        //     ":pkidv": "0",
-        //     ":skidv": "0",
-        //     '#orderDate': 'orderDate', // LSI sort key
-        // };
-        params.ExpressionAttributeValues = {
-            ":pkidV": "0",
-            ':parentV': params_.parent.toString()
-        }
-        // params. ProjectionExpression: 'orderId, orderDate, totalAmount',  // Specify the attributes you want
-    };
-
-    console.log("fnDynamoQuery():", params);
     const command = new QueryCommand(params);
     try {
         const data = await dynamo.send(command);
@@ -195,3 +163,34 @@ export const fnDynamoUpdate = async (data_) => {
     }
 
 };
+
+///////////////////////////
+// export const dynamo_send = async (command) => {
+//     try {
+//         console.log("dynamo_send()");
+//         const data = await dynamo.send(command);
+//         console.log("data:", data);
+//         return data;
+//     } catch (error) {
+//         console.error("Error:", error);
+//         throw error;
+//     } finally {
+//         //console.log("finally");
+//     }
+// };
+
+    // const params = {
+    //     TableName: 'Orders',  // Your table name
+    //     IndexName: 'OrderDateIndex',  // Name of your LSI
+    //     KeyConditionExpression: '#userId = :userId AND #orderDate BETWEEN :startDate AND :endDate',
+    //     ExpressionAttributeNames: {
+    //       '#userId': 'userId',       // Partition key
+    //       '#orderDate': 'orderDate', // LSI sort key
+    //     },
+    //     ExpressionAttributeValues: {
+    //       ':userId': 'user123',         // Partition key value
+    //       ':startDate': '2023-01-01',   // Start date for the LSI sort key
+    //       ':endDate': '2023-12-31',     // End date for the LSI sort key
+    //     },
+    //     ProjectionExpression: 'orderId, orderDate, totalAmount',  // Specify the attributes you want
+    //   };

@@ -5,9 +5,10 @@ let event = {
     body: "{\"title\":\"value1\", \"descr\":\"value2\"}",
     httpMethod: "GET",
     queryStringParameters: {
-        // "skid": "20240915_231828_2020"
-        //parent: 0
-        format: "recur"
+        //filter:, filterVal:
+        // skid: "20240917_133512_234",
+        //role: "dir",
+        parent: "0"
     }
 }
 //console.log(typeof event);

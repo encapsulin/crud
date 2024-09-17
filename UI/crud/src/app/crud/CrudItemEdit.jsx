@@ -30,6 +30,7 @@ export default function CrudItemEdit({ data }) {
             title: e.target.elements.title.value,
             descr: e.target.elements.descr.value,
             role: e.target.elements.role.value,
+            parent: e.target.elements.parent.value,
         }
         try {
             const resp = await fetch(config.URL_API, {
@@ -86,14 +87,14 @@ export default function CrudItemEdit({ data }) {
 
         <>
             <ModalDialog ref={refModal} title="Add new" >
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} method="dialog">
                     <div className='containerRowSides'>
                         <span>
                             <Loading loading={loadingTree} />
                             <select name='parent'>
                                 <option value="0">/</option>
                                 {dataTree.map(item => (
-                                    <option value={item.skid}>{item.title}</option>
+                                    <option value={item.skid} key={item.skid}>{item.title}</option>
                                 ))}
 
                             </select>
@@ -114,14 +115,14 @@ export default function CrudItemEdit({ data }) {
                         name="title" />
                     <br />
                     <textarea placeholder='Description:' className='textarea-field'
-                        name="descr">qwer</textarea>
+                        name="descr"></textarea>
                     <br />
                     <div className='containerRowSides'>
                         <Loading loading={loading} />
                         <button type='submit' className='submit'>Submit</button>
-                        <form method="dialog" >
-                            <button className='cancel'>Cancel</button>
-                        </form>
+
+                        <button className='cancel'>Cancel</button>
+
                         <button className='delete'>Delete</button>
                     </div>
 

@@ -53,6 +53,7 @@ export const dynamo_serv_put = async (data_) => {
     console.log("dynamo_put():", data_);
     data_.skid = fnDateToIso(fnDatePlusDHM(new Date(), 0, 2));
     data_.pkid = "0";
+    data_.descr += " ";//empty key value is not allowed
     if (data_.parent === undefined)
         data_.parent = "0";
 

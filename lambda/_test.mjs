@@ -1,12 +1,12 @@
 import { handler } from "./index.mjs"
-import { fn_file } from './fn_file.mjs';
 
 //let event = await fn_file("_test_event.json");
 let event = {
     body: "{\"title\":\"value1\", \"descr\":\"value2\"}",
-    httpMethod: "POST",
+    httpMethod: "GET",
     queryStringParameters: {
-        "skid": "20240915_231828_2020"
+        // "skid": "20240915_231828_2020"
+        parent: 0
     }
 }
 //console.log(typeof event);

@@ -43,6 +43,7 @@ export const fnDynamoQuery = async (params_) => {
             ":skidv": "0"
         }
     };
+
     if (params_ !== null && params_.skid !== undefined) {
         params.KeyConditionExpression = "pkid = :pkidv AND skid = :skidv"
         params.ExpressionAttributeValues = {
@@ -51,11 +52,42 @@ export const fnDynamoQuery = async (params_) => {
         }
     }
 
+    // const params = {
+    //     TableName: 'Orders',  // Your table name
+    //     IndexName: 'OrderDateIndex',  // Name of your LSI
+    //     KeyConditionExpression: '#userId = :userId AND #orderDate BETWEEN :startDate AND :endDate',
+    //     ExpressionAttributeNames: {
+    //       '#userId': 'userId',       // Partition key
+    //       '#orderDate': 'orderDate', // LSI sort key
+    //     },
+    //     ExpressionAttributeValues: {
+    //       ':userId': 'user123',         // Partition key value
+    //       ':startDate': '2023-01-01',   // Start date for the LSI sort key
+    //       ':endDate': '2023-12-31',     // End date for the LSI sort key
+    //     },
+    //     ProjectionExpression: 'orderId, orderDate, totalAmount',  // Specify the attributes you want
+    //   };
+
+    if (params_ !== null && params_.parent !== undefined) {
+        params.IndexName = 'parent-index';  // Name of your LSI
+        params.KeyConditionExpression = 'pkid = :pkidV  AND parent = :parentV';
+        // params.ExpressionAttributeNames = {
+        //     ":pkidv": "0",
+        //     ":skidv": "0",
+        //     '#orderDate': 'orderDate', // LSI sort key
+        // };
+        params.ExpressionAttributeValues = {
+            ":pkidV": "0",
+            ':parentV': params_.parent.toString()
+        }
+        // params. ProjectionExpression: 'orderId, orderDate, totalAmount',  // Specify the attributes you want
+    };
+
     console.log("fnDynamoQuery():", params);
     const command = new QueryCommand(params);
     try {
         const data = await dynamo.send(command);
-        console.log(data)
+        //console.log(data)
         return {
             statusCode: data.$metadata.httpStatusCode,
             data: data.Items

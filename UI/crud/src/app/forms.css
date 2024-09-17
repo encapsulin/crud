@@ -79,6 +79,6 @@ form {
 }
 
 .horizontal-align {
-    display: inline-block;
-    /* Ensure the span acts as a block but still inline */
+    display: flex;
+    align-items: center;
 }

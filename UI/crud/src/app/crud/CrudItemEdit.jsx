@@ -87,18 +87,17 @@ export default function CrudItemEdit({ data }) {
 
         <>
             <ModalDialog ref={refModal} title="Add new" >
-                <form onSubmit={handleSubmit} method="dialog">
+                <form onSubmit={handleSubmit} >
                     <div className='containerRowSides'>
-                        <span>
-                            <Loading loading={loadingTree} />
+                        <span className="horizontal-align">
+
                             <select name='parent'>
                                 <option value="0">/</option>
                                 {dataTree.map(item => (
                                     <option value={item.skid} key={item.skid}>{item.title}</option>
                                 ))}
-
                             </select>
-
+                            <Loading loading={loadingTree} />
                         </span>
 
                         <span className="horizontal-align">

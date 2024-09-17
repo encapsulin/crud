@@ -2,8 +2,6 @@
 // import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb';
 // const dynamo = DynamoDBDocument.from(new DynamoDB());
 
-import { fnDatePlusDHM, fnTtlMins, fnDateToIso } from './fn_datez.mjs'
-
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
     DynamoDBDocumentClient,
@@ -74,9 +72,6 @@ export const fnDynamoQuery = async (params_) => {
 /////////////////////////////////////////////
 export const fnDynamoPut = async (item) => {
     console.log("fnDynamoPut():", item);
-
-    item.skid = fnDateToIso(fnDatePlusDHM(new Date(), 0, 2));
-    item.pkid = "0";
 
     const params = {
         TableName: tableName,

@@ -20,7 +20,7 @@ button.submit {
 }
 
 button.submit:hover {
-    font-weight: bold;
+    background-color: rgb(60, 101, 101);
     color: white;
 }
 

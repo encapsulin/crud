@@ -1,4 +1,5 @@
 import { fnDynamoQuery, fnDynamoPut, fnDynamoDelete, fnDynamoUpdate } from './fn_dynamo_repo.mjs';
+import { fnDatePlusDHM, fnTtlMins, fnDateToIso } from './fn_datez.mjs'
 
 export const dynamo_query = async (params_) => {
     console.log("dynamo_query():", params_);
@@ -6,9 +7,14 @@ export const dynamo_query = async (params_) => {
     return data;
 };
 
-export const dynamo_put = async (params_) => {
-    console.log("dynamo_put():", params_);
-    let data = await fnDynamoPut(params_)
+export const dynamo_put = async (data_) => {
+    console.log("dynamo_put():", data_);
+    data_.skid = fnDateToIso(fnDatePlusDHM(new Date(), 0, 2));
+    data_.pkid = "0";
+    if (data_.parent === undefined)
+        data_.parent = "0";
+
+    let data = await fnDynamoPut(data_)
     return data;
 };
 

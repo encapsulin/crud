@@ -1,4 +1,4 @@
-source ./cfg.sh
+source ./sh/cfg.sh
  
 curl -X POST $URL \
 -H "Content-Type: application/json" \

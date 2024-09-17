@@ -4,7 +4,7 @@ import { fn_file } from './fn_file.mjs';
 //let event = await fn_file("_test_event.json");
 let event = {
     body: "{\"title\":\"value1\", \"descr\":\"value2\"}",
-    httpMethod: "GET",
+    httpMethod: "POST",
     queryStringParameters: {
         "skid": "20240915_231828_2020"
     }

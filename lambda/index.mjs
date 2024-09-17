@@ -14,6 +14,10 @@ export const handler = async (event) => {
     let statusCode = '200';
     const headers = {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',  // Allow all origins or specify a domain
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Access-Control-Max-Age': '3600'  // Cache preflight response for 1 hour
     };
 
     try {
@@ -32,12 +36,15 @@ export const handler = async (event) => {
             case 'PATCH':
                 body = await dynamo_update(event.queryStringParameters.skid, JSON.parse(event.body));
                 break;
+            case 'OPTIONS':
+                body = "";
+                break;
             default: {
                 throw new Error(`Unsupported method "${event.httpMethod}"`);
             }
         }
     } catch (err) {
-        statusCode = '400';
+        statusCode = '404';
         body = err.message;
 
     } finally {

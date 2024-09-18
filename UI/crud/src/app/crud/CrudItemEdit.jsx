@@ -11,7 +11,7 @@ export default function CrudItemEdit({ data }) {
         skid: 0,
         title: "",
         descr: "",
-        parent: "",
+        parent: "0",
         role: ""
     });
     const handleInputChange = (name, value) => {

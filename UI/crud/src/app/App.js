@@ -1,6 +1,7 @@
 import './App.css';
 import './forms.css';
-import Header from './header/Header'
+import Header from './headerFooter/Header'
+import Footer from './headerFooter/Footer'
 import CrudTree from './crud/CrudTree'
 import CrudItems from './crud/CrudItems'
 import CrudItemEdit from './crud/CrudItemEdit'
@@ -20,6 +21,7 @@ function App() {
         <CrudTree callbackModalShow={modalShow} />
         <CrudItems callbackModalShow={modalShow} />
       </div>
+      <Footer />
     </div>
 
     <CrudItemEdit data={data} />

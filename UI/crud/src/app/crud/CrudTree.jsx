@@ -49,7 +49,7 @@ export default function CrudTree({ callbackModalShow }) {
     }
 
     return (
-        <div className="left-align" style={{ marginTop: "1rem" }}>
+        <div className="containerCell" >
 
 
             <img src='img/plus-square.svg' alt='add' onClick={callbackModalShow}

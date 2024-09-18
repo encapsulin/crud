@@ -1,3 +1,4 @@
+pwd
 cd crud
 npm run build
 #sed -i 's/="\//=".\//g' ./build/index.html

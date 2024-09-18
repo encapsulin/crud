@@ -83,6 +83,17 @@ export default function CrudItemEdit({ data }) {
         fetchData();
     }, [])
 
+    const renderTree = (data_, tab_ = 1) => {
+        return data_.map((item) => (<>
+            <option key={item.skid} value={item.skid}> {'\u00A0'.repeat(tab_ * 5)}{item.title} </option >
+            {
+                item.kids && item.kids.length > 0 && (<>
+                    {renderTree(item.kids, tab_ + 1)}
+                </>)
+            }
+        </>))
+    }
+
     return (
 
         <>
@@ -93,9 +104,7 @@ export default function CrudItemEdit({ data }) {
 
                             <select name='parent'>
                                 <option value="0">/</option>
-                                {dataTree.map(item => (
-                                    <option value={item.skid} key={item.skid}>{item.title}</option>
-                                ))}
+                                {renderTree(dataTree)}
                             </select>
                             <Loading loading={loadingTree} />
                         </span>

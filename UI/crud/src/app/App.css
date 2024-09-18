@@ -57,10 +57,14 @@
   padding: 1rem;
   border: 1px solid silver;
   border-radius: 5px;
-  /* display: inline-block; */
-  /* width:max-content */
+  display: inline-block;
+  /* width: max-content; */
+
   justify-content: left;
   text-align: left;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); */
+
+  /* max-width: 75%; */
 }
 
 .containerRowCenter {

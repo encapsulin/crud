@@ -10,7 +10,6 @@ function App() {
 
   const [data, setData] = useState({});
   function modalShow(data_) {
-    console.log(data_)
     setData(data_);
   }
 

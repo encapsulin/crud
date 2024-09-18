@@ -2,7 +2,7 @@ import { handler } from "./index.mjs"
 
 //let event = await fn_file("_test_event.json");
 let event = {
-    body: "{\"title\":\"value1\", \"descr\":\"\"}",
+    body: "{\"title\":\"value11\", \"descr\":\"\", \"skid\":\"20240918_204036_548\"}",
     httpMethod: "POST",
     queryStringParameters: {
         //filter:, filterVal:

@@ -51,7 +51,8 @@ export const dynamo_serv_query_recur_for_parent = async (args) => {
 
 export const dynamo_serv_put = async (data_) => {
     console.log("dynamo_put():", data_);
-    data_.skid = fnDateToIso(fnDatePlusDHM(new Date(), 0, 2));
+    if (data_.skid === undefined || data_.skid === "0")
+        data_.skid = fnDateToIso(fnDatePlusDHM(new Date(), 0, 2));
     data_.pkid = "0";
     data_.descr += " ";//empty key value is not allowed
     if (data_.parent === undefined)

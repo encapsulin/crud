@@ -3,20 +3,45 @@ import { useRef, useState, useEffect } from 'react';
 import Loading from '../loading/Loading'
 import config from '../config.js'
 import React from 'react';
+import { dataFetch } from '../utils/dataFetch.js'
 
 export default function CrudItemEdit({ data }) {
 
     useEffect(() => {
         console.log(data);
-        if (data === undefined)
-            return;
-        if (data.skid === undefined)
+        if (data === undefined || data.skid === undefined)
             return;
 
         refModal.current.showModal();
-
-
+        setModalTitle("Edit")
+        if (data.skid === "0") {
+            setModalTitle("Add");
+            return;
+        }
+        ///////////////////////////////
+        const fetchData = async () => {
+            setLoading(true);
+            let data_json = await dataFetch(config.URL_API + "?skid=" + data.skid);
+            setLoading(false);
+            setFormData(data_json.data[0]);
+            console.log("asdf5", data_json.data[0]);
+        };
+        fetchData();
     }, [data])
+
+    const [formData, setFormData] = useState({
+        skid: 0,
+        title: "",
+        descr: "",
+        parent: "",
+        role: ""
+    });
+    const handleInputChange = (name, value) => {
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
 
     const refModal = useRef();
 
@@ -24,30 +49,30 @@ export default function CrudItemEdit({ data }) {
     const [msg, setMsg] = useState("")
     const [msgError, setMsgError] = useState("")
 
-    const [selectedRole, setSelectedRole] = useState('dir');
-    const handleRadioChange = (event) => {
-        setSelectedRole(event.target.value);
-    };
+    // const [selectedRole, setSelectedRole] = useState('dir');
+    // const handleRadioChange = (event) => {
+    //     setSelectedRole(event.target.value);
+    // };
 
     async function handleSubmit(e) {
         e.preventDefault();
-        //(window.event).preventDefault();
+
         setLoading(true)
 
-        console.log(e.target.elements.title.value);
-        const dataForm = {
-            title: e.target.elements.title.value,
-            descr: e.target.elements.descr.value,
-            role: e.target.elements.role.value,
-            parent: e.target.elements.parent.value,
-        }
+        // setDataItem({
+        //     ...dataItem,
+        //     title: e.target.elements.title.value,
+        //     descr: e.target.elements.descr.value,
+        //     role: e.target.elements.role.value,
+        //     parent: e.target.elements.parent.value,
+        // })
         try {
             const resp = await fetch(config.URL_API, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(dataForm)
+                body: JSON.stringify(formData)
             });
 
             console.log(resp)
@@ -73,26 +98,20 @@ export default function CrudItemEdit({ data }) {
     const [loadingTree, setLoadingTree] = useState(false)
     const [dataTree, setDataTree] = useState([]);
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setLoadingTree(true);
-                const response = await fetch(config.URL_API + "?parent=0&filter=role&filterVal=dir");
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data_ = await response.json();
-                setDataTree(data_);
-            } catch (error) {
-                setMsgError(error.message);
-            } finally {
-                setLoadingTree(false);
-            }
+        const fetchData2 = async () => {
+            setLoadingTree(true);
+            let data_json = await dataFetch(config.URL_API + "?parent=0&filter=role&filterVal=dir");
+            setLoadingTree(false);
+            setDataTree(data_json);
         };
 
-        fetchData();
+        fetchData2();
     }, [])
 
     const renderTree = (data_, tab_ = 1) => {
+        if (data_ === undefined)
+            return ""
+
         return data_.map((item) => (
             <React.Fragment key={item.skid}>
                 <option value={item.skid}> {'\u00A0'.repeat(tab_ * 5)}{item.title} </option >
@@ -102,11 +121,14 @@ export default function CrudItemEdit({ data }) {
             </React.Fragment>))
     }
 
+    const [modalTitle, setModalTitle] = useState("Add")
+
     return (
 
         <>
-            <ModalDialog ref={refModal} title="Add new" >
+            <ModalDialog ref={refModal} title={modalTitle} >
                 <form onSubmit={handleSubmit} >
+                    {/* {JSON.stringify(formData)} */}
                     <div className='containerRowSides'>
                         <span className="horizontal-align">
 
@@ -119,27 +141,33 @@ export default function CrudItemEdit({ data }) {
 
                         <span className="horizontal-align">
                             <label><input type='radio' name="role" value="dir"
-                                checked={selectedRole === 'dir'}
-                                onChange={handleRadioChange} /><img src='img/folder.svg' alt="folder" /></label>
+                                checked={formData.role === 'dir'}
+                                onChange={(e) => handleInputChange(e.target.name, e.target.value)} /><img src='img/folder.svg' alt="folder" /></label>
                             <label> <input type='radio' name="role" value="doc"
-                                checked={selectedRole === 'doc'}
-                                onChange={handleRadioChange} /><img src='img/file.svg' alt="file" /></label>
+                                checked={formData.role === 'doc'}
+                                onChange={(e) => handleInputChange(e.target.name, e.target.value)} /><img src='img/file.svg' alt="file" /></label>
                         </span>
                     </div>
 
                     <input type='text' placeholder='Title:' className='input-field'
-                        name="title" />
+                        name="title"
+                        value={formData.title}
+                        onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+                    //defaultValue={formData.title}
+                    />
                     <br />
                     <textarea placeholder='Description:' className='textarea-field'
-                        name="descr"></textarea>
+                        name="descr"
+                        value={formData.descr}
+                        onChange={(e) => handleInputChange(e.target.name, e.target.value)}></textarea>
                     <br />
                     <div className='containerRowSides'>
                         <Loading loading={loading} />
                         <button type='submit' className='submit'>Submit</button>
 
-                        <button className='cancel'>Cancel</button>
+                        <button className='cancel' disabled>Cancel</button>
 
-                        <button className='delete'>Delete</button>
+                        <button className='delete' disabled>Delete</button>
                     </div>
 
                 </form>

@@ -1,28 +1,21 @@
 import { useState, useEffect } from 'react';
 import config from '../config.js'
 import Loading from '../loading/Loading'
+import { dataFetch } from '../utils/dataFetch.js'
 
 export default function CrudTree({ callbackModalShow }) {
 
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(config.URL_API + "?parent=0&filter=role&filterVal=dir");
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data_ = await response.json();
-                setData(data_);
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
 
+        const fetchData = async () => {
+            setLoading(true);
+            let data_ = await dataFetch(config.URL_API + "?parent=0&filter=role&filterVal=dir");
+            setLoading(false);
+            setData(data_);
+        };
         fetchData();
     }, []);
 
@@ -52,7 +45,7 @@ export default function CrudTree({ callbackModalShow }) {
         <div className="containerCell" >
 
 
-            <img src='img/plus-square.svg' alt='add' onClick={() => callbackModalShow({ skid: 0, role: "dir" })}
+            <img src='img/plus-square.svg' alt='add' onClick={() => callbackModalShow({ skid: "0", role: "dir" })}
                 className='cursorPointer' />
 
             <hr />

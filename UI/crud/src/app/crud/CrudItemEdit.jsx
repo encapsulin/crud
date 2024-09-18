@@ -2,6 +2,7 @@ import ModalDialog from '../ModalDialog';
 import { useRef, useState, useEffect } from 'react';
 import Loading from '../loading/Loading'
 import config from '../config.js'
+import React from 'react';
 
 export default function CrudItemEdit({ data }) {
 
@@ -84,14 +85,13 @@ export default function CrudItemEdit({ data }) {
     }, [])
 
     const renderTree = (data_, tab_ = 1) => {
-        return data_.map((item) => (<>
-            <option key={item.skid} value={item.skid}> {'\u00A0'.repeat(tab_ * 5)}{item.title} </option >
-            {
-                item.kids && item.kids.length > 0 && (<>
-                    {renderTree(item.kids, tab_ + 1)}
-                </>)
-            }
-        </>))
+        return data_.map((item) => (
+            <React.Fragment key={item.skid}>
+                <option value={item.skid}> {'\u00A0'.repeat(tab_ * 5)}{item.title} </option >
+                {item.kids && item.kids.length > 0 && (
+                    renderTree(item.kids, tab_ + 1)
+                )}
+            </React.Fragment>))
     }
 
     return (

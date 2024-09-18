@@ -8,8 +8,16 @@ export default function CrudItemEdit({ data }) {
 
     useEffect(() => {
         console.log(data);
+        if (data === undefined)
+            return;
+        if (data.skid === undefined)
+            return;
+
         refModal.current.showModal();
+
+
     }, [data])
+
     const refModal = useRef();
 
     const [loading, setLoading] = useState(false)

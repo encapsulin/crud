@@ -36,7 +36,7 @@ export default function CrudTree({ callbackModalShow }) {
                     <a style={{ textTransform: "uppercase", margin: "0.2rem 0.1rem" }}>
                         {item.title}</a>
 
-                    <img src='img/pencil-square.svg' alt='edit' onClick={callbackModalShow}
+                    <img src='img/pencil-square.svg' alt='edit' onClick={() => callbackModalShow({ skid: item.skid, role: "dir" })}
                         className='cursorPointer' />
                 </div>
 
@@ -52,7 +52,7 @@ export default function CrudTree({ callbackModalShow }) {
         <div className="containerCell" >
 
 
-            <img src='img/plus-square.svg' alt='add' onClick={callbackModalShow}
+            <img src='img/plus-square.svg' alt='add' onClick={() => callbackModalShow({ skid: 0, role: "dir" })}
                 className='cursorPointer' />
 
             <hr />

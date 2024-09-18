@@ -25,7 +25,7 @@ export default function CrudItems({ callbackModalShow }) {
     }}>
 
         <img src='img/plus-square.svg' alt='add'
-            onClick={() => callbackModalShow({ skid: "0", role: "dir" })}
+            onClick={() => callbackModalShow({ skid: "0", role: "doc" })}
             className='cursorPointer' />
         <hr />
         {/* Title Skid Parent Role */}

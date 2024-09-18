@@ -7,12 +7,31 @@ import { dataFetch } from '../utils/dataFetch.js'
 
 export default function CrudItemEdit({ data }) {
 
+    const [formData, setFormData] = useState({
+        skid: 0,
+        title: "",
+        descr: "",
+        parent: "",
+        role: ""
+    });
+    const handleInputChange = (name, value) => {
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
+
     useEffect(() => {
         console.log(data);
         if (data === undefined || data.skid === undefined)
             return;
 
         refModal.current.showModal();
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            role: data.role || prevFormData.role,
+            skid: data.skid || prevFormData.skid,
+        }));
         setModalTitle("Edit")
         if (data.skid === "0") {
             setModalTitle("Add");
@@ -28,20 +47,6 @@ export default function CrudItemEdit({ data }) {
         };
         fetchData();
     }, [data])
-
-    const [formData, setFormData] = useState({
-        skid: 0,
-        title: "",
-        descr: "",
-        parent: "",
-        role: ""
-    });
-    const handleInputChange = (name, value) => {
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-    };
 
     const refModal = useRef();
 
@@ -123,6 +128,41 @@ export default function CrudItemEdit({ data }) {
 
     const [modalTitle, setModalTitle] = useState("Add")
 
+    async function handleDelete() {
+        const confirmDelete = window.confirm('Are you sure?');
+        if (!confirmDelete) {
+            return;
+        }
+        try {
+            const resp = await fetch(config.URL_API + "?skid=" + data.skid, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+
+            });
+
+            console.log(resp)
+            if (resp.status !== 200 || !resp.ok) {
+                setMsgError("API error, try again in a minute")
+            }
+
+            const dataResp = await resp.json()
+            console.log("dataResp.body: ", dataResp.body)
+            if (dataResp.body !== "UNAUTHORIZED") {
+                setMsg("Ok")
+                refModal.current.close();
+            }
+            else
+                setMsgError("Auth error")
+
+        } catch (error) {
+            setMsgError(error.message)
+        }
+        setLoading(false)
+
+    }
+
     return (
 
         <>
@@ -168,7 +208,7 @@ export default function CrudItemEdit({ data }) {
 
                         <button className='cancel' disabled>Cancel</button>
 
-                        <button className='delete' disabled>Delete</button>
+                        {data.skid > "0" && <button className='delete' onClick={handleDelete} type="button">Delete</button>}
                     </div>
 
                 </form>

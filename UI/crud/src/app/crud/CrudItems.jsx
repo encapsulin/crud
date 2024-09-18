@@ -29,17 +29,28 @@ export default function CrudItems({ callbackModalShow }) {
     }, []);
 
 
-    return (<div className="containerCell">
+    return (<div className="containerCell" style={{
+        width: "100%",
+        maxWidth: "50%"
+    }}>
 
         <img src='img/plus-square.svg' alt='add' onClick={callbackModalShow} />
         <hr />
         {/* Title Skid Parent Role */}
         <Loading loading={loading} />
         {data.map((item, key) => (
-            <div key={key} style={{ marginBottom: "0.5rem" }}>
-                <img src='img/file.svg' alt='file' />
-                {item.title}
-                <img src='img/pencil-square.svg' alt='edit' onClick={callbackModalShow} />
+            <div key={key} style={{
+                marginBottom: "0.5rem",
+                border: "1px solid silver",
+                padding: "1rem",
+            }}>
+                <div className='horizontal-align-'>
+                    <img src='img/file.svg' alt='file' />
+                    <b style={{ margin: '0 0.5rem' }}>{item.title}</b>
+                    <img src='img/pencil-square.svg' alt='edit' onClick={callbackModalShow} />
+                </div>
+                <div style={{ fontSize: "0.75rem" }}>/ <a href="#">Categ1</a> / categ11</div>
+                <div >{item.descr}</div>
             </div>
         ))}
 

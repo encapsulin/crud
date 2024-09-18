@@ -16,7 +16,7 @@ export default function CrudItems({ callbackModalShow }) {
                     throw new Error('Network response was not ok');
                 }
                 const data_json = await response.json();
-                console.log("asdf3", data_json)
+                //console.log("asdf3", data_json)
                 setData(data_json.data);
             } catch (error) {
                 setError(error.message);
@@ -31,12 +31,16 @@ export default function CrudItems({ callbackModalShow }) {
 
     return (<div className="containerCell">
 
-        <img src='img/plus-square.svg' alt='add' onClick={callbackModalShow} />&nbsp;<b>Items</b>
-
+        <img src='img/plus-square.svg' alt='add' onClick={callbackModalShow} />
         <hr />
+        {/* Title Skid Parent Role */}
         <Loading loading={loading} />
         {data.map((item, key) => (
-            <div key={key}><img src='img/pencil-square.svg' alt='edit' onClick={callbackModalShow} /> {item.title}</div>
+            <div key={key} style={{ marginBottom: "0.5rem" }}>
+                <img src='img/file.svg' alt='file' />
+                {item.title}
+                <img src='img/pencil-square.svg' alt='edit' onClick={callbackModalShow} />
+            </div>
         ))}
 
     </div>)

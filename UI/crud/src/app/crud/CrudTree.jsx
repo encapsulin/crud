@@ -26,34 +26,42 @@ export default function CrudTree({ callbackModalShow }) {
         fetchData();
     }, []);
 
-    function drawTree(data_) {
-
-    }
-
-    const renderTree = (data_) => {
+    const renderTree = (data_, tab_ = 1) => {
         return data_.map((item) => (
             <div key={item.skid}>
-                <img src='img/pencil-square.svg' alt='edit' onClick={callbackModalShow}
-                    className='cursorPointer' />
-                <a href="#">{item.title}</a>
-                {item.children && item.children.length > 0 && (
-                    <div>{renderTree(item.children)}</div>
+
+                <div className='horizontal-align'>
+                    <img src='img/folder.svg' alt='edit' />
+
+                    <a style={{ textTransform: "uppercase", margin: "0.2rem 0.1rem" }}>
+                        {item.title}</a>
+
+                    <img src='img/pencil-square.svg' alt='edit' onClick={callbackModalShow}
+                        className='cursorPointer' />
+                </div>
+
+                {item.kids && item.kids.length > 0 && (
+                    <div style={{ marginLeft: `${tab_}rem` }}>{renderTree(item.kids, tab_ + 1)}</div>
                 )}
             </div>
 
         ))
     }
 
-    return (<><div className="containerCell">
-        <img src='img/plus-square.svg' alt='add' onClick={callbackModalShow} className='cursorPointer' />&nbsp;<b>Navi</b>
-        <hr />
+    return (
+        <div className="left-align" style={{ marginTop: "1rem" }}>
 
-        <Loading loading={loading} />
 
-        {renderTree(data)}
+            <img src='img/plus-square.svg' alt='add' onClick={callbackModalShow}
+                className='cursorPointer' />
 
-    </div >
+            <hr />
 
-    </>
+            <Loading loading={loading} />
+
+            {renderTree(data)}
+
+        </div >
+
     )
 }

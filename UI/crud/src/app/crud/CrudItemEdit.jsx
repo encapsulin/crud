@@ -132,7 +132,8 @@ export default function CrudItemEdit({ data }) {
                     <div className='containerRowSides'>
                         <span className="horizontal-align">
 
-                            <select name='parent'>
+                            <select name='parent' value={formData.parent}
+                                onChange={handleInputChange}>
                                 <option value="0">/</option>
                                 {renderTree(dataTree)}
                             </select>

@@ -3,7 +3,7 @@ import config from '../config.js'
 import Loading from '../loading/Loading'
 import { dataFetch } from '../utils/dataFetch.js'
 
-export default function CrudTree({ callbackModalShow }) {
+export default function CrudTree({ callbackSelectItem }) {
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -26,10 +26,11 @@ export default function CrudTree({ callbackModalShow }) {
                 <div className='horizontal-align'>
                     <img src='img/folder.svg' alt='edit' />
 
-                    <a style={{ textTransform: "uppercase", margin: "0.2rem 0.1rem" }}>
+                    <a style={{ textTransform: "uppercase", margin: "0.2rem 0.1rem" }}
+                        onClick={() => callbackSelectItem(item, "r")}>
                         {item.title}</a>
 
-                    <img src='img/pencil-square.svg' alt='edit' onClick={() => callbackModalShow({ skid: item.skid, role: "dir" })}
+                    <img src='img/pencil-square.svg' alt='edit' onClick={() => callbackSelectItem({ skid: item.skid, role: "dir" }, "w")}
                         className='cursorPointer' />
                 </div>
 
@@ -45,7 +46,7 @@ export default function CrudTree({ callbackModalShow }) {
         <div className="containerCell" >
 
 
-            <img src='img/plus-square.svg' alt='add' onClick={() => callbackModalShow({ skid: "0", role: "dir" })}
+            <img src='img/plus-square.svg' alt='add' onClick={() => callbackSelectItem({ skid: "0", role: "dir" }, "w")}
                 className='cursorPointer' />
 
             <hr />

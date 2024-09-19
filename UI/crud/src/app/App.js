@@ -9,22 +9,29 @@ import { useRef, useState, useEffect } from 'react';
 
 function App() {
 
-  const [data, setData] = useState({});
-  function modalShow(data_) {
-    setData(data_);
+  const [itemSelected, setItemSelected] = useState({});
+  function itemSelect(data_, rw) {
+    if (rw !== undefined)
+      if (rw === "w")
+        setItemSelected(data_);
+    if (rw === "r" && data_.role === "dir") {
+      setSelectedCat(data_.skid)
+    }
+
   }
+  const [selectedCat, setSelectedCat] = useState(0);
 
   return (<>
     <div className="App">
       <Header />
       <div className='containerRow'>
-        <CrudTree callbackModalShow={modalShow} />
-        <CrudItems callbackModalShow={modalShow} />
+        <CrudTree callbackSelectItem={itemSelect} />
+        <CrudItems callbackSelectItem={itemSelect} selectedCat={selectedCat} />
       </div>
       <Footer />
     </div>
 
-    <CrudItemEdit data={data} />
+    <CrudItemEdit data={itemSelected} />
   </>
   );
 }

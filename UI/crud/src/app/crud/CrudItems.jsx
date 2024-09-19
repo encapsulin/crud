@@ -3,7 +3,7 @@ import config from '../config.js'
 import Loading from '../loading/Loading'
 import { dataFetch } from '../utils/dataFetch.js'
 
-export default function CrudItems({ callbackModalShow }) {
+export default function CrudItems({ callbackSelectItem, selectedCat }) {
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -25,8 +25,9 @@ export default function CrudItems({ callbackModalShow }) {
     }}>
 
         <img src='img/plus-square.svg' alt='add'
-            onClick={() => callbackModalShow({ skid: "0", role: "doc" })}
+            onClick={() => callbackSelectItem({ skid: "0", role: "doc" }, "w")}
             className='cursorPointer' />
+        {selectedCat}
         <hr />
         {/* Title Skid Parent Role */}
         <Loading loading={loading} />
@@ -40,7 +41,7 @@ export default function CrudItems({ callbackModalShow }) {
                     <img src='img/file.svg' alt='file' />
                     <b style={{ margin: '0 0.5rem', color: "blue" }}>{item.title}</b>
                     <img src='img/pencil-square.svg' alt='edit'
-                        onClick={() => callbackModalShow({ skid: item.skid, role: "doc" })}
+                        onClick={() => callbackSelectItem({ skid: item.skid, role: "doc" }, "w")}
                         className='cursorPointer' />
                 </div>
                 <div style={{ fontSize: "0.75rem" }}>/ <a href="#">Categ1</a> / categ11</div>

@@ -6,6 +6,8 @@
     border: 1px solid silver;
     padding: 0.2rem;
     color: #ccc;
+    align-items: center;
+    text-align: center;
 }
 
 .footer a {

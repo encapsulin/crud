@@ -82,25 +82,7 @@ form {
     /* Optional: Align items vertically */
 }
 
-.horizontal-align input,
-.horizontal-align img,
-.horizontal-align a,
-.horizontal-align input {
-    vertical-align: middle;
-    /* Aligns the input and image to the middle of the line */
-    /* margin-right: 10px; */
-    /* Optional: Add spacing between the elements */
-}
 
-.horizontal-align {
-    display: flex;
-    align-items: center;
-}
-
-.left-align {
-    text-align: left;
-    /* Align text and inline elements to the left */
-}
 
 input[type="text"] {
     /* Add your styles here */

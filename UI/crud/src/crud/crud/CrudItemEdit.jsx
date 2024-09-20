@@ -1,9 +1,9 @@
-import ModalDialog from '../ModalDialog';
+import ModalDialog from '../misc/modal/ModalDialog';
 import { useRef, useState, useEffect } from 'react';
-import Loading from '../loading/Loading'
+import Loading from '../misc/loading/Loading'
 import config from '../config.js'
 import React from 'react';
-import { dataFetch } from '../utils/dataFetch.js'
+import { dataFetch } from '../misc/utils/dataFetch.js'
 
 export default function CrudItemEdit({ data }) {
 
@@ -170,7 +170,7 @@ export default function CrudItemEdit({ data }) {
                 <form onSubmit={handleSubmit} >
                     {/* {JSON.stringify(formData)} */}
                     <div className='containerRowSides'>
-                        <span className="horizontal-align">
+                        <span className="align-row">
 
                             <select name='parent' value={formData.parent}
                                 onChange={handleInputChange}>
@@ -180,7 +180,7 @@ export default function CrudItemEdit({ data }) {
                             <Loading loading={loadingTree} />
                         </span>
 
-                        <span className="horizontal-align">
+                        <span className="align-row">
                             <label><input type='radio' name="role" value="dir"
                                 checked={formData.role === 'dir'}
                                 onChange={(e) => handleInputChange(e.target.name, e.target.value)} /><img src='img/folder.svg' alt="folder" /></label>

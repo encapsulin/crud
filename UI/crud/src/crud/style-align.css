@@ -1,0 +1,88 @@
+.align-row-center {
+    display: flex;
+    /* justify-content: space-between; */
+    justify-content: center;
+    /* Optional: Adjust spacing */
+    align-items: normal;
+    /* Optional: Align items vertically */
+}
+
+.align-row-space {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.align-row-evenly {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.containerCell {
+    background-color: white;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 1rem;
+    border: 1px solid silver;
+    border-radius: 5px;
+    display: inline-block;
+    /* width: max-content; */
+
+    justify-content: left;
+    text-align: left;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); */
+
+    /* max-width: 75%; */
+}
+
+.align-row input,
+.align-row img,
+.align-row a,
+.align-row input {
+    vertical-align: middle;
+    /* Aligns the input and image to the middle of the line */
+    /* margin-right: 10px; */
+    /* Optional: Add spacing between the elements */
+}
+
+.align-row {
+    display: flex;
+    align-items: center;
+}
+
+.align-left {
+    text-align: left;
+    /* Align text and inline elements to the left */
+}
+
+
+/* .row-container {
+    display: flex;
+    flex-wrap: wrap; */
+/* Allows the items to wrap to the next line if needed */
+/* gap: 10px; */
+/* Optional: Adds space between items */
+/* } */
+
+.align-col {
+    display: flex;
+    flex-direction: column;
+    /* gap: 10px; */
+    /* Optional: Adds space between items */
+    /* border: 1px solid red; */
+    /* width: fit-content;
+    max-width: fit-content; */
+}
+
+.row-container div {
+    background-color: lightblue;
+    width: min-content;
+    /* Width for each item */
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* Optional: Rounded corners */
+}

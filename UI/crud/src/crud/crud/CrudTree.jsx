@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import config from '../config.js'
-import Loading from '../loading/Loading'
-import { dataFetch } from '../utils/dataFetch.js'
+import Loading from '../misc/loading/Loading.jsx'
+import { dataFetch } from '../misc/utils/dataFetch.js'
 
 export default function CrudTree({ callbackSelectItem }) {
 
@@ -23,10 +23,10 @@ export default function CrudTree({ callbackSelectItem }) {
         return data_.map((item) => (
             <div key={item.skid}>
 
-                <div className='horizontal-align'>
+                <div className='align-row'>
                     <img src='img/folder.svg' alt='edit' />
 
-                    <a style={{ textTransform: "uppercase", margin: "0.2rem 0.1rem" }}
+                    <a style={{ margin: "0.2rem 0.1rem" }}
                         onClick={() => callbackSelectItem(item, "r")}>
                         {item.title}</a>
 

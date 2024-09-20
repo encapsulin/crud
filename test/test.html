@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox Row with Wrapping</title>
+    <style>
+        /* Styles for the container and items */
+        .row-container {
+            display: flex;
+            flex-wrap: wrap;
+            /* Allow items to wrap to the next line */
+            gap: 10px;
+            /* Optional: Adds space between items */
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+
+        .row-container span {
+            background-color: lightblue;
+            padding: 10px;
+            width: 150px;
+            /* Width for each item */
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            /* Optional: Rounded corners */
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Flexbox Row with Wrapping</h2>
+    <span class="row-container">
+        <span>Item 1</span>
+        <span>Item 2</span>
+        <span>Item 3</span>
+        <span>Item 4</span>
+        <span>Item 5</span>
+        <span>Item 6</span>
+    </span>
+
+</body>
+
+</html>

@@ -1,5 +1,5 @@
 import './header.css';
-import ModalDialog from '../ModalDialog';
+import ModalDialog from '../misc/modal/ModalDialog';
 import { useRef } from 'react';
 
 export default function Header() {
@@ -9,7 +9,7 @@ export default function Header() {
         refModal.current.showModal();
     }
 
-    return (<><div className="Header bgdark containerRowCenter">
+    return (<><div className="Header bgdark align-row-space">
         CRUD
         <input type="text" placeholder='Search:' />
         <img src='img/person-circle.svg' alt="person" onClick={modalShow} className='cursorPointer' />

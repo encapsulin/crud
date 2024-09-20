@@ -5,9 +5,9 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
     DynamoDBDocumentClient,
-    // ScanCommand, //not recommended
+    // ScanCommand, // not recommended
     PutCommand,
-    GetCommand,
+    // GetCommand, // ?
     DeleteCommand,
     UpdateCommand,
     QueryCommand

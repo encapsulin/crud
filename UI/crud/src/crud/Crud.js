@@ -2,10 +2,10 @@ import './style-form.css';
 import './style-align.css';
 import Header from './header/Header'
 import Footer from './footer/Footer'
-import CrudTree from './crud/CrudTree'
-import CrudItems from './crud/CrudItems'
-import CrudItemEdit from './crud/CrudItemEdit'
-import { useRef, useState, useEffect } from 'react';
+import DirsTree from './crud/DirsTree'
+import Docs from './crud/Docs'
+import ItemEdit from './crud/ItemEdit'
+import { useState } from 'react';
 
 function Crud() {
 
@@ -26,12 +26,12 @@ function Crud() {
 
     <Header />
     <div className='align-row-center'>
-      <CrudTree callbackSelectItem={itemSelect} />
-      <CrudItems callbackSelectItem={itemSelect} selectedCat={selectedCat} />
+      <DirsTree callbackSelectItem={itemSelect} />
+      <Docs callbackSelectItem={itemSelect} selectedCat={selectedCat} />
     </div>
     <Footer />
 
-    <CrudItemEdit data={itemSelected} />
+    <ItemEdit data={itemSelected} />
   </>
   );
 }

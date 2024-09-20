@@ -4,7 +4,7 @@ import Loading from '../misc/loading/Loading.jsx'
 import { dataFetch } from '../misc/utils/dataFetch.js'
 import DirsRaw from './DirsRaw.jsx';
 
-export default function CrudItems({ callbackSelectItem, selectedCat }) {
+export default function Docs({ callbackSelectItem, selectedCat }) {
 
     const [data, setData] = useState([]);
     const [dataDirs, setDataDirs] = useState([]);

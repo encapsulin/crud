@@ -5,7 +5,7 @@ import config from '../config.js'
 import React from 'react';
 import { dataFetch } from '../misc/utils/dataFetch.js'
 
-export default function CrudItemEdit({ data }) {
+export default function ItemEdit({ data }) {
 
     const [formData, setFormData] = useState({
         skid: 0,
@@ -206,7 +206,7 @@ export default function CrudItemEdit({ data }) {
                         <Loading loading={loading} />
                         <button type='submit' className='submit'>Submit</button>
 
-                        <button className='cancel' disabled>Cancel</button>
+                        <button className='cancel' onClick={() => refModal.current.close()} type="button">Cancel</button>
 
                         {data.skid > "0" && <button className='delete' onClick={handleDelete} type="button">Delete</button>}
                     </div>

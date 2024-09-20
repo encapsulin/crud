@@ -1,3 +1,13 @@
+:root {
+    --primary-color: #3498db;
+    --border-radius: 10px;
+    --padding-size: 8px;
+    /* --bgdark: #0069d1; */
+    --color-dark: #0069d1;
+    --color-light: #fff;
+    --color-text: #333;
+}
+
 button {
     padding: 0.5rem 1rem;
     border: 1px solid rgb(65, 65, 65);
@@ -14,24 +24,24 @@ button:hover {
 }
 
 button.submit {
-    background-color: darkslategray;
-    border: 1px solid rgb(65, 65, 65);
+    background-color: var(--color-dark);
+    border: 1px solid var(--color-dark);
     color: white;
 }
 
 button.submit:hover {
-    background-color: rgb(60, 101, 101);
+    background-color: #005db8;
     color: white;
 }
 
 button.cancel {
     background-color: lightgray;
-    border: 1px solid darkslategray;
-    color: darkslategray;
+    border: 1px solid var(--color-dark);
+    color: var(--color-dark);
 }
 
 button.cancel:hover {
-    background: darkslategray;
+    background: var(--color-dark);
     color: white;
 }
 
@@ -88,4 +98,11 @@ form {
 .left-align {
     text-align: left;
     /* Align text and inline elements to the left */
+}
+
+input[type="text"] {
+    /* Add your styles here */
+    border-radius: 0.3rem;
+    border: 1px solid #333;
+    padding: 5px;
 }

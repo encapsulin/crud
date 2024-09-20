@@ -5,7 +5,11 @@
     background-color: rgb(255, 255, 255);
     border: 1px solid silver;
     padding: 0.2rem;
+    color: #ccc;
+}
 
+.footer a {
+    color: gray;
 }
 
 .maxheight {

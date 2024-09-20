@@ -39,7 +39,7 @@ export default function CrudItems({ callbackSelectItem, selectedCat }) {
             }}>
                 <div className='horizontal-align-'>
                     <img src='img/file.svg' alt='file' />
-                    <b style={{ margin: '0 0.5rem', color: "blue" }}>{item.title}</b>
+                    <b style={{ margin: '0 0.25rem', color: "var(--color-dark)" }}>{item.title}</b>
                     <img src='img/pencil-square.svg' alt='edit'
                         onClick={() => callbackSelectItem({ skid: item.skid, role: "doc" }, "w")}
                         className='cursorPointer' />

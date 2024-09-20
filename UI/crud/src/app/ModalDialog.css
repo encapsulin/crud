@@ -9,6 +9,17 @@
     background: rgba(0, 0, 0, 0.5);
 }
 
+.result-modal .header {
+    background-color: var(--color-dark);
+    text-align: center;
+    color: var(--color-light);
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .result-modal h2 {
     font-family: 'Handjet', monospace;
     margin: 0 0 0.25rem 0;
@@ -41,19 +52,6 @@
 }
 
 
-.result-modal .header {
-    background-color: darkslategray;
-    text-align: center;
-    color: white;
-    padding: 0.5rem 1rem;
-    font-weight: bold;
-    display: flex;
-    justify-content: space-between;
-
-    align-items: center;
-
-}
-
 .backdrop-not-used {
     position: fixed;
     top: 0;
@@ -74,7 +72,7 @@ button.modalClose {
     font-weight: normal;
     padding: 0px 0px;
     margin: 0px 0px;
-    background-color: darkslategray;
+    background-color: var(--color-dark);
     border: none;
 }
 

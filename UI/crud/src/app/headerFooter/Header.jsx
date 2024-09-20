@@ -10,7 +10,7 @@ export default function Header() {
     }
 
     return (<><div className="Header bgdark containerRowCenter">
-        <b>CRUD</b>
+        CRUD
         <input type="text" placeholder='Search:' />
         <img src='img/person-circle.svg' alt="person" onClick={modalShow} className='cursorPointer' />
     </div>

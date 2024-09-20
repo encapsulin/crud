@@ -46,7 +46,7 @@ export default function CrudItems({ callbackSelectItem, selectedCat }) {
 
         <div className='align-row'>
             <img src='img/folder.svg' alt='edit' />
-            <span style={{ margin: "0.25rem", fontWeight: "bold" }}>{selectedCat.title}</span>
+            <span style={{ margin: "0 0.25rem", fontWeight: "bold" }}>{selectedCat.title}</span>
 
             <img src='img/plus-square.svg' alt='add'
                 onClick={() => callbackSelectItem({ skid: "0", role: "doc" }, "w")}

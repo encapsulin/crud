@@ -65,6 +65,7 @@ export default function Docs({ callbackSelectItem, selectedCat }) {
                 marginBottom: "0.5rem",
                 border: "1px solid silver",
                 padding: "1rem",
+                borderRadius: "5px"
             }}>
                 <div className='align-row'>
                     <img src='img/file.svg' alt='file' />
@@ -72,9 +73,11 @@ export default function Docs({ callbackSelectItem, selectedCat }) {
                     <img src='img/pencil-square.svg' alt='edit'
                         onClick={() => callbackSelectItem({ skid: item.skid, role: "doc" }, "w")}
                         className='cursorPointer' />
+
                 </div>
-                <div style={{ fontSize: "0.75rem" }}>/ <a href="#">Categ1</a> / categ11</div>
-                <div >{item.descr}</div>
+                <hr />
+                {/* <div style={{ fontSize: "0.75rem" }}>/ <a href="#">Categ1</a> / categ11</div> */}
+                <div >{item.descr.substring(0, 128)}...</div>
             </div>
         ))}
 

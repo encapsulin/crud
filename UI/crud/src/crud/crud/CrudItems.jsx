@@ -45,7 +45,7 @@ export default function CrudItems({ callbackSelectItem, selectedCat }) {
         {/* Title Skid Parent Role */}
         <Loading loading={loading} />
 
-        <DirsRaw data={dataDirs} />
+        <DirsRaw data={dataDirs} callbackSelectItem={callbackSelectItem} />
 
         {data.map((item, key) => (
             <div key={key} style={{

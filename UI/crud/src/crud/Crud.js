@@ -1,4 +1,3 @@
-import './AppCrud.css';
 import './style-form.css';
 import './style-align.css';
 import Header from './header/Header'
@@ -8,7 +7,7 @@ import CrudItems from './crud/CrudItems'
 import CrudItemEdit from './crud/CrudItemEdit'
 import { useRef, useState, useEffect } from 'react';
 
-function AppCrud() {
+function Crud() {
 
   const [itemSelected, setItemSelected] = useState({});
   function itemSelect(data_, rw) {
@@ -37,4 +36,4 @@ function AppCrud() {
   );
 }
 
-export default AppCrud;
+export default Crud;

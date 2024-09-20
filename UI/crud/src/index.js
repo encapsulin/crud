@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import AppCrud from './crud/AppCrud';
+import Crud from './crud/Crud';
 // import DirsRaw from './crud/crud/DirsRaw';
 // import './crud/style-align.css';
 
@@ -11,7 +11,7 @@ import AppCrud from './crud/AppCrud';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
-  <AppCrud />
+  <Crud />
   // <DirsRaw data={data} />
 
 );

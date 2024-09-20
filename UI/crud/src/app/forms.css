@@ -2,17 +2,17 @@
     --primary-color: #3498db;
     --border-radius: 10px;
     --padding-size: 8px;
-    /* --bgdark: #0069d1; */
-    --color-dark: #0069d1;
+    --color-dark: darkslategray;
+    /* #0069d1; */
     --color-light: #fff;
     --color-text: #333;
 }
 
 button {
     padding: 0.5rem 1rem;
-    border: 1px solid rgb(65, 65, 65);
+    border: 1px solid darkslategray;
     border-radius: 4px;
-    background: slategray;
+    background: darkslategray;
     color: white;
     cursor: pointer;
     width: fit-content;
@@ -20,10 +20,10 @@ button {
 }
 
 button:hover {
-    background: slategray;
+    background: lightslategray;
 }
 
-button.submit {
+/* button.submit {
     background-color: var(--color-dark);
     border: 1px solid var(--color-dark);
     color: white;
@@ -32,28 +32,30 @@ button.submit {
 button.submit:hover {
     background-color: #005db8;
     color: white;
-}
+} */
 
 button.cancel {
-    background-color: lightgray;
-    border: 1px solid var(--color-dark);
+    background-color: var(--color-light);
+    border: 1px solid var(--color-light);
     color: var(--color-dark);
 }
 
 button.cancel:hover {
-    background: var(--color-dark);
-    color: white;
+    /* background: var(--color-dark); */
+    color: var(--color-dark);
+    border: 1px solid var(--color-dark);
 }
 
 button.delete {
-    background-color: lightpink;
-    border: 1px solid red;
+    background-color: var(--color-light);
+    border: 1px solid var(--color-light);
     color: red;
 }
 
 button.delete:hover {
-    background: red;
-    color: white;
+    /* background: red; */
+    /* color: white; */
+    border: 1px solid red;
 }
 
 .input-field,

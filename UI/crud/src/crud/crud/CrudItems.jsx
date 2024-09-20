@@ -14,17 +14,30 @@ export default function CrudItems({ callbackSelectItem, selectedCat }) {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            let parent = selectedCat !== undefined ? selectedCat.skid : 0;
+            let parent = selectedCat !== undefined && selectedCat.skid !== undefined ? selectedCat.skid : 0;
             // let url = config.URL_API + "?filter=role&filterVal=doc";
             let url = config.URL_API + `?parent=${parent}`;
             // console.log("url", url)
             let data_json = await dataFetch(url);
-            setData(data_json.filter(o => o.role === "doc"));
+            setData(getDocs(data_json));
             setDataDirs(data_json.filter(o => o.role === "dir"));
             setLoading(false);
         };
         fetchData();
     }, [selectedCat]);
+
+    function getDocs(data) {
+        let result = [];
+        for (let item of data) {
+            if (item.role === "doc")
+                result.push(item);
+            if (item.kids) {
+                let resultKids = getDocs(item.kids);
+                result = [...result, ...resultKids];
+            }
+        }
+        return result;
+    }
 
     return (<div className="containerCell" style={{
         width: "100%",

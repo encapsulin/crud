@@ -24,7 +24,7 @@ function Crud() {
 
   const [reload, setReload] = useState("")
   function callbackModified(item) {
-    console.log(item)
+    //console.log(item)
     setReload(item.role)
   }
 

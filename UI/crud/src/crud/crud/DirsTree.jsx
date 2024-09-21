@@ -19,13 +19,6 @@ export default function CrudTree({ callbackSelectItem, reload, callbackReload })
         callbackReload(false)
     }, [reload]);
 
-    // useEffect(() => {
-    //     if (reload) {
-
-    //     }
-    //     reload = false
-    // }, [reload])
-
     const renderTree = (data_, tab_ = 1) => {
         return data_.map((item) => (
             <div key={item.skid}>
@@ -33,7 +26,7 @@ export default function CrudTree({ callbackSelectItem, reload, callbackReload })
                 <div className='align-row'>
                     <img src='img/folder.svg' alt='edit' />
 
-                    <a style={{ margin: "0.2rem 0.1rem" }}
+                    <a style={{ margin: "0.25rem 0.1rem", }}
                         onClick={() => callbackSelectItem(item, "r")}>
                         {item.title}</a>
 
@@ -45,7 +38,6 @@ export default function CrudTree({ callbackSelectItem, reload, callbackReload })
                     <div style={{ marginLeft: `${tab_}rem` }}>{renderTree(item.kids, tab_ + 1)}</div>
                 )}
             </div>
-
         ))
     }
 
@@ -57,8 +49,6 @@ export default function CrudTree({ callbackSelectItem, reload, callbackReload })
                     onClick={() => callbackSelectItem({ skid: "0", role: "dir" }, "w")}
                     className='cursorPointer' />
                 <span style={{ margin: "0 0.25rem", fontWeight: "bold" }}>&nbsp;</span>
-
-
             </div>
             <hr />
 

@@ -9,6 +9,8 @@ import { restDelete } from '../misc/utils/restDelete.js'
 
 export default function ItemEdit({ data, callbackModified }) {
 
+    const refModal = useRef();
+
     const [formData, setFormData] = useState({
         skid: 0,
         title: "",
@@ -24,17 +26,28 @@ export default function ItemEdit({ data, callbackModified }) {
     };
 
     useEffect(() => {
-        console.log(data);
+        console.log("[]:", data);
         if (data === undefined || data.skid === undefined)
             return;
 
         refModal.current.showModal();
+
         setFormData((prevFormData) => ({
             ...prevFormData,
             role: data.role || prevFormData.role,
             skid: data.skid || prevFormData.skid,
         }));
         setModalTitle("Edit")
+
+        ///////////////////////
+        const fetchDataTree = async () => {
+            setLoadingTree(true);
+            let data_json = await restGet(config.URL_API + "?parent=0&filter=role&filterVal=dir");
+            setLoadingTree(false);
+            setDataTree(data_json);
+        };
+        fetchDataTree();
+
         if (data.skid === "0") {
             setModalTitle("Add");
             return;
@@ -51,7 +64,9 @@ export default function ItemEdit({ data, callbackModified }) {
 
     }, [data])
 
-    const refModal = useRef();
+    const [loadingTree, setLoadingTree] = useState(false)
+    const [dataTree, setDataTree] = useState([]);
+
 
     const [loading, setLoading] = useState(false)
     const [msg, setMsg] = useState("")
@@ -71,18 +86,6 @@ export default function ItemEdit({ data, callbackModified }) {
         setLoading(false);
         callbackModified(formData);
     }
-
-    const [loadingTree, setLoadingTree] = useState(false)
-    const [dataTree, setDataTree] = useState([]);
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoadingTree(true);
-            let data_json = await restGet(config.URL_API + "?parent=0&filter=role&filterVal=dir");
-            setLoadingTree(false);
-            setDataTree(data_json);
-        };
-        fetchData();
-    }, [])
 
     const [modalTitle, setModalTitle] = useState("Add")
 

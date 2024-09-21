@@ -1,20 +1,19 @@
-export async function dataDelete(url) {
+export async function restPost(url, data) {
     let result = {
         status: 0,
         data: "",
         error: ""
     }
 
-    if (!window.confirm('Are you sure?'))
-        return result;
-
     try {
         const resp = await fetch(url, {
-            method: 'DELETE',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify(data)
         });
+
         console.log(resp)
         if (resp.status !== 200 || !resp.ok) {
             result.status = resp.status;
@@ -40,4 +39,5 @@ export async function dataDelete(url) {
     }
 
     return result;
+
 }

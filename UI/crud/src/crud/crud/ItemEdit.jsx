@@ -3,10 +3,11 @@ import { useRef, useState, useEffect } from 'react';
 import Loading from '../misc/loading/Loading'
 import config from '../config.js'
 import React from 'react';
-import { dataFetch } from '../misc/utils/dataFetch.js'
-import { dataDelete } from '../misc/utils/dataDelete.js'
+import { restPost } from '../misc/utils/restPost.js'
+import { restGet } from '../misc/utils/restGet.js'
+import { restDelete } from '../misc/utils/restDelete.js'
 
-export default function ItemEdit({ data }) {
+export default function ItemEdit({ data, callbackModified }) {
 
     const [formData, setFormData] = useState({
         skid: 0,
@@ -41,7 +42,7 @@ export default function ItemEdit({ data }) {
         ///////////////////////////////
         const fetchData = async () => {
             setLoading(true);
-            let data_json = await dataFetch(config.URL_API + "?skid=" + data.skid);
+            let data_json = await restGet(config.URL_API + "?skid=" + data.skid);
             setLoading(false);
             setFormData(data_json.data[0]);
             console.log("asdf5", data_json.data[0]);
@@ -63,41 +64,14 @@ export default function ItemEdit({ data }) {
     async function handleSubmit(e) {
         e.preventDefault();
 
-        setLoading(true)
+        setLoading(true);
+        let result = await restPost(config.URL_API, formData);
+        console.log("result:", result)
+        if (result.status === 200 && !result.error)
+            refModal.current.close();
+        else
+            setMsgError(result.error)
 
-        // setDataItem({
-        //     ...dataItem,
-        //     title: e.target.elements.title.value,
-        //     descr: e.target.elements.descr.value,
-        //     role: e.target.elements.role.value,
-        //     parent: e.target.elements.parent.value,
-        // })
-        try {
-            const resp = await fetch(config.URL_API, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
-
-            console.log(resp)
-            if (resp.status !== 200 || !resp.ok) {
-                setMsgError("API error, try again in a minute")
-            }
-
-            const dataResp = await resp.json()
-            console.log("dataResp.body: ", dataResp.body)
-            if (dataResp.body !== "UNAUTHORIZED") {
-                setMsg("Ok")
-                refModal.current.close();
-            }
-            else
-                setMsgError("Auth error")
-
-        } catch (error) {
-            setMsgError(error.message)
-        }
         setLoading(false)
     }
 
@@ -106,7 +80,7 @@ export default function ItemEdit({ data }) {
     useEffect(() => {
         const fetchData2 = async () => {
             setLoadingTree(true);
-            let data_json = await dataFetch(config.URL_API + "?parent=0&filter=role&filterVal=dir");
+            let data_json = await restGet(config.URL_API + "?parent=0&filter=role&filterVal=dir");
             setLoadingTree(false);
             setDataTree(data_json);
         };
@@ -118,7 +92,7 @@ export default function ItemEdit({ data }) {
 
     async function handleDelete() {
         setLoading(true);
-        let result = await dataDelete(config.URL_API + "?skid=" + data.skid);
+        let result = await restDelete(config.URL_API + "?skid=" + data.skid);
         console.log("result:", result)
         if (result.status === 200 && !result.error)
             refModal.current.close();
@@ -141,7 +115,6 @@ export default function ItemEdit({ data }) {
     }
 
     return (
-
         <>
             <ModalDialog ref={refModal} title={modalTitle} >
                 <form onSubmit={handleSubmit} >
@@ -191,7 +164,6 @@ export default function ItemEdit({ data }) {
                 </form>
 
             </ModalDialog>
-
         </>
     )
 }

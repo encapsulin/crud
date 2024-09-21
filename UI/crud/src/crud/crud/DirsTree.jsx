@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import config from '../config.js'
 import Loading from '../misc/loading/Loading.jsx'
-import { dataFetch } from '../misc/utils/dataFetch.js'
+import { restGet } from '../misc/utils/restGet.js'
 
 export default function CrudTree({ callbackSelectItem }) {
 
@@ -12,7 +12,7 @@ export default function CrudTree({ callbackSelectItem }) {
 
         const fetchData = async () => {
             setLoading(true);
-            let data_ = await dataFetch(config.URL_API + "?parent=0&filter=role&filterVal=dir");
+            let data_ = await restGet(config.URL_API + "?parent=0&filter=role&filterVal=dir");
             setLoading(false);
             setData(data_);
         };

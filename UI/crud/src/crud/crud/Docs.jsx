@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import config from '../config.js'
 import Loading from '../misc/loading/Loading.jsx'
-import { dataFetch } from '../misc/utils/dataFetch.js'
+import { restGet } from '../misc/utils/restGet.js'
 import DirsRaw from './DirsRaw.jsx';
 
 export default function Docs({ callbackSelectItem, selectedCat }) {
@@ -18,7 +18,7 @@ export default function Docs({ callbackSelectItem, selectedCat }) {
             // let url = config.URL_API + "?filter=role&filterVal=doc";
             let url = config.URL_API + `?parent=${parent}`;
             // console.log("url", url)
-            let data_json = await dataFetch(url);
+            let data_json = await restGet(url);
             setData(getDocs(data_json));
             setDataDirs(data_json.filter(o => o.role === "dir"));
             setLoading(false);

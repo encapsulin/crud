@@ -1,5 +1,10 @@
+export async function restGet(url) {
+    let result = {
+        status: 0,
+        data: "",
+        error: ""
+    }
 
-export async function dataFetch(url) {
     try {
         // setLoading(true);
         const response = await fetch(url);

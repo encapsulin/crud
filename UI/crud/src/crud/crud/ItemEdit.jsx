@@ -11,13 +11,15 @@ export default function ItemEdit({ data, callbackModified }) {
 
     const refModal = useRef();
 
-    const [formData, setFormData] = useState({
-        skid: 0,
+    let formDataInit = {
+        skid: "0",
         title: "",
         descr: "",
         parent: "0",
         role: ""
-    });
+    }
+
+    const [formData, setFormData] = useState(formDataInit);
     const handleInputChange = (name, value) => {
         setFormData({
             ...formData,
@@ -50,6 +52,7 @@ export default function ItemEdit({ data, callbackModified }) {
 
         if (data.skid === "0") {
             setModalTitle("Add");
+            setFormData({ ...formDataInit, role: data.role });
             return;
         }
         ///////////////////////////////

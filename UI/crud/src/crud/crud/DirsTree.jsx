@@ -7,7 +7,7 @@ export default function CrudTree({ callbackSelectItem, reload, callbackReload })
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [itemSelected, setItemSelected] = useState(0);
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
@@ -19,15 +19,20 @@ export default function CrudTree({ callbackSelectItem, reload, callbackReload })
         callbackReload(false)
     }, [reload]);
 
-    const renderTree = (data_, tab_ = 1) => {
+    function handleItemSelect(item) {
+        setItemSelected(item)
+        callbackSelectItem(item, "r")
+    }
+
+    const renderTree = (data_, tab_ = 0) => {
         return data_.map((item) => (
             <div key={item.skid}>
-
-                <div className='align-row'>
+                <div className={`align-row hover ${item.skid === itemSelected.skid ? 'hovered' : null}`} >
+                    {'\u00A0'.repeat(tab_ * 5)}
                     <img src='img/folder.svg' alt='edit' />
 
                     <a style={{ margin: "0.25rem 0.1rem", }}
-                        onClick={() => callbackSelectItem(item, "r")}>
+                        onClick={() => handleItemSelect(item)}>
                         {item.title}</a>
 
                     <img src='img/pencil-square.svg' alt='edit' onClick={() => callbackSelectItem({ skid: item.skid, role: "dir" }, "w")}
@@ -35,7 +40,7 @@ export default function CrudTree({ callbackSelectItem, reload, callbackReload })
                 </div>
 
                 {item.kids && item.kids.length > 0 && (
-                    <div style={{ marginLeft: `${tab_}rem` }}>{renderTree(item.kids, tab_ + 1)}</div>
+                    <div >{renderTree(item.kids, tab_ + 1)}</div>
                 )}
             </div>
         ))

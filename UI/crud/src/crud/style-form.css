@@ -119,3 +119,16 @@ hr {
     border: none;
     border-top: 1px solid silver;
 }
+
+.hover:hover {
+    background: rgb(230, 230, 230);
+    cursor: pointer;
+}
+
+.hovered {
+    background: rgb(230, 230, 230);
+}
+
+/* .hovered:hover {
+    background: rgb(195, 195, 195);
+} */

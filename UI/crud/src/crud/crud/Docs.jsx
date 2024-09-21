@@ -4,7 +4,7 @@ import Loading from '../misc/loading/Loading.jsx'
 import { restGet } from '../misc/utils/restGet.js'
 import DirsRaw from './DirsRaw.jsx';
 
-export default function Docs({ callbackSelectItem, selectedCat }) {
+export default function Docs({ callbackSelectItem, selectedCat, reload, callbackReload }) {
 
     const [data, setData] = useState([]);
     const [dataDirs, setDataDirs] = useState([]);
@@ -24,7 +24,8 @@ export default function Docs({ callbackSelectItem, selectedCat }) {
             setLoading(false);
         };
         fetchData();
-    }, [selectedCat]);
+        callbackReload(false)
+    }, [selectedCat, reload]);
 
     function getDocs(data) {
         let result = [];

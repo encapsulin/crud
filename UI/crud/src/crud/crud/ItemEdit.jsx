@@ -44,10 +44,11 @@ export default function ItemEdit({ data, callbackModified }) {
             setLoading(true);
             let data_json = await restGet(config.URL_API + "?skid=" + data.skid);
             setLoading(false);
-            setFormData(data_json.data[0]);
-            console.log("asdf5", data_json.data[0]);
+            //console.log(data_json.data[0]);
+            setFormData(() => data_json.data[0]);
         };
         fetchData();
+
     }, [data])
 
     const refModal = useRef();
@@ -56,36 +57,31 @@ export default function ItemEdit({ data, callbackModified }) {
     const [msg, setMsg] = useState("")
     const [msgError, setMsgError] = useState("")
 
-    // const [selectedRole, setSelectedRole] = useState('dir');
-    // const handleRadioChange = (event) => {
-    //     setSelectedRole(event.target.value);
-    // };
-
     async function handleSubmit(e) {
         e.preventDefault();
 
         setLoading(true);
         let result = await restPost(config.URL_API, formData);
-        console.log("result:", result)
+        console.log("result:", result);
         if (result.status === 200 && !result.error)
             refModal.current.close();
         else
-            setMsgError(result.error)
+            setMsgError(result.error);
 
-        setLoading(false)
+        setLoading(false);
+        callbackModified(formData);
     }
 
     const [loadingTree, setLoadingTree] = useState(false)
     const [dataTree, setDataTree] = useState([]);
     useEffect(() => {
-        const fetchData2 = async () => {
+        const fetchData = async () => {
             setLoadingTree(true);
             let data_json = await restGet(config.URL_API + "?parent=0&filter=role&filterVal=dir");
             setLoadingTree(false);
             setDataTree(data_json);
         };
-
-        fetchData2();
+        fetchData();
     }, [])
 
     const [modalTitle, setModalTitle] = useState("Add")
@@ -99,6 +95,7 @@ export default function ItemEdit({ data, callbackModified }) {
         else
             setMsgError(result.error)
         setLoading(false)
+        callbackModified(formData);
     }
 
     const renderTree = (data_, tab_ = 1) => {
@@ -123,7 +120,8 @@ export default function ItemEdit({ data, callbackModified }) {
                         <span className="align-row">
 
                             <select name='parent' value={formData.parent}
-                                onChange={handleInputChange}>
+                                onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+                            >
                                 <option value="0">/</option>
                                 {renderTree(dataTree)}
                             </select>
@@ -133,7 +131,8 @@ export default function ItemEdit({ data, callbackModified }) {
                         <span className="align-row">
                             <label><input type='radio' name="role" value="dir"
                                 checked={formData.role === 'dir'}
-                                onChange={(e) => handleInputChange(e.target.name, e.target.value)} /><img src='img/folder.svg' alt="folder" /></label>
+                                onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+                            /><img src='img/folder.svg' alt="folder" /></label>
                             <label> <input type='radio' name="role" value="doc"
                                 checked={formData.role === 'doc'}
                                 onChange={(e) => handleInputChange(e.target.name, e.target.value)} /><img src='img/file.svg' alt="file" /></label>
@@ -144,7 +143,6 @@ export default function ItemEdit({ data, callbackModified }) {
                         name="title"
                         value={formData.title}
                         onChange={(e) => handleInputChange(e.target.name, e.target.value)}
-                    //defaultValue={formData.title}
                     />
                     <br />
                     <textarea placeholder='Description:' className='textarea-field'

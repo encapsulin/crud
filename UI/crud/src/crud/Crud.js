@@ -22,16 +22,22 @@ function Crud() {
   }
   const [selectedCat, setSelectedCat] = useState(0);
 
+  const [reload, setReload] = useState("")
+  function callbackModified(item) {
+    console.log(item)
+    setReload(item.role)
+  }
+
   return (<>
 
     <Header />
     <div className='align-row-center'>
-      <DirsTree callbackSelectItem={itemSelect} />
-      <Docs callbackSelectItem={itemSelect} selectedCat={selectedCat} />
+      <DirsTree callbackSelectItem={itemSelect} reload={reload === "dir"} callbackReload={setReload} />
+      <Docs callbackSelectItem={itemSelect} selectedCat={selectedCat} reload={reload === "doc"} callbackReload={setReload} />
     </div>
     <Footer />
 
-    <ItemEdit data={itemSelected} />
+    <ItemEdit data={itemSelected} callbackModified={callbackModified} />
   </>
   );
 }

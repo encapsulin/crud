@@ -3,13 +3,12 @@ import config from '../config.js'
 import Loading from '../misc/loading/Loading.jsx'
 import { restGet } from '../misc/utils/restGet.js'
 
-export default function CrudTree({ callbackSelectItem }) {
+export default function CrudTree({ callbackSelectItem, reload, callbackReload }) {
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     useEffect(() => {
-
         const fetchData = async () => {
             setLoading(true);
             let data_ = await restGet(config.URL_API + "?parent=0&filter=role&filterVal=dir");
@@ -17,7 +16,15 @@ export default function CrudTree({ callbackSelectItem }) {
             setData(data_);
         };
         fetchData();
-    }, []);
+        callbackReload(false)
+    }, [reload]);
+
+    // useEffect(() => {
+    //     if (reload) {
+
+    //     }
+    //     reload = false
+    // }, [reload])
 
     const renderTree = (data_, tab_ = 1) => {
         return data_.map((item) => (
@@ -44,9 +51,6 @@ export default function CrudTree({ callbackSelectItem }) {
 
     return (
         <div className="containerCell" >
-
-
-
 
             <div className='align-row'>
                 <img src='img/plus-square.svg' alt='add'

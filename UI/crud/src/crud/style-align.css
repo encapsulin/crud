@@ -57,6 +57,7 @@
     /* border: 1px solid red; */
     /* width: fit-content;
     max-width: fit-content; */
+    align-items: center;
 }
 
 .row-container div {

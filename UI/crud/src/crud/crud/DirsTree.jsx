@@ -46,9 +46,16 @@ export default function CrudTree({ callbackSelectItem }) {
         <div className="containerCell" >
 
 
-            <img src='img/plus-square.svg' alt='add' onClick={() => callbackSelectItem({ skid: "0", role: "dir" }, "w")}
-                className='cursorPointer' />
 
+
+            <div className='align-row'>
+                <img src='img/plus-square.svg' alt='add'
+                    onClick={() => callbackSelectItem({ skid: "0", role: "dir" }, "w")}
+                    className='cursorPointer' />
+                <span style={{ margin: "0 0.25rem", fontWeight: "bold" }}>&nbsp;</span>
+
+
+            </div>
             <hr />
 
             <Loading loading={loading} />

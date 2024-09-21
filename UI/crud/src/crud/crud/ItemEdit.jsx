@@ -4,6 +4,7 @@ import Loading from '../misc/loading/Loading'
 import config from '../config.js'
 import React from 'react';
 import { dataFetch } from '../misc/utils/dataFetch.js'
+import { dataDelete } from '../misc/utils/dataDelete.js'
 
 export default function ItemEdit({ data }) {
 
@@ -113,8 +114,21 @@ export default function ItemEdit({ data }) {
         fetchData2();
     }, [])
 
+    const [modalTitle, setModalTitle] = useState("Add")
+
+    async function handleDelete() {
+        setLoading(true);
+        let result = await dataDelete(config.URL_API + "?skid=" + data.skid);
+        console.log("result:", result)
+        if (result.status === 200 && !result.error)
+            refModal.current.close();
+        else
+            setMsgError(result.error)
+        setLoading(false)
+    }
+
     const renderTree = (data_, tab_ = 1) => {
-        if (data_ === undefined)
+        if (data_ === undefined || data_.length === 0)
             return ""
 
         return data_.map((item) => (
@@ -124,43 +138,6 @@ export default function ItemEdit({ data }) {
                     renderTree(item.kids, tab_ + 1)
                 )}
             </React.Fragment>))
-    }
-
-    const [modalTitle, setModalTitle] = useState("Add")
-
-    async function handleDelete() {
-        const confirmDelete = window.confirm('Are you sure?');
-        if (!confirmDelete) {
-            return;
-        }
-        try {
-            const resp = await fetch(config.URL_API + "?skid=" + data.skid, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-
-            });
-
-            console.log(resp)
-            if (resp.status !== 200 || !resp.ok) {
-                setMsgError("API error, try again in a minute")
-            }
-
-            const dataResp = await resp.json()
-            console.log("dataResp.body: ", dataResp.body)
-            if (dataResp.body !== "UNAUTHORIZED") {
-                setMsg("Ok")
-                refModal.current.close();
-            }
-            else
-                setMsgError("Auth error")
-
-        } catch (error) {
-            setMsgError(error.message)
-        }
-        setLoading(false)
-
     }
 
     return (

@@ -45,15 +45,12 @@ export default function Docs({ callbackSelectItem, selectedCat }) {
     }}>
 
         <div className='align-row'>
-            <img src='img/folder.svg' alt='edit' />
-            <span style={{ margin: "0 0.25rem", fontWeight: "bold" }}>{selectedCat.title}</span>
-
             <img src='img/plus-square.svg' alt='add'
                 onClick={() => callbackSelectItem({ skid: "0", role: "doc" }, "w")}
                 className='cursorPointer' />
+            <span style={{ margin: "0 0.25rem", fontWeight: "bold" }}>{selectedCat.title}</span>
 
         </div>
-
         <hr />
         {/* Title Skid Parent Role */}
         <Loading loading={loading} />

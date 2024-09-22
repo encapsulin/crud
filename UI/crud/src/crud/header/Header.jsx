@@ -1,17 +1,31 @@
 import './header.css';
 import ModalDialog from '../misc/modal/ModalDialog';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
-export default function Header() {
+export default function Header({ callbackSearch }) {
 
     const refModal = useRef();
     function modalShow() {
         refModal.current.showModal();
     }
 
+    const [searchString, setSearchString] = useState("");
+
+    function fnSearch(str) {
+        //console.log(str)
+        setSearchString(str)
+        if (str.length >= 3)
+            callbackSearch(str);
+    }
+
     return (<><div className="Header align-row-space">
         CRUD
-        <input type="text" placeholder='Search:' />
+
+        <input type="text" placeholder='Search:'
+            name="searchString" value={searchString}
+            onChange={(e) => fnSearch(e.target.value)}
+        />
+
         <img src='img/person-circle.svg' alt="person" onClick={modalShow} className='cursorPointer' />
     </div>
         <ModalDialog ref={refModal} title="Profile">Bootstrap Icons

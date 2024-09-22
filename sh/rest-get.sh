@@ -4,7 +4,7 @@ source ./sh/cfg.sh   # Or use . ./vars.sh
 #curl -X GET $URL
 #curl -X GET "$URL?filter=role&filterVal=doc"
 
-curl -X GET "$URL?role=doc&parent="
+curl -X GET "$URL?search=asdf"
 #   queryStringParameters: { parent: '', role: 'doc' },
 #   multiValueQueryStringParameters: { parent: [ '' ], role: [ 'doc' ] },
 

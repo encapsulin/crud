@@ -46,9 +46,14 @@ function Crud() {
     fetchData();
   }, [reload])
 
+  async function callbackSearch(str) {
+    let data_ = await restGet(config.URL_API + "?search=" + str);
+    setDataDocs(data_);
+  }
+
   return (<>
 
-    <Header />
+    <Header callbackSearch={callbackSearch} />
     <div className='align-row-center'>
       <DirsTree callbackSelectItem={callbackSelectItem} reload={reload === "dir"} callbackReload={setReload} />
       <Docs callbackSelectItem={callbackSelectItem} selectedCat={selectedCat} reload={reload === "doc"} callbackReload={setReload} />

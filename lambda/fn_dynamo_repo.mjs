@@ -36,25 +36,34 @@ export const fnDynamoQuery = async (args_) => {
         //ProjectionExpression: 'orderId, orderDate, totalAmount',  // Specify the attributes you want
     };
 
-    if (args_ !== null && args_.index !== undefined) {
-        params.KeyConditionExpression = "#partKey = :partVal AND #sortKey = :sortVal";
-        params.ExpressionAttributeValues = { ":partVal": "0", ":sortVal": args_.indexVal }
+    if (args_ !== null) {
 
-        if (args_.index === "skid") {
-            params.ExpressionAttributeNames = { '#partKey': 'pkid', '#sortKey': 'skid' }
-        } else if (args_.index === "parent") {
-            params.IndexName = 'parent-index';  // Name of your LSI
-            params.ExpressionAttributeNames = { '#partKey': 'pkid', '#sortKey': 'parent' }
-        } else if (args_.index === "role") {
-            params.IndexName = 'role-index';  // Name of your LSI
-            params.ExpressionAttributeNames = { '#partKey': 'pkid', '#sortKey': 'role' }
+        if (args_.index !== undefined) {
+            params.KeyConditionExpression = "#partKey = :partVal AND #sortKey = :sortVal";
+            params.ExpressionAttributeValues = { ":partVal": "0", ":sortVal": args_.indexVal }
+
+            if (args_.index === "skid") {
+                params.ExpressionAttributeNames = { '#partKey': 'pkid', '#sortKey': 'skid' }
+            } else if (args_.index === "parent") {
+                params.IndexName = 'parent-index';  // Name of your LSI
+                params.ExpressionAttributeNames = { '#partKey': 'pkid', '#sortKey': 'parent' }
+            } else if (args_.index === "role") {
+                params.IndexName = 'role-index';  // Name of your LSI
+                params.ExpressionAttributeNames = { '#partKey': 'pkid', '#sortKey': 'role' }
+            }
+            // else if (args_.index === "title") {
+            //     params.IndexName = 'title-index';  // Name of your LSI
+            //     params.ExpressionAttributeNames = { '#partKey': 'pkid', '#sortKey': 'title' }
+            // }
         }
-    }
 
-    if (args_ !== null && args_.filter !== undefined) {
-        params.FilterExpression = '#filterKey = :filterVal'
-        params.ExpressionAttributeNames["#filterKey"] = args_.filter
-        params.ExpressionAttributeValues[":filterVal"] = args_.filterVal
+        if (args_.filter !== undefined) {
+            // params.FilterExpression = '#filterKey = :filterVal'
+            params.FilterExpression = 'contains(title, :filterVal) OR contains(descr, :filterVal)';
+            // params.ExpressionAttributeNames["#filterKey"] = args_.filter
+            params.ExpressionAttributeValues[":filterVal"] = args_.filterVal
+        }
+
     }
 
     console.log("QueryCommand():", params);

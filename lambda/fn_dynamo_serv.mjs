@@ -18,6 +18,11 @@ export const dynamo_serv_query = async (args) => {
         args.indexVal = args.role;
     }
 
+    if (args.search !== undefined) {
+        args.filter = "title"
+        args.filterVal = args.search;
+    }
+
     if (args.parent !== undefined) {
         args.index = "parent"
         args.indexVal = args.parent;

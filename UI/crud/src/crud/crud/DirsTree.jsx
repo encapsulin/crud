@@ -3,21 +3,21 @@ import config from '../config.js'
 import Loading from '../misc/loading/Loading.jsx'
 import { restGet } from '../misc/utils/restGet.js'
 
-export default function CrudTree({ callbackSelectItem, reload, callbackReload }) {
+export default function CrudTree({ callbackSelectItem, reload, callbackReload, data }) {
 
-    const [data, setData] = useState([]);
+    //const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [itemSelected, setItemSelected] = useState(0);
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            let data_ = await restGet(config.URL_API + "?parent=0&filter=role&filterVal=dir");
-            setLoading(false);
-            setData(data_);
-        };
-        fetchData();
-        callbackReload(false)
-    }, [reload]);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         setLoading(true);
+    //         let data_ = await restGet(config.URL_API + "?parent=0&filter=role&filterVal=dir");
+    //         setLoading(false);
+    //         setData(data_);
+    //     };
+    //     fetchData();
+    //     callbackReload(false)
+    // }, [reload]);
 
     function handleItemSelect(item) {
         setItemSelected(item)

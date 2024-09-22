@@ -7,10 +7,9 @@ let event = {
     queryStringParameters: {
         //filter:, filterVal:
         // skid: "20240917_133512_234",
-        //role: "dir",
-        // parent: "0",
+        parent: "0", role: "dir",
         // filter: "role", filterVal: "dir"
-        search: "asdf"
+        //search: "asdf"
     }
 }
 //console.log(typeof event);

@@ -1,10 +1,15 @@
 source ./sh/cfg.sh   # Or use . ./vars.sh
 # -H "Authorization: Bearer your_token"
 
-#curl -X GET $URL
+params = ""
+params1 = "parent=0&role=dir"
+
+curl -X GET "$URL?$params1"
+
 #curl -X GET "$URL?filter=role&filterVal=doc"
 
-curl -X GET "$URL?search=asdf"
+#curl -X GET "$URL?search=asdf"
+
 #   queryStringParameters: { parent: '', role: 'doc' },
 #   multiValueQueryStringParameters: { parent: [ '' ], role: [ 'doc' ] },
 

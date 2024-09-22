@@ -1,24 +1,19 @@
-.bgdark {
-    border: 1px solid grey;
-    /* background-color: #0069d1; */
-    background-color: var(--color-light);
-    color: var(--color-dark);
-    padding-top: 5px;
-    padding-bottom: 5px;
-    font-weight: bold;
-}
-
-
 .Header {
     padding-left: 1rem;
     padding-right: 1rem;
     margin-bottom: 0.5rem;
+
+    border: 1px solid grey;
+    /* background-color: #0069d1; */
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: bold;
+
     /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); */
 }
 
-/* .Header * {
-    color: grey;
-} */
 
 .Header input {
     float: right;

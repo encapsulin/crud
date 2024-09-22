@@ -9,7 +9,7 @@ export default function Header() {
         refModal.current.showModal();
     }
 
-    return (<><div className="Header bgdark align-row-space">
+    return (<><div className="Header align-row-space">
         CRUD
         <input type="text" placeholder='Search:' />
         <img src='img/person-circle.svg' alt="person" onClick={modalShow} className='cursorPointer' />

@@ -132,3 +132,12 @@ hr {
 /* .hovered:hover {
     background: rgb(195, 195, 195);
 } */
+
+.content-box {
+    /* display: inline-block; */
+    /* width: auto; */
+    /* padding: 10px; */
+    /* background-color: lightblue; */
+    /* border: 1px solid blue; */
+    /* align-content: center; */
+}

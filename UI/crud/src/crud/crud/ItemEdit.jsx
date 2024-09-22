@@ -124,7 +124,6 @@ export default function ItemEdit({ data, callbackModified }) {
                     {/* {JSON.stringify(formData)} */}
                     <div className='containerRowSides'>
                         <span className="align-row">
-
                             <select name='parent' value={formData.parent}
                                 onChange={(e) => handleInputChange(e.target.name, e.target.value)}
                             >

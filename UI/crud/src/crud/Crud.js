@@ -5,7 +5,10 @@ import Footer from './footer/Footer'
 import DirsTree from './crud/DirsTree'
 import Docs from './crud/Docs'
 import ItemEdit from './crud/ItemEdit'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+import config from './config.js'
+import { restGet } from './misc/utils/restGet.js'
 
 function Crud() {
 
@@ -28,6 +31,20 @@ function Crud() {
   function callbackModified(item) {
     setReload(item.role)
   }
+
+  const [loading, setLoading] = useState(false);
+  const [dataDirs, setDataDirs] = useState([]);
+  const [dataDocs, setDataDocs] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      let data_ = await restGet(config.URL_API + "?parent=0&filter=role&filterVal=dir");
+      setLoading(false);
+      setDataDirs(data_);
+    };
+    fetchData();
+  }, [reload])
 
   return (<>
 

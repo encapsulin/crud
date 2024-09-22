@@ -25,6 +25,9 @@ export default function CrudTree({ callbackSelectItem, reload, callbackReload })
     }
 
     const renderTree = (data_, tab_ = 0) => {
+        if (data_ === undefined)
+            return
+
         return data_.map((item) => (
             <div key={item.skid}>
                 <div className={`align-row hover ${item.skid === itemSelected.skid ? 'hovered' : null}`} >

@@ -3,6 +3,8 @@
     border-radius: 8px;
     padding: 0;
     /* background-color: #d7fcf8; */
+    min-width: 50%;
+    max-width: 50%;
 }
 
 .result-modal::backdrop {

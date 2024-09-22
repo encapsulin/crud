@@ -20,7 +20,6 @@
     flex-wrap: wrap;
 }
 
-
 .align-row input,
 .align-row img,
 .align-row a,
@@ -41,6 +40,13 @@
     /* Align text and inline elements to the left */
 }
 
+.align-row-right {
+    text-align: right;
+    background-color: antiquewhite;
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
 
 /* .row-container {
     display: flex;

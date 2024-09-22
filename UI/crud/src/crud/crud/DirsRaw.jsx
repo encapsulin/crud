@@ -6,7 +6,7 @@ export default function DirsRaw({ data, callbackSelectItem }) {
                     <span className="align-col cursorPointer"
                         onClick={() => callbackSelectItem(item, "r")}
                     >
-                        <img src="img/folder-fill.svg" alt="filder" style={{ width: "3rem" }} />
+                        <img src="img/folder.svg" alt="filder" style={{ width: "2rem" }} />
                         {item.title}
                     </span>
                 </span>

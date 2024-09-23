@@ -19,26 +19,13 @@ export default function Docs({ callbackSelectItem, selectedCat, reload, callback
             let url = config.URL_API + `?parent=${parent}`;
             // console.log("url", url)
             let data_json = await restGet(url);
-            setData(getDocs(data_json));
-            setDataDirs(data_json.filter(o => o.role === "dir"));
+            setData(data_json.data.filter(o => o.role === "doc"));
+            setDataDirs(data_json.data.filter(o => o.role === "dir"));
             setLoading(false);
         };
         fetchData();
         callbackReload(false)
     }, [selectedCat, reload]);
-
-    function getDocs(data) {
-        let result = [];
-        for (let item of data) {
-            if (item.role === "doc")
-                result.push(item);
-            if (item.kids) {
-                let resultKids = getDocs(item.kids);
-                result = [...result, ...resultKids];
-            }
-        }
-        return result;
-    }
 
     return (<div className="containerCell" style={{
         width: "100%",

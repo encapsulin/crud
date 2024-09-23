@@ -56,7 +56,7 @@ function Crud() {
     <Header callbackSearch={callbackSearch} />
     <div className='align-row-center'>
       <DirsTree callbackSelectItem={callbackSelectItem} callbackReload={setReload} data={dataDirs} />
-      {/* <Docs callbackSelectItem={callbackSelectItem} selectedCat={selectedCat} reload={reload === "doc"} callbackReload={setReload} /> */}
+      <Docs callbackSelectItem={callbackSelectItem} selectedCat={selectedCat} reload={reload === "doc"} callbackReload={setReload} />
     </div>
     <Footer />
 

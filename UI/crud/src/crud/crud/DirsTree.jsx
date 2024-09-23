@@ -81,6 +81,6 @@ function buildTree(data) {
         }
     });
 
-    console.log(JSON.stringify(tree, null, 2));
+    // console.log(JSON.stringify(tree, null, 2));
     return tree; // Return the tree structure
 }

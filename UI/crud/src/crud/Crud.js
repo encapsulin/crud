@@ -39,9 +39,9 @@ function Crud() {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      let data_ = await restGet(config.URL_API + "?parent=0&role=dir");
+      let data_ = await restGet(config.URL_API + "?role=dir");
       setLoading(false);
-      setDataDirs(data_);
+      setDataDirs(data_.data);
     };
     fetchData();
   }, [reload])
@@ -55,8 +55,8 @@ function Crud() {
 
     <Header callbackSearch={callbackSearch} />
     <div className='align-row-center'>
-      {/* <DirsTree callbackSelectItem={callbackSelectItem} callbackReload={setReload} data={dataDirs} /> */}
-      <Docs callbackSelectItem={callbackSelectItem} selectedCat={selectedCat} reload={reload === "doc"} callbackReload={setReload} />
+      <DirsTree callbackSelectItem={callbackSelectItem} callbackReload={setReload} data={dataDirs} />
+      {/* <Docs callbackSelectItem={callbackSelectItem} selectedCat={selectedCat} reload={reload === "doc"} callbackReload={setReload} /> */}
     </div>
     <Footer />
 

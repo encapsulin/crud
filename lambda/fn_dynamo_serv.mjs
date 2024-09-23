@@ -6,51 +6,36 @@ import { fnDatePlusDHM, fnTtlMins, fnDateToIso } from './fn_datez.mjs'
 
 export const dynamo_serv_query = async (args) => {
     console.log("dynamo_serv_query():", args);
+
     let data = [];
+    let params = { index: null, filters: [] }
 
-    if (args.skid !== undefined) {
-        args.index = "skid"
-        args.indexVal = args.skid;
+    // define index
+    if (params.index === null && args.skid !== undefined) {
+        params.index = "skid"
+        params.indexVal = args.skid;
+    }
+    if (params.index === null && args.parent !== undefined) {
+        params.index = "parent"
+        params.indexVal = args.parent;
+    }
+    if (params.index === null && args.role !== undefined) {
+        params.index = "role"
+        params.indexVal = args.role;
     }
 
-    if (args.role !== undefined) {
-        args.index = "role"
-        args.indexVal = args.role;
+    //define filters
+    if (params.index !== "parent" && args.parent !== undefined) {
+        params.filters.push({ key: "parent", val: args.parent });
     }
-
+    if (params.index !== "role" && args.role !== undefined) {
+        params.filters.push({ key: "role", val: args.role });
+    }
     if (args.search !== undefined) {
-        args.filter = "title"
-        args.filterVal = args.search;
+        params.filters.push({ key: "search", val: args.search });
     }
 
-    if (args.parent !== undefined) {
-        args.index = "parent"
-        args.indexVal = args.parent;
-        data = await dynamo_serv_query_recur_for_parent(args);
-    }
-    else
-        data = await fnDynamoQuery(args);
-
-    return data;
-};
-
-export const dynamo_serv_query_recur_for_parent = async (args) => {
-    console.log("dynamo_serv_query_recur():", args);
-
-    // let params = {};
-    // if (args_ === null && args.index === undefined) {
-    //     params.index = "parent";
-    //     params.indexVal = "0";
-    // } else params = args_;
-
-    let res = await fnDynamoQuery(args);
-    let data = res.data;
-
-    for (let i = 0; i < data.length; i++) {
-        args.indexVal = data[i].skid;
-        data[i].kids = await dynamo_serv_query_recur_for_parent(args)
-    }
-
+    data = await fnDynamoQuery(params);
     return data;
 };
 

@@ -3,21 +3,10 @@ import config from '../config.js'
 import Loading from '../misc/loading/Loading.jsx'
 import { restGet } from '../misc/utils/restGet.js'
 
-export default function CrudTree({ callbackSelectItem, reload, callbackReload, data }) {
+export default function DirsTree({ callbackSelectItem, reload, callbackReload, data }) {
 
-    //const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [itemSelected, setItemSelected] = useState(0);
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         setLoading(true);
-    //         let data_ = await restGet(config.URL_API + "?parent=0&filter=role&filterVal=dir");
-    //         setLoading(false);
-    //         setData(data_);
-    //     };
-    //     fetchData();
-    //     callbackReload(false)
-    // }, [reload]);
 
     function handleItemSelect(item) {
         setItemSelected(item)
@@ -25,7 +14,7 @@ export default function CrudTree({ callbackSelectItem, reload, callbackReload, d
     }
 
     const renderTree = (data_, tab_ = 0) => {
-        if (data_ === undefined)
+        if (!data_)
             return
 
         return data_.map((item) => (
@@ -42,8 +31,8 @@ export default function CrudTree({ callbackSelectItem, reload, callbackReload, d
                         className='cursorPointer' />
                 </div>
 
-                {item.kids && item.kids.length > 0 && (
-                    <div >{renderTree(item.kids, tab_ + 1)}</div>
+                {item.children && (
+                    <div >{renderTree(item.children, tab_ + 1)}</div>
                 )}
             </div>
         ))
@@ -62,9 +51,36 @@ export default function CrudTree({ callbackSelectItem, reload, callbackReload, d
 
             <Loading loading={loading} />
 
-            {renderTree(data)}
+            {renderTree(buildTree(data))}
 
         </div >
 
     )
+}
+
+// Function to build a tree structure
+function buildTree(data) {
+    const map = {}; // Create a map to store nodes by their skid
+    const tree = []; // Final tree structure
+
+    // First, map each item by its skid
+    data.forEach(item => {
+        map[item.skid] = { ...item, children: [] }; // Add children array to each node
+    });
+
+    // Now, arrange items under their parents
+    data.forEach(item => {
+        if (item.parent === "0") {
+            // If the parent is "0", it's a root node, add to tree
+            tree.push(map[item.skid]);
+        } else {
+            // Else, find the parent and push the item into its children
+            if (map[item.parent]) {
+                map[item.parent].children.push(map[item.skid]);
+            }
+        }
+    });
+
+    console.log(JSON.stringify(tree, null, 2));
+    return tree; // Return the tree structure
 }

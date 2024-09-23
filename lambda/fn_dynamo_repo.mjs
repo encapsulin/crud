@@ -21,6 +21,7 @@ const tableName = 'tbCrud2';
 
 /////////////////////////////////////////////////
 export const fnDynamoQuery = async (args_) => {
+    //defaults
     let params = {
         TableName: tableName,
         ScanIndexForward: false,
@@ -36,9 +37,10 @@ export const fnDynamoQuery = async (args_) => {
         //ProjectionExpression: 'orderId, orderDate, totalAmount',  // Specify the attributes you want
     };
 
-    if (args_ !== null) {
+    //customize defaults
+    if (args_) {
 
-        if (args_.index !== undefined) {
+        if (args_.index !== null) {
             params.KeyConditionExpression = "#partKey = :partVal AND #sortKey = :sortVal";
             params.ExpressionAttributeValues = { ":partVal": "0", ":sortVal": args_.indexVal }
 
@@ -51,17 +53,18 @@ export const fnDynamoQuery = async (args_) => {
                 params.IndexName = 'role-index';  // Name of your LSI
                 params.ExpressionAttributeNames = { '#partKey': 'pkid', '#sortKey': 'role' }
             }
-            // else if (args_.index === "title") {
-            //     params.IndexName = 'title-index';  // Name of your LSI
-            //     params.ExpressionAttributeNames = { '#partKey': 'pkid', '#sortKey': 'title' }
-            // }
         }
 
-        if (args_.filter !== undefined) {
-            // params.FilterExpression = '#filterKey = :filterVal'
-            params.FilterExpression = 'contains(title, :filterVal) OR contains(descr, :filterVal)';
-            // params.ExpressionAttributeNames["#filterKey"] = args_.filter
-            params.ExpressionAttributeValues[":filterVal"] = args_.filterVal
+        for (let filter of args_.filters) {
+            if (filter.key === "search") {
+                params.FilterExpression = 'contains(title, :filterVal) OR contains(descr, :filterVal)';
+                params.ExpressionAttributeValues[":filterVal"] = filter.val;
+            } else {
+                params.FilterExpression = '#filterKey = :filterVal'
+                params.ExpressionAttributeNames["#filterKey"] = filter.key
+                params.ExpressionAttributeValues[":filterVal"] = filter.val;
+            }
+
         }
 
     }

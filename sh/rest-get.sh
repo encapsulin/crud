@@ -3,6 +3,7 @@ source ./sh/cfg.sh   # Or use . ./vars.sh
 
 params = ""
 params1 = "parent=0&role=dir"
+params2 = "parent=0&role=doc"
 
 curl -X GET "$URL?$params1"
 

@@ -4,28 +4,33 @@ import Loading from '../misc/loading/Loading.jsx'
 import { restGet } from '../misc/utils/restGet.js'
 import DirsRaw from './DirsRaw.jsx';
 
-export default function Docs({ callbackSelectItem, selectedDir, reload, callbackReload }) {
+export default function Docs({ callbackSelectItem, data, loading, selectedDir }) {
 
-    const [data, setData] = useState([]);
+    //const [data, setData] = useState([]);
+    // const [loading, setLoading] = useState(true);
+    // const [error, setError] = useState(null);
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         setLoading(true);
+    //         let parent = selectedDir !== undefined && selectedDir.skid !== undefined ? selectedDir.skid : 0;
+    //         let url = config.URL_API + `?parent=${parent}`;
+    //         let data_json = await restGet(url);
+    //         setData(data_json.data.filter(o => o.role === "doc"));
+    //         setDataDirs(data_json.data.filter(o => o.role === "dir"));
+    //         setLoading(false);
+    //     };
+    //     fetchData();
+    //     callbackReload(false)
+    // }, [selectedDir, reload]);
+
     const [dataDirs, setDataDirs] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [dataDocs, setDataDocs] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            let parent = selectedDir !== undefined && selectedDir.skid !== undefined ? selectedDir.skid : 0;
-            // let url = config.URL_API + "?filter=role&filterVal=doc";
-            let url = config.URL_API + `?parent=${parent}`;
-            // console.log("url", url)
-            let data_json = await restGet(url);
-            setData(data_json.data.filter(o => o.role === "doc"));
-            setDataDirs(data_json.data.filter(o => o.role === "dir"));
-            setLoading(false);
-        };
-        fetchData();
-        callbackReload(false)
-    }, [selectedDir, reload]);
+        setDataDocs(data.filter(o => o.role === "doc"));
+        setDataDirs(data.filter(o => o.role === "dir"));
+    }, [data])
 
     return (<div className="containerCell" style={{
         width: "100%",

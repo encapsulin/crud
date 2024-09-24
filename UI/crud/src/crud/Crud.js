@@ -37,19 +37,31 @@ function Crud() {
   const [dataDocs, setDataDocs] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDataDirs = async () => {
       setLoading(true);
       let data_ = await restGet(config.URL_API + "?role=dir");
       setLoading(false);
       setDataDirs(data_.data);
       setSelectedDir(dataDirs[0]);
     };
-    fetchData();
+    fetchDataDirs();
   }, [reload])
+
+  useEffect(() => {
+    const fetchDataDocs = async () => {
+      setLoading(true);
+      let parent = selectedDir !== undefined && selectedDir.skid !== undefined ? selectedDir.skid : 0;
+      let url = config.URL_API + `?parent=${parent}`;
+      let data_json = await restGet(url);
+      setDataDocs(data_json.data);
+      setLoading(false);
+    };
+    fetchDataDocs();
+  }, [selectedDir])
 
   async function callbackSearch(str) {
     let data_ = await restGet(config.URL_API + "?search=" + str);
-    setDataDocs(data_);
+    setDataDocs(data_.data);
   }
 
   return (<>
@@ -57,7 +69,8 @@ function Crud() {
     <Header callbackSearch={callbackSearch} />
     <div className='align-row-center'>
       <DirsTree callbackSelectItem={callbackSelectItem} callbackReload={setReload} data={dataDirs} />
-      <Docs callbackSelectItem={callbackSelectItem} selectedDir={selectedDir} reload={reload === "doc"} callbackReload={setReload} />
+      <Docs callbackSelectItem={callbackSelectItem} selectedDir={selectedDir} reload={reload === "doc"}
+        callbackReload={setReload} data={dataDocs} />
     </div>
     <Footer />
 

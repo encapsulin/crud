@@ -45,9 +45,9 @@ export default function ItemEdit({ data, callbackModified }) {
         ///////////////////////
         const fetchDataTree = async () => {
             setLoadingTree(true);
-            let data_json = await restGet(config.URL_API + "?parent=0&role=dir");
+            let data_json = await restGet(config.URL_API + "?role=dir");
             setLoadingTree(false);
-            setDataTree(data_json);
+            setDataTree(buildTree(data_json.data));
         };
         fetchDataTree();
 
@@ -112,8 +112,8 @@ export default function ItemEdit({ data, callbackModified }) {
         return data_.map((item) => (
             <React.Fragment key={item.skid}>
                 <option value={item.skid}> {'\u00A0'.repeat(tab_ * 5)}{item.title} </option >
-                {item.kids && item.kids.length > 0 && (
-                    renderTree(item.kids, tab_ + 1)
+                {item.children && item.children.length > 0 && (
+                    renderTree(item.children, tab_ + 1)
                 )}
             </React.Fragment>))
     }
@@ -129,7 +129,7 @@ export default function ItemEdit({ data, callbackModified }) {
                                 onChange={(e) => handleInputChange(e.target.name, e.target.value)}
                             >
                                 <option value="0">/</option>
-                                {renderTree(buildTree(dataTree))}
+                                {renderTree(dataTree)}
                             </select>
                             <Loading loading={loadingTree} />
                         </span>

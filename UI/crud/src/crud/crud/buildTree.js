@@ -4,6 +4,9 @@ export function buildTree(data) {
     const map = {}; // Create a map to store nodes by their skid
     const tree = []; // Final tree structure
 
+    if (!data || data === undefined || data === null || data.length === 0)
+        return;
+
     // First, map each item by its skid
     data.forEach(item => {
         map[item.skid] = { ...item, children: [] }; // Add children array to each node

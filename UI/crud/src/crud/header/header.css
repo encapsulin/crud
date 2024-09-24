@@ -5,8 +5,8 @@
 
     border: 1px solid grey;
     /* background-color: #0069d1; */
-    background-color: var(--color-dark);
-    color: var(--color-light);
+    background-color: var(--color-light);
+    color: var(--color-dark);
     padding-top: 5px;
     padding-bottom: 5px;
     font-weight: bold;

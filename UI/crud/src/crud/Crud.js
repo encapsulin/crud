@@ -15,15 +15,12 @@ function Crud() {
   const [itemSelected, setItemSelected] = useState({});
   function callbackSelectItem(data_, rw) {
     if (rw !== undefined) {
-
       if (rw === "w")
         setItemSelected(data_);
 
       if (rw === "r" && data_.role === "dir")
         setSelectedDir(data_)
-
     }
-
   }
 
   const [reload, setReload] = useState("")
@@ -31,16 +28,18 @@ function Crud() {
     setReload(item.role)
   }
 
-  const [loading, setLoading] = useState(false);
+  const [loadingDirs, setLoadingDirs] = useState(false);
   const [dataDirs, setDataDirs] = useState([]);
   const [selectedDir, setSelectedDir] = useState(0);
+
   const [dataDocs, setDataDocs] = useState([]);
+  const [loadingDocs, setLoadingDocs] = useState(false);
 
   useEffect(() => {
     const fetchDataDirs = async () => {
-      setLoading(true);
+      setLoadingDirs(true);
       let data_ = await restGet(config.URL_API + "?role=dir");
-      setLoading(false);
+      setLoadingDirs(false);
       setDataDirs(data_.data);
       setSelectedDir(dataDirs[0]);
     };
@@ -49,28 +48,31 @@ function Crud() {
 
   useEffect(() => {
     const fetchDataDocs = async () => {
-      setLoading(true);
+      setLoadingDocs(true);
       let parent = selectedDir !== undefined && selectedDir.skid !== undefined ? selectedDir.skid : 0;
       let url = config.URL_API + `?parent=${parent}`;
       let data_json = await restGet(url);
       setDataDocs(data_json.data);
-      setLoading(false);
+      setLoadingDocs(false);
     };
     fetchDataDocs();
   }, [selectedDir])
 
   async function callbackSearch(str) {
+    setLoadingDocs(true);
     let data_ = await restGet(config.URL_API + "?search=" + str);
     setDataDocs(data_.data);
+    setLoadingDocs(false);
   }
 
   return (<>
 
     <Header callbackSearch={callbackSearch} />
     <div className='align-row-center'>
-      <DirsTree callbackSelectItem={callbackSelectItem} callbackReload={setReload} data={dataDirs} />
-      <Docs callbackSelectItem={callbackSelectItem} selectedDir={selectedDir} reload={reload === "doc"}
-        callbackReload={setReload} data={dataDocs} />
+      <DirsTree callbackSelectItem={callbackSelectItem} callbackReload={setReload} data={dataDirs}
+        loading={loadingDirs} />
+      <Docs callbackSelectItem={callbackSelectItem} selectedDir={selectedDir}
+        callbackReload={setReload} data={dataDocs} loading={loadingDocs} />
     </div>
     <Footer />
 

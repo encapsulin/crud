@@ -6,24 +6,6 @@ import DirsRaw from './DirsRaw.jsx';
 
 export default function Docs({ callbackSelectItem, data, loading, selectedDir }) {
 
-    //const [data, setData] = useState([]);
-    // const [loading, setLoading] = useState(true);
-    // const [error, setError] = useState(null);
-
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         setLoading(true);
-    //         let parent = selectedDir !== undefined && selectedDir.skid !== undefined ? selectedDir.skid : 0;
-    //         let url = config.URL_API + `?parent=${parent}`;
-    //         let data_json = await restGet(url);
-    //         setData(data_json.data.filter(o => o.role === "doc"));
-    //         setDataDirs(data_json.data.filter(o => o.role === "dir"));
-    //         setLoading(false);
-    //     };
-    //     fetchData();
-    //     callbackReload(false)
-    // }, [selectedDir, reload]);
-
     const [dataDirs, setDataDirs] = useState([]);
     const [dataDocs, setDataDocs] = useState([]);
 

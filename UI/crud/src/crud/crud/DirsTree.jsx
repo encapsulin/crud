@@ -4,9 +4,8 @@ import Loading from '../misc/loading/Loading.jsx'
 import { restGet } from '../misc/utils/restGet.js'
 import { buildTree } from './buildTree.js';
 
-export default function DirsTree({ callbackSelectItem, reload, callbackReload, data }) {
+export default function DirsTree({ callbackSelectItem, data, loading }) {
 
-    const [loading, setLoading] = useState(false);
     const [itemSelected, setItemSelected] = useState(0);
 
     function handleItemSelect(item) {

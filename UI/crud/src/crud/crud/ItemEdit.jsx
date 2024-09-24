@@ -6,6 +6,7 @@ import React from 'react';
 import { restPost } from '../misc/utils/restPost.js'
 import { restGet } from '../misc/utils/restGet.js'
 import { restDelete } from '../misc/utils/restDelete.js'
+import { buildTree } from './buildTree.js';
 
 export default function ItemEdit({ data, callbackModified }) {
 
@@ -44,7 +45,7 @@ export default function ItemEdit({ data, callbackModified }) {
         ///////////////////////
         const fetchDataTree = async () => {
             setLoadingTree(true);
-            let data_json = await restGet(config.URL_API + "?parent=0&filter=role&filterVal=dir");
+            let data_json = await restGet(config.URL_API + "?parent=0&role=dir");
             setLoadingTree(false);
             setDataTree(data_json);
         };
@@ -128,7 +129,7 @@ export default function ItemEdit({ data, callbackModified }) {
                                 onChange={(e) => handleInputChange(e.target.name, e.target.value)}
                             >
                                 <option value="0">/</option>
-                                {renderTree(dataTree)}
+                                {renderTree(buildTree(dataTree))}
                             </select>
                             <Loading loading={loadingTree} />
                         </span>

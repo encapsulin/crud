@@ -20,12 +20,11 @@ function Crud() {
         setItemSelected(data_);
 
       if (rw === "r" && data_.role === "dir")
-        setSelectedCat(data_)
+        setSelectedDir(data_)
 
     }
 
   }
-  const [selectedCat, setSelectedCat] = useState(0);
 
   const [reload, setReload] = useState("")
   function callbackModified(item) {
@@ -34,6 +33,7 @@ function Crud() {
 
   const [loading, setLoading] = useState(false);
   const [dataDirs, setDataDirs] = useState([]);
+  const [selectedDir, setSelectedDir] = useState(0);
   const [dataDocs, setDataDocs] = useState([]);
 
   useEffect(() => {
@@ -42,6 +42,7 @@ function Crud() {
       let data_ = await restGet(config.URL_API + "?role=dir");
       setLoading(false);
       setDataDirs(data_.data);
+      setSelectedDir(dataDirs[0]);
     };
     fetchData();
   }, [reload])
@@ -56,7 +57,7 @@ function Crud() {
     <Header callbackSearch={callbackSearch} />
     <div className='align-row-center'>
       <DirsTree callbackSelectItem={callbackSelectItem} callbackReload={setReload} data={dataDirs} />
-      <Docs callbackSelectItem={callbackSelectItem} selectedCat={selectedCat} reload={reload === "doc"} callbackReload={setReload} />
+      <Docs callbackSelectItem={callbackSelectItem} selectedDir={selectedDir} reload={reload === "doc"} callbackReload={setReload} />
     </div>
     <Footer />
 

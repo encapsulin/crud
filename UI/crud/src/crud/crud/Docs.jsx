@@ -4,7 +4,7 @@ import Loading from '../misc/loading/Loading.jsx'
 import { restGet } from '../misc/utils/restGet.js'
 import DirsRaw from './DirsRaw.jsx';
 
-export default function Docs({ callbackSelectItem, selectedCat, reload, callbackReload }) {
+export default function Docs({ callbackSelectItem, selectedDir, reload, callbackReload }) {
 
     const [data, setData] = useState([]);
     const [dataDirs, setDataDirs] = useState([]);
@@ -14,7 +14,7 @@ export default function Docs({ callbackSelectItem, selectedCat, reload, callback
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            let parent = selectedCat !== undefined && selectedCat.skid !== undefined ? selectedCat.skid : 0;
+            let parent = selectedDir !== undefined && selectedDir.skid !== undefined ? selectedDir.skid : 0;
             // let url = config.URL_API + "?filter=role&filterVal=doc";
             let url = config.URL_API + `?parent=${parent}`;
             // console.log("url", url)
@@ -25,7 +25,7 @@ export default function Docs({ callbackSelectItem, selectedCat, reload, callback
         };
         fetchData();
         callbackReload(false)
-    }, [selectedCat, reload]);
+    }, [selectedDir, reload]);
 
     return (<div className="containerCell" style={{
         width: "100%",
@@ -36,7 +36,7 @@ export default function Docs({ callbackSelectItem, selectedCat, reload, callback
             <img src='img/plus-square.svg' alt='add'
                 onClick={() => callbackSelectItem({ skid: "0", role: "doc" }, "w")}
                 className='cursorPointer' />
-            <span style={{ margin: "0 0.25rem", fontWeight: "bold" }}>{selectedCat.title}</span>
+            <span style={{ margin: "0 0.25rem", fontWeight: "bold" }}>{selectedDir && selectedDir.title}</span>
 
         </div>
         <hr />

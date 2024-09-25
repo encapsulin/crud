@@ -1,10 +1,10 @@
 .result-modal {
     border: 1px solid silver;
-    border-radius: 8px;
+    border-radius: 0.25rem;
     padding: 0;
     /* background-color: #d7fcf8; */
     min-width: 50%;
-    max-width: 50%;
+    /* max-width: 50%; */
 }
 
 .result-modal::backdrop {

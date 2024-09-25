@@ -32,7 +32,7 @@ export default function Docs({ callbackSelectItem, data, loading, selectedDir })
 
         <DirsRaw data={dataDirs} callbackSelectItem={callbackSelectItem} />
 
-        {data.map((item, key) => (
+        {dataDocs.map((item, key) => (
             <div key={key} style={{
                 marginBottom: "0.5rem",
                 border: "1px solid silver",

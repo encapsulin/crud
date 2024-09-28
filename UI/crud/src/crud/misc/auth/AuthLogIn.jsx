@@ -11,8 +11,8 @@ export default function AuthLogIn({ callbackClose }) {
   const [msg, setMsg] = useState("")
 
   const [loading, setLoading] = useState(false)
-  const [uid, setUid] = useState("demo")
-  const [pwd, setPwd] = useState("fa23-8d20-41b0-aw41")
+  const [uid, setUid] = useState("demo1")
+  const [pwd, setPwd] = useState("fa23-8d20-41b0-aw4")
 
 
   async function handleSubmit(e) {
@@ -74,8 +74,9 @@ export default function AuthLogIn({ callbackClose }) {
         </div>
 
         <br />
-        <div className='centerContent'>
+        <div className='containerRowSides'>
           <button type="submit" >Submit</button>
+          <button type="button" onClick={callbackClose} className='cancel' >Cancel</button>
           <Loading loading={loading} />
         </div>
 

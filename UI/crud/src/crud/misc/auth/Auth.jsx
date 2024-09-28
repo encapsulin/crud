@@ -1,19 +1,33 @@
 import AuthLogIn from './AuthLogIn';
 import AuthLogOut from './AuthLogOut';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import ModalDialog from '../modal/ModalDialog';
 
-export default function Auth({ callbackClose }) {
-
-  const [authToken, setAuthToken] = useState(authTokenGet());
+export default function Auth({ auth, setAuth }) {
 
   useEffect(() => {
-    const token = authTokenGet();
-    setAuthToken(token);
-  }, []);
+    if (auth)
+      modalShow();
+  }, [auth]);
+
+  const refModal = useRef();
+  function modalShow() {
+    refModal.current.showModal();
+  }
+  function modalClose() {
+    refModal.current.close();
+    setAuth(false)
+  }
 
   return (
     <>
-      {authToken ? <AuthLogOut callbackClose={callbackClose} /> : <AuthLogIn callbackClose={callbackClose} />}
+      <ModalDialog ref={refModal} title="Profile" callbackClose={modalClose}>
+
+        {authTokenGet() ?
+          <AuthLogOut callbackClose={modalClose} /> :
+          <AuthLogIn callbackClose={modalClose} />}
+
+      </ModalDialog>
     </>
   );
 }

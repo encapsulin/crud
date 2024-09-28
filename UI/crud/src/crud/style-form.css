@@ -43,46 +43,6 @@
     /* max-width: 75%; */
 }
 
-button {
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--color-dark);
-    border-radius: 4px;
-    background: var(--color-dark);
-    color: white;
-    cursor: pointer;
-    width: fit-content;
-    margin-top: 0.5rem;
-}
-
-button:hover {
-    background: lightslategray;
-}
-
-
-button.cancel {
-    background-color: var(--color-light);
-    border: 1px solid var(--color-light);
-    color: var(--color-dark);
-}
-
-button.cancel:hover {
-    /* background: var(--color-dark); */
-    color: var(--color-dark);
-    border: 1px solid var(--color-dark);
-}
-
-button.delete {
-    background-color: var(--color-light);
-    border: 1px solid var(--color-light);
-    color: red;
-}
-
-button.delete:hover {
-    /* background: red; */
-    /* color: white; */
-    border: 1px solid red;
-}
-
 .input-field,
 .textarea-field {
     width: 100%;

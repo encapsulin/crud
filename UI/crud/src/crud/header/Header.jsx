@@ -1,18 +1,15 @@
 import './header.css';
-import ModalDialog from '../misc/modal/ModalDialog';
-import { useRef, useState } from 'react';
-import Auth from "../misc/auth/Auth";
+import { useRef, useState, useEffect } from 'react';
+import Auth, { authTokenGet } from "../misc/auth/Auth";
 
 
 export default function Header({ callbackSearch }) {
 
-    const refModal = useRef();
-    function modalShow() {
-        refModal.current.showModal();
-    }
-    function modalClose() {
-        refModal.current.close();
-    }
+    const [auth, setAuth] = useState(false)
+    const [authToken, setAuthToken] = useState("")
+    useEffect(() => {
+        setAuthToken(authTokenGet())
+    }, [auth])
 
     const [searchString, setSearchString] = useState("");
 
@@ -31,13 +28,12 @@ export default function Header({ callbackSearch }) {
             onChange={(e) => fnSearch(e.target.value)}
         />
 
-        <img src='img/person-circle.svg' alt="person" onClick={modalShow}
+        <img src={!authToken ? 'img/person.svg' : 'img/person-fill.svg'} alt="person" onClick={() => setAuth(true)}
             className='cursorPointer' />
 
     </div>
-        <ModalDialog ref={refModal} title="Profile">
-            <Auth callbackClose={modalClose} />
-        </ModalDialog>
+
+        <Auth auth={auth} setAuth={setAuth} />
 
     </>)
 }

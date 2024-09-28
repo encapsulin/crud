@@ -1,7 +1,7 @@
 import { forwardRef } from "react"
 import "./ModalDialog.css"
 
-const ModalDialog = forwardRef(function ModalDialog({ title, children }, ref) {
+const ModalDialog = forwardRef(function ModalDialog({ title, children, callbackClose }, ref) {
 
     return (
 
@@ -11,7 +11,7 @@ const ModalDialog = forwardRef(function ModalDialog({ title, children }, ref) {
             <div className="header" >
                 {title}
                 <form method="dialog" >
-                    <button className='modalClose'>&times;</button>
+                    <button className='modalClose' onClick={() => callbackClose(false)}>&times;</button>
                 </form>
             </div>
 

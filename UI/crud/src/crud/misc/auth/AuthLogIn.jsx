@@ -5,9 +5,7 @@ import config from '../../config.js'
 import { restPost } from '../utils/restPost.js'
 
 
-export default function AuthLogIn(props) {
-
-  //console.log(props)
+export default function AuthLogIn({ callbackClose }) {
 
   const [msgError, setMsgError] = useState("")
   const [msg, setMsg] = useState("")
@@ -38,6 +36,7 @@ export default function AuthLogIn(props) {
         // setTimeout(function () {
         //   window.location.reload();
         // }, 1000);
+        callbackClose();
       }
       else
         setMsgError("Authentication error")
@@ -48,8 +47,7 @@ export default function AuthLogIn(props) {
     setLoading(false)
   }
 
-  //throw Error("asdf")
-
+  //throw Error("")
 
   return (
 
@@ -61,7 +59,7 @@ export default function AuthLogIn(props) {
 
           <div >
             <label>User name:</label><br />
-            <input type="text" name="uid" defaultValue="demo"
+            <input type="text" name="uid"
               onChange={(e) => setUid(e.target.value)}
               value={uid} />
           </div>

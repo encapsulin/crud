@@ -1,13 +1,19 @@
 import AuthLogIn from './AuthLogIn';
 import AuthLogOut from './AuthLogOut';
+import { useState, useEffect } from 'react';
 
-export default function Auth(props) {
+export default function Auth({ callbackClose }) {
 
-  //console.log(props)
+  const [authToken, setAuthToken] = useState(authTokenGet());
+
+  useEffect(() => {
+    const token = authTokenGet();
+    setAuthToken(token);
+  }, []);
 
   return (
     <>
-      {authTokenGet() ? <AuthLogOut /> : <AuthLogIn />}
+      {authToken ? <AuthLogOut callbackClose={callbackClose} /> : <AuthLogIn callbackClose={callbackClose} />}
     </>
   );
 }
@@ -18,8 +24,6 @@ export function authTokenSet(token) {
 
 export function authTokenGet() {
   var token = localStorage.getItem("jwt")
-  //console.log("authTokenGet()", token)
-  if (token === "null")
-    token = ""
-  return token
+  console.log("authTokenGet()", token)
+  return token === 'null' || !token ? '' : token;
 }

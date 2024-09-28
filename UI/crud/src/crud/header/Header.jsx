@@ -10,6 +10,9 @@ export default function Header({ callbackSearch }) {
     function modalShow() {
         refModal.current.showModal();
     }
+    function modalClose() {
+        refModal.current.close();
+    }
 
     const [searchString, setSearchString] = useState("");
 
@@ -28,10 +31,12 @@ export default function Header({ callbackSearch }) {
             onChange={(e) => fnSearch(e.target.value)}
         />
 
-        <img src='img/person-circle.svg' alt="person" onClick={modalShow} className='cursorPointer' />
+        <img src='img/person-circle.svg' alt="person" onClick={modalShow}
+            className='cursorPointer' />
+
     </div>
         <ModalDialog ref={refModal} title="Profile">
-            <Auth />
+            <Auth callbackClose={modalClose} />
         </ModalDialog>
 
     </>)

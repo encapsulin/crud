@@ -1,12 +1,11 @@
 import { authTokenSet } from './Auth';
 
 
-export default function AuthLogOut(props) {
+export default function AuthLogOut({ callbackClose }) {
 
     function logout() {
-        authTokenSet(null)
-        window.location.reload();
-
+        authTokenSet("")
+        callbackClose()
     }
 
     return (<>

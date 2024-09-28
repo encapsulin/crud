@@ -1,7 +1,7 @@
 import AuthLogIn from './AuthLogIn';
 import AuthLogOut from './AuthLogOut';
 
-export default function AuthProfile(props) {
+export default function Auth(props) {
 
   //console.log(props)
 

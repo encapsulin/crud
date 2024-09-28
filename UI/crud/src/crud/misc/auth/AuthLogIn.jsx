@@ -1,6 +1,9 @@
 import { useState } from 'react';
-import { authTokenSet } from './AuthProfile';
-import { AppLoading } from './loading/AppLoading.js';
+import { authTokenSet } from './Auth';
+import Loading from '../loading/Loading';
+import config from '../../config.js'
+import { restPost } from '../utils/restPost.js'
+
 
 export default function AuthLogIn(props) {
 
@@ -11,7 +14,7 @@ export default function AuthLogIn(props) {
 
   const [loading, setLoading] = useState(false)
   const [uid, setUid] = useState("demo")
-  const [pwd, setPwd] = useState("3420fa23-8920-41b0-adac1")
+  const [pwd, setPwd] = useState("fa23-8d20-41b0-aw41")
 
 
   async function handleSubmit(e) {
@@ -24,34 +27,19 @@ export default function AuthLogIn(props) {
       pwd: pwd
     }
 
-    const url = "https://afgjb5551c.execute-api.eu-central-1.amazonaws.com/default/fnAuth";
     try {
-      const resp = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          "Access-Control-Allow-Origin": "*"
-        },
-        body: JSON.stringify(dataAuth)
-      });
-
-      console.log(resp)
-      if (resp.status !== 200 || !resp.ok) {
-        setMsgError("API error, try again in a minute")
-      }
-
-      const dataResp = await resp.json()
-      console.log("dataResp.body: ", dataResp.body)
+      const dataResp = await restPost(config.URL_API, dataAuth);
+      console.log("dataResp: ", dataResp)
 
       if (dataResp.body !== "UNAUTHORIZED") {
         authTokenSet(dataResp.body)
         setMsg("Ok")
-        setTimeout(function () {
-          window.location.reload();
-        }, 1000);
+        // setTimeout(function () {
+        //   window.location.reload();
+        // }, 1000);
       }
       else
-        setMsgError("Auth error")
+        setMsgError("Auth err")
 
     } catch (error) {
       setMsgError(error.message)
@@ -62,12 +50,9 @@ export default function AuthLogIn(props) {
   //throw Error("asdf")
 
 
-
-
   return (
 
     <>
-
 
       <form onSubmit={handleSubmit} >
 
@@ -92,11 +77,11 @@ export default function AuthLogIn(props) {
         <br />
         <div className='centerContent'>
           <button type="submit" >Submit</button>
-          {loading && <AppLoading />}
+          <Loading loading={loading} />
         </div>
 
-        {msgError && (<div className="borderRed"  >{msgError}</div>)}
-        {msg && (<div className="borderGreen"  >{msg}</div>)}
+        {msgError && (<div style={{ border: "1px solid red" }} >{msgError}</div>)}
+        {msg && (<div style={{ border: "1px solid green" }}  >{msg}</div>)}
 
       </form>
 

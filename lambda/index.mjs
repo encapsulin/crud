@@ -1,8 +1,7 @@
 import { dynamo_serv_query, dynamo_serv_put, dynamo_serv_update, dynamo_serv_delete } from './fn_dynamo_serv.mjs'
+import { fn_auth } from './fn_auth.mjs'
 
-/**
- * Demonstrates a simple HTTP endpoint using API Gateway. 
- */
+
 export const handler = async (event) => {
     //console.log('Received event:', JSON.stringify(event, null, 2));
     console.log('event:', event);
@@ -33,7 +32,18 @@ export const handler = async (event) => {
                 break;
             case 'POST':
             case 'PUT':
-                body = await dynamo_serv_put(JSON.parse(event.body));
+
+                //auth
+                let eventBody = JSON.parse(event.body);
+                if (eventBody.uid !== undefined && eventBody.pwd !== undefined) {
+                    let jwt = fn_auth(eventBody.uid, eventBody.pwd)
+                    if (jwt) {
+                        body = { jwt: jwt }
+                    } else
+                        statusCode = 401;
+                }
+                else
+                    body = await dynamo_serv_put(JSON.parse(event.body));
                 break;
             case 'DELETE':
                 body = await dynamo_serv_delete(event.queryStringParameters.skid);

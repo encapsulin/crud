@@ -49,7 +49,7 @@ export default function Docs({ callbackSelectItem, data, loading, selectedDir })
                 </div>
                 <hr />
                 {/* <div style={{ fontSize: "0.75rem" }}>/ <a href="#">Categ1</a> / categ11</div> */}
-                <div >{item.descr.substring(0, 128)}...</div>
+                <div >{item.descr}</div>
             </div>
         ))}
 

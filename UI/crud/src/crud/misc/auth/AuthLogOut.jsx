@@ -1,4 +1,4 @@
-import { authTokenSet } from './AuthProfile';
+import { authTokenSet } from './Auth';
 
 
 export default function AuthLogOut(props) {

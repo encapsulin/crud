@@ -10,7 +10,6 @@ import { useState, useEffect } from 'react';
 import config from './config.js'
 import { restGet } from './misc/utils/restGet.js'
 import { AuthDataProvider } from './misc/context/AuthDataContext'
-import { authTokenGet } from './misc/auth/Auth';
 
 function Crud() {
 

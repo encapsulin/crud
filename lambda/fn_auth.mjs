@@ -5,6 +5,9 @@ export function fn_auth(uid, pwd) {
     if (uid === auth.uid && pwd === auth.pwd)
         return jwt;
     else return false;
+}
 
+export function fn_auth_token_valid(token_) {
+    return token_ !== undefined && token_ === jwt;
 }
 

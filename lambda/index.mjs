@@ -1,5 +1,5 @@
 import { dynamo_serv_query, dynamo_serv_put, dynamo_serv_update, dynamo_serv_delete } from './fn_dynamo_serv.mjs'
-import { fn_auth } from './fn_auth.mjs'
+import { fn_auth, fn_auth_token_valid } from './fn_auth.mjs'
 
 
 export const handler = async (event) => {
@@ -10,7 +10,8 @@ export const handler = async (event) => {
     console.log("event.queryStringParameters:", event.queryStringParameters);
 
     let body = "";
-    let statusCode = '200';
+    let statusCode = '405';
+    let statusMsg = "Method Not Allowed";
     const headers = {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',  // Allow all origins or specify a domain
@@ -42,8 +43,11 @@ export const handler = async (event) => {
                     } else
                         statusCode = 401;
                 }
-                else
+                else if (fn_auth_token_valid(event.headers.authorization))
                     body = await dynamo_serv_put(JSON.parse(event.body));
+                else {
+                    statusCode = 401;
+                }
                 break;
             case 'DELETE':
                 body = await dynamo_serv_delete(event.queryStringParameters.skid);

@@ -78,8 +78,8 @@ export default function ItemEdit({ data, callbackModified }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
-
         setLoading(true);
+
         let result = await restPost(config.URL_API, formData);
         console.log("result:", result);
         if (result.status === 200 && !result.error)
@@ -164,6 +164,8 @@ export default function ItemEdit({ data, callbackModified }) {
 
                         {data.skid > "0" && <button className='delete' onClick={handleDelete} type="button">Delete</button>}
                     </div>
+
+                    <div className='bgRed'>{msgError}</div>
 
                 </form>
 

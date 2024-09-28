@@ -15,7 +15,6 @@ export default function AuthLogOut({ callbackClose }) {
         <div className='containerRowSides'>
             <button onClick={logout}>Log out</button>
             <button type="button" className='cancel' onClick={callbackClose}>Cancel</button>
-
         </div>
     )
 }

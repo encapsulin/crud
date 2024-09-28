@@ -1,7 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import Loading from '../misc/loading/Loading.jsx'
 import DirsRaw from './DirsRaw.jsx';
-import { authTokenGet } from "../misc/auth/Auth";
 import { useAuthData } from '../misc/context/AuthDataContext.js';
 
 export default function Docs({ callbackSelectItem, data, loading, selectedDir }) {
@@ -14,7 +13,7 @@ export default function Docs({ callbackSelectItem, data, loading, selectedDir })
         setDataDirs(data.filter(o => o.role === "dir"));
     }, [data])
 
-    const { jwt } = useAuthData();
+    const { getToken } = useAuthData();
 
     return (<div className="containerCell" style={{
         width: "100%",
@@ -23,7 +22,7 @@ export default function Docs({ callbackSelectItem, data, loading, selectedDir })
 
         <div className='align-row'>
 
-            {jwt ? (
+            {getToken() ? (
                 <img src='img/plus-square.svg' alt='add'
                     onClick={() => callbackSelectItem({ skid: "0", role: "doc" }, "w")}
                     className='cursorPointer' />
@@ -48,11 +47,11 @@ export default function Docs({ callbackSelectItem, data, loading, selectedDir })
                 <div className='align-row'>
                     <img src='img/file.svg' alt='file' />
                     <b style={{ margin: '0 0.25rem', color: "var(--color-dark)" }}>{item.title}</b>
-                    <img src='img/pencil-square.svg' alt='edit'
+                    {getToken() ? <img src='img/pencil-square.svg' alt='edit'
                         onClick={() => callbackSelectItem({ skid: item.skid, role: "doc" }, "w")}
-                        className='cursorPointer' />
-
+                        className='cursorPointer' /> : null}
                 </div>
+
                 <hr />
                 {/* <div style={{ fontSize: "0.75rem" }}>/ <a href="#">Categ1</a> / categ11</div> */}
                 <div >{item.descr}</div>

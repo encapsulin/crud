@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import config from '../config.js'
 import Loading from '../misc/loading/Loading.jsx'
-import { restGet } from '../misc/utils/restGet.js'
 import { buildTree } from './buildTree.js';
+import { useAuthData } from '../misc/context/AuthDataContext.js';
 
 export default function DirsTree({ callbackSelectItem, data, loading }) {
 
@@ -27,8 +26,8 @@ export default function DirsTree({ callbackSelectItem, data, loading }) {
                         onClick={() => handleItemSelect(item)}>
                         {item.title}</a>
 
-                    <img src='img/pencil-square.svg' alt='edit' onClick={() => callbackSelectItem({ skid: item.skid, role: "dir" }, "w")}
-                        className='cursorPointer' />
+                    {getToken() ? <img src='img/pencil-square.svg' alt='edit' onClick={() => callbackSelectItem({ skid: item.skid, role: "dir" }, "w")}
+                        className='cursorPointer' /> : null}
                 </div>
 
                 {item.children && (
@@ -38,15 +37,20 @@ export default function DirsTree({ callbackSelectItem, data, loading }) {
         ))
     }
 
+    const { getToken } = useAuthData();
+
     return (
         <div className="containerCell" >
 
-            <div className='align-row'>
-                <img src='img/plus-square.svg' alt='add'
-                    onClick={() => callbackSelectItem({ skid: "0", role: "dir" }, "w")}
-                    className='cursorPointer' />
-                <span style={{ margin: "0 0.25rem", fontWeight: "bold" }}>&nbsp;</span>
-            </div>
+            {getToken() ? (
+                <div className='align-row'>
+                    <img src='img/plus-square.svg' alt='add'
+                        onClick={() => callbackSelectItem({ skid: "0", role: "dir" }, "w")}
+                        className='cursorPointer' />
+                    <span style={{ margin: "0 0.25rem", fontWeight: "bold" }}>&nbsp;</span>
+                </div>
+            ) : null}
+
             <hr />
 
             <Loading loading={loading} />

@@ -2,6 +2,7 @@ import AuthLogIn from './AuthLogIn';
 import AuthLogOut from './AuthLogOut';
 import { useEffect, useRef } from 'react';
 import ModalDialog from '../modal/ModalDialog';
+import { useAuthData } from '../context/AuthDataContext'
 
 export default function Auth({ authShow, setAuthShow }) {
 
@@ -18,6 +19,11 @@ export default function Auth({ authShow, setAuthShow }) {
     refModal.current.close();
     setAuthShow(false)
   }
+
+  const { setToken, getToken } = useAuthData();
+  useEffect(() => {
+    setToken(authTokenLocalStorageGet());
+  }, [])
 
   return (
     <>

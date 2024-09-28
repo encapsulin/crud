@@ -1,14 +1,14 @@
 import AuthLogIn from './AuthLogIn';
 import AuthLogOut from './AuthLogOut';
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import ModalDialog from '../modal/ModalDialog';
 
-export default function Auth({ auth, setAuth }) {
+export default function Auth({ authShow, setAuthShow }) {
 
   useEffect(() => {
-    if (auth)
+    if (authShow)
       modalShow();
-  }, [auth]);
+  }, [authShow]);
 
   const refModal = useRef();
   function modalShow() {
@@ -16,14 +16,14 @@ export default function Auth({ auth, setAuth }) {
   }
   function modalClose() {
     refModal.current.close();
-    setAuth(false)
+    setAuthShow(false)
   }
 
   return (
     <>
       <ModalDialog ref={refModal} title="Profile" callbackClose={modalClose}>
 
-        {authTokenGet() ?
+        {authTokenLocalStorageGet() ?
           <AuthLogOut callbackClose={modalClose} /> :
           <AuthLogIn callbackClose={modalClose} />}
 
@@ -32,11 +32,11 @@ export default function Auth({ auth, setAuth }) {
   );
 }
 
-export function authTokenSet(token) {
+export function authTokenLocalStorageSet(token) {
   localStorage.setItem("jwt", token)
 }
 
-export function authTokenGet() {
+export function authTokenLocalStorageGet() {
   var token = localStorage.getItem("jwt")
   console.log("authTokenGet()", token)
   return token === 'null' || !token ? '' : token;

@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { authTokenSet } from './Auth';
+import { useState, useContext } from 'react';
+import { authTokenLocalStorageSet } from './Auth';
 import Loading from '../loading/Loading';
 import config from '../../config.js'
 import { restPost } from '../utils/restPost.js'
-
+import { useAuthData } from '../context/AuthDataContext';
 
 export default function AuthLogIn({ callbackClose }) {
 
@@ -14,6 +14,7 @@ export default function AuthLogIn({ callbackClose }) {
   const [uid, setUid] = useState("demo1")
   const [pwd, setPwd] = useState("fa23-8d20-41b0-aw4")
 
+  const { setToken } = useAuthData();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -29,13 +30,11 @@ export default function AuthLogIn({ callbackClose }) {
     try {
       const resp = await restPost(config.URL_API, dataAuth);
       console.log("restPost() : ", resp)
-      authTokenSet("")
+      authTokenLocalStorageSet("")
       if (resp.status === 200) {
-        authTokenSet(resp.data)
+        authTokenLocalStorageSet(resp.data)
         setMsg("Ok")
-        // setTimeout(function () {
-        //   window.location.reload();
-        // }, 1000);
+        setToken(resp.data);
         callbackClose();
       }
       else

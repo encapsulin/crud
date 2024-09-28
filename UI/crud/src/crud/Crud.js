@@ -7,9 +7,10 @@ import DirsTree from './crud/DirsTree'
 import Docs from './crud/Docs'
 import ItemEdit from './crud/ItemEdit'
 import { useState, useEffect } from 'react';
-
 import config from './config.js'
 import { restGet } from './misc/utils/restGet.js'
+import { AuthDataProvider } from './misc/context/AuthDataContext'
+import { authTokenGet } from './misc/auth/Auth';
 
 function Crud() {
 
@@ -71,16 +72,20 @@ function Crud() {
 
   return (<>
 
-    <Header callbackSearch={callbackSearch} />
-    <div className='align-row-center'>
-      <DirsTree callbackSelectItem={callbackSelectItem} callbackReload={setReload} data={dataDirs}
-        loading={loadingDirs} />
-      <Docs callbackSelectItem={callbackSelectItem} selectedDir={selectedDir}
-        callbackReload={setReload} data={dataDocs} loading={loadingDocs} />
-    </div>
-    <Footer />
+    <AuthDataProvider>
+      <Header callbackSearch={callbackSearch} />
+      <div className='align-row-center'>
+        <DirsTree callbackSelectItem={callbackSelectItem} callbackReload={setReload} data={dataDirs}
+          loading={loadingDirs} />
+        <Docs callbackSelectItem={callbackSelectItem} selectedDir={selectedDir}
+          callbackReload={setReload} data={dataDocs} loading={loadingDocs} />
+      </div>
+      <Footer />
 
-    <ItemEdit data={itemSelected} callbackModified={callbackModified} />
+      <ItemEdit data={itemSelected} callbackModified={callbackModified} />
+
+    </AuthDataProvider>
+
   </>
   );
 }

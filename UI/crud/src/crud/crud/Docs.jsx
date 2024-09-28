@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import config from '../config.js'
+import { useState, useEffect, useContext } from 'react';
 import Loading from '../misc/loading/Loading.jsx'
-import { restGet } from '../misc/utils/restGet.js'
 import DirsRaw from './DirsRaw.jsx';
+import { authTokenGet } from "../misc/auth/Auth";
+import { useAuthData } from '../misc/context/AuthDataContext.js';
 
 export default function Docs({ callbackSelectItem, data, loading, selectedDir }) {
 
@@ -14,15 +14,21 @@ export default function Docs({ callbackSelectItem, data, loading, selectedDir })
         setDataDirs(data.filter(o => o.role === "dir"));
     }, [data])
 
+    const { jwt } = useAuthData();
+
     return (<div className="containerCell" style={{
         width: "100%",
         maxWidth: "50%"
     }}>
 
         <div className='align-row'>
-            <img src='img/plus-square.svg' alt='add'
-                onClick={() => callbackSelectItem({ skid: "0", role: "doc" }, "w")}
-                className='cursorPointer' />
+
+            {jwt ? (
+                <img src='img/plus-square.svg' alt='add'
+                    onClick={() => callbackSelectItem({ skid: "0", role: "doc" }, "w")}
+                    className='cursorPointer' />
+            ) : null}
+
             <span style={{ margin: "0 0.25rem", fontWeight: "bold" }}>{selectedDir && selectedDir.title}</span>
 
         </div>

@@ -1,15 +1,12 @@
 import './header.css';
 import { useRef, useState, useEffect } from 'react';
-import Auth, { authTokenGet } from "../misc/auth/Auth";
-
+import Auth, { authTokenLocalStorageGet } from "../misc/auth/Auth";
+import { useAuthData } from '../misc/context/AuthDataContext'
 
 export default function Header({ callbackSearch }) {
 
-    const [auth, setAuth] = useState(false)
-    const [authToken, setAuthToken] = useState("")
-    useEffect(() => {
-        setAuthToken(authTokenGet())
-    }, [auth])
+    const [authShow, setAuthShow] = useState(false)
+    const [authToken, setAuthToken] = useState(false)
 
     const [searchString, setSearchString] = useState("");
 
@@ -20,6 +17,11 @@ export default function Header({ callbackSearch }) {
             callbackSearch(str);
     }
 
+    const { jwt, setToken, getToken } = useAuthData();
+    useEffect(() => {
+        setToken(authTokenLocalStorageGet());
+    }, [])
+
     return (<><div className="Header align-row-space">
         CRUD
 
@@ -28,12 +30,13 @@ export default function Header({ callbackSearch }) {
             onChange={(e) => fnSearch(e.target.value)}
         />
 
-        <img src={!authToken ? 'img/person.svg' : 'img/person-fill.svg'} alt="person" onClick={() => setAuth(true)}
+        <img src={!jwt ? 'img/person.svg' : 'img/person-fill.svg'} alt="person"
+            onClick={() => setAuthShow(true)}
             className='cursorPointer' />
 
     </div>
 
-        <Auth auth={auth} setAuth={setAuth} />
+        <Auth authShow={authShow} setAuthShow={setAuthShow} />
 
     </>)
 }

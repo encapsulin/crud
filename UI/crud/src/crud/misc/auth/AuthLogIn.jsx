@@ -20,6 +20,7 @@ export default function AuthLogIn(props) {
   async function handleSubmit(e) {
     e.preventDefault();
     setMsgError("")
+    setMsg("")
     setLoading(true)
 
     const dataAuth = {
@@ -28,18 +29,18 @@ export default function AuthLogIn(props) {
     }
 
     try {
-      const dataResp = await restPost(config.URL_API, dataAuth);
-      console.log("dataResp: ", dataResp)
-
-      if (dataResp.body !== "UNAUTHORIZED") {
-        authTokenSet(dataResp.body)
+      const resp = await restPost(config.URL_API, dataAuth);
+      console.log("restPost() : ", resp)
+      authTokenSet("")
+      if (resp.status === 200) {
+        authTokenSet(resp.data)
         setMsg("Ok")
         // setTimeout(function () {
         //   window.location.reload();
         // }, 1000);
       }
       else
-        setMsgError("Auth err")
+        setMsgError("Authentication error")
 
     } catch (error) {
       setMsgError(error.message)

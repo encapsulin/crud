@@ -38,7 +38,7 @@ export const handler = async (event) => {
                 if (eventBody.uid !== undefined && eventBody.pwd !== undefined) {
                     let jwt = fn_auth(eventBody.uid, eventBody.pwd)
                     if (jwt) {
-                        body = { jwt: jwt }
+                        body = { data: jwt }
                     } else
                         statusCode = 401;
                 }
@@ -59,7 +59,7 @@ export const handler = async (event) => {
             }
         }
     } catch (err) {
-        statusCode = '400';
+        statusCode = '500';
         body = err.message;
 
     } finally {

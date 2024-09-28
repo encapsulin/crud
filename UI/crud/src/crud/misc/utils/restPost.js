@@ -1,4 +1,5 @@
 export async function restPost(url, data) {
+    console.log("restPost:", data)
     let result = {
         status: 0,
         data: "",
@@ -14,26 +15,21 @@ export async function restPost(url, data) {
             body: JSON.stringify(data)
         });
 
-        console.log(resp)
-        if (resp.status !== 200 || !resp.ok) {
-            result.status = resp.status;
-            result.error = "API error, try again in a minute";
-            return result;
-        }
-
-        const dataResp = await resp.json()
-        console.log("dataResp.body: ", dataResp.body)
-        if (dataResp.body === "Unauthorized") {
-            result.status = 401;
-            result.error = dataResp.body;
-            return result;
-        }
-
+        console.log("resp:" + resp);
         result.status = resp.status;
+
+        const respjson = await resp.json();
+        console.log("resp.json: ", respjson);
+        result.data = respjson.data;
+
+        if (resp.status >= 300) {
+            result.error = "API error";
+        }
+
         return result;
 
     } catch (error) {
-        result.status = 400;
+        result.status = 500;
         result.error = error.message;
         return result;
     }

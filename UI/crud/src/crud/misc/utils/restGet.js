@@ -6,16 +6,18 @@ export async function restGet(url) {
     }
 
     try {
-        // setLoading(true);
+        console.log(url);
         const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const data_ = await response.json();
-        console.log(data_);
-        return data_;  // Return the data
+        console.log(response);
+        // if (!response.ok) {
+        //     throw new Error('Network response was not ok');
+        // }
+        const data_get = await response.json();
+        console.log("response.json:", data_get);
+        return data_get;  // Return the data
     } catch (error) {
-        // setMsgError(error.message);
+        console.log(error)
+        //console.log(error.message);
     } finally {
         // setLoading(false);
     }

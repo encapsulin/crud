@@ -7,7 +7,8 @@ export function fn_auth(uid, pwd) {
     else return false;
 }
 
-export function fn_auth_token_valid(token_) {
-    return token_ !== undefined && token_ === jwt;
+export function fn_auth_token_validate(token_) {
+    if (token_ === undefined || token_ !== jwt)
+        throw new Error("401 Unauthorized");
 }
 

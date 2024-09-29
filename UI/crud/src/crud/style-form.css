@@ -52,6 +52,10 @@
     /* Ensures padding and border are included in the width */
 }
 
+.textarea-field {
+    min-height: 10rem;
+}
+
 
 form {
     text-align: left;

@@ -39,9 +39,9 @@ function Crud() {
   useEffect(() => {
     const fetchDataDirs = async () => {
       setLoadingDirs(true);
-      let data_ = await restGet(config.URL_API + "?role=dir");
+      let data_dir = await restGet(config.URL_API + "?role=dir");
       setLoadingDirs(false);
-      setDataDirs(data_.data);
+      setDataDirs(data_dir.data);
       setSelectedDir(dataDirs[0]);
     };
     fetchDataDirs();
@@ -64,8 +64,8 @@ function Crud() {
   async function callbackSearch(str) {
     setSelectedDir({ title: "Search: " + str })
     setLoadingDocs(true);
-    let data_ = await restGet(config.URL_API + "?search=" + str);
-    setDataDocs(data_.data);
+    let data_search = await restGet(config.URL_API + "?search=" + str);
+    setDataDocs(data_search.data);
     setLoadingDocs(false);
   }
 

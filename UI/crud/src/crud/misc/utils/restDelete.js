@@ -1,3 +1,5 @@
+import { authTokenLocalStorageGet } from '../auth/Auth'
+
 export async function restDelete(url) {
     let result = {
         status: 0,
@@ -12,7 +14,8 @@ export async function restDelete(url) {
         const resp = await fetch(url, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': authTokenLocalStorageGet()
             }
         });
         console.log(resp)

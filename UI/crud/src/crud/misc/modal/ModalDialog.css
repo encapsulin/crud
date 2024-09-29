@@ -4,7 +4,7 @@
     padding: 0;
     /* background-color: #d7fcf8; */
     min-width: 50%;
-    /* max-width: 50%; */
+    /* min-height: 50%; */
 }
 
 .result-modal::backdrop {
@@ -51,6 +51,7 @@
     padding-right: 1rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    /* min-height: 50vh; */
 }
 
 

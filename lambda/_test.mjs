@@ -1,7 +1,7 @@
 import { handler } from "./index.mjs"
 
 //let event = await fn_file("_test_event.json");
-let event = {
+let event_get = {
     body: "{\"title\":\"value11\", \"descr\":\"\", \"skid\":\"20240918_204036_548\"}",
     httpMethod: "GET",
     queryStringParameters: {
@@ -21,4 +21,4 @@ let event_auth = {
     httpMethod: "POST"
 }
 //console.log(typeof event);
-handler(event_auth);
+handler(event_get);

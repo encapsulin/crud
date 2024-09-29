@@ -8,8 +8,8 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
     DynamoDBDocumentClient,
     // ScanCommand, // not recommended
-    PutCommand,
     // GetCommand, // ?
+    PutCommand,
     DeleteCommand,
     UpdateCommand,
     QueryCommand
@@ -57,7 +57,7 @@ export const fnDynamoQuery = async (args_) => {
 
         for (let filter of args_.filters) {
             if (filter.key === "search") {
-                params.FilterExpression = 'contains(title, :filterVal) OR contains(descr, :filterVal)';
+                params.FilterExpression = 'contains(titleLower, :filterVal)';
                 params.ExpressionAttributeValues[":filterVal"] = filter.val;
             } else {
                 params.FilterExpression = '#filterKey = :filterVal'

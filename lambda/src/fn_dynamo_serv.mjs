@@ -47,6 +47,7 @@ export const dynamo_serv_put = async (data_) => {
     data_.descr += " ";//empty key value is not allowed
     if (data_.parent === undefined)
         data_.parent = "0";
+    data_.titleLower = data_.title.toLowerCase();
 
     let data = await fnDynamoPut(data_)
     return data;
@@ -54,12 +55,13 @@ export const dynamo_serv_put = async (data_) => {
 
 export const dynamo_serv_update = async (skid, params) => {
     console.log("dynamo_update():", skid, params);
+    params.titleLower = params.title.toLowerCase()
     let out = [];
     for (const key in params) {
         let item = {
             skid: skid,
             key: key,
-            value: params[key]
+            value: params[key],
         }
         item.updateResult = await fnDynamoUpdate(item)
         out = [...out, item]

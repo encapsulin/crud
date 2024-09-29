@@ -2,6 +2,8 @@
 // import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb';
 // const dynamo = DynamoDBDocument.from(new DynamoDB());
 
+const tableName = 'tbCrud';
+
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
     DynamoDBDocumentClient,
@@ -14,8 +16,6 @@ import {
 } from "@aws-sdk/lib-dynamodb";
 const client = new DynamoDBClient({});
 const dynamo = DynamoDBDocumentClient.from(client);
-
-const tableName = 'tbCrud2';
 
 ////////////////////////////////////////////////
 

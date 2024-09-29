@@ -1,3 +1,2 @@
-lambda/node_modules/
 *.zip
-UI/crud/node_modules/
+node_modules/

@@ -54,7 +54,8 @@ export default function Docs({ callbackSelectItem, data, loading, selectedDir })
 
                 <hr />
                 {/* <div style={{ fontSize: "0.75rem" }}>/ <a href="#">Categ1</a> / categ11</div> */}
-                <div >{item.descr}</div>
+                {/* <div >{item.descr}</div> */}
+                <div dangerouslySetInnerHTML={{ __html: item.descr }} />
             </div>
         ))}
 

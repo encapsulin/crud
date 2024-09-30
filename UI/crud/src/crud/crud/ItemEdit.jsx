@@ -7,6 +7,7 @@ import { restPost } from '../misc/utils/restPost.js'
 import { restGet } from '../misc/utils/restGet.js'
 import { restDelete } from '../misc/utils/restDelete.js'
 import { buildTree } from './buildTree.js';
+import EditorQuill from '../misc/EditorQuill';
 
 export default function ItemEdit({ data, callbackModified }) {
 
@@ -155,6 +156,8 @@ export default function ItemEdit({ data, callbackModified }) {
                         name="descr"
                         value={formData.descr}
                         onChange={(e) => handleInputChange(e.target.name, e.target.value)}></textarea>
+                    <br />
+                    <EditorQuill initialContent={formData.descr}>hardcod</EditorQuill>
                     <br />
                     <div className='containerRowSides'>
                         <Loading loading={loading} />

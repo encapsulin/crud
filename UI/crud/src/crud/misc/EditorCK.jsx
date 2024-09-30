@@ -20,8 +20,12 @@ export default function EditorCK() {
         <div className="App">
             <CKEditor
                 editor={ClassicEditor}
-                data="<p>Type something here!</p>" // Initial content
-                onChange={handleEditorChange}      // Call function on change
+                data="<p>Type something here!</p>"
+                onChange={handleEditorChange}
+                config={{
+                    enterMode: 2, // CKEDITOR.ENTER_BR (inserts <br> on Enter)
+                    //shiftEnterMode: 1, // CKEDITOR.ENTER_P (default, creates <p> on Shift+Enter)
+                }}
             />
             {/* Display HTML Content */}
             <h3>Editor Content:</h3>

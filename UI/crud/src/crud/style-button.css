@@ -37,3 +37,13 @@ button.delete:hover {
     /* color: white; */
     border: 1px solid red;
 }
+
+button.tab {
+    background-color: var(--color-light);
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid silver;
+    color: var(--color-blue);
+    margin: 0 5px;
+
+}

@@ -18,12 +18,14 @@ export default function DirsTree({ callbackSelectItem, data, loading }) {
 
         return data_.map((item) => (
             <div key={item.skid}>
-                <div className={`align-row hover ${item.skid === itemSelected.skid ? 'hovered' : null}`} >
+                <div className={`align-row hover ${item.skid === itemSelected.skid ? 'hovered' : null}`}
+                    onClick={() => handleItemSelect(item)}
+                >
                     {'\u00A0'.repeat(tab_ * 5)}
                     <img src='img/folder.svg' alt='edit' />
 
                     <a style={{ margin: "0.25rem 0.1rem", }}
-                        onClick={() => handleItemSelect(item)}>
+                    >
                         {item.title}</a>
 
                     {getToken() ? <img src='img/pencil-square.svg' alt='edit' onClick={() => callbackSelectItem({ skid: item.skid, role: "dir" }, "w")}

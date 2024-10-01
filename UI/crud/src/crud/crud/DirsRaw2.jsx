@@ -1,19 +1,15 @@
 export default function DirsRaw2({ data, callbackSelectItem }) {
     return (
-        <div className="align-row-right">
-
-            <img src='img/plus-square.svg' alt='add'
-                onClick={() => callbackSelectItem({ skid: "0", role: "dir" }, "w")}
-                className='cursorPointer' />
+        <div className="align-row-right" style={{ backgroundColor: "white" }}>
 
             {data.map(item => (
-                <span key={item.skid}>
-                    <span className="align-col cursorPointer"
-                        onClick={() => callbackSelectItem(item, "r")}
-                    >
-                        <button>{item.title}</button>
+                <span key={item.skid} >
 
-                    </span>
+                    <button className="tab"
+                        onClick={() => callbackSelectItem(item, "r")}
+                    >{item.title}</button>
+
+
                 </span>
             ))}
         </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import Loading from '../misc/loading/Loading.jsx'
-import DirsRaw from './DirsRaw.jsx';
+import DirsRaw2 from './DirsRaw2.jsx';
 import { useAuthData } from '../misc/context/AuthDataContext.js';
 
 export default function Docs({ callbackSelectItem, data, loading, selectedDir }) {
@@ -35,7 +35,7 @@ export default function Docs({ callbackSelectItem, data, loading, selectedDir })
         {/* Title Skid Parent Role */}
         <Loading loading={loading} />
 
-        <DirsRaw data={dataDirs} callbackSelectItem={callbackSelectItem} />
+        <DirsRaw2 data={dataDirs} callbackSelectItem={callbackSelectItem} />
 
         {dataDocs.map((item, key) => (
             <div key={key} style={{

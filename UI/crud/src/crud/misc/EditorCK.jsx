@@ -1,9 +1,14 @@
-import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { CKEditor, Enter, Essentials, Paragraph, HeadingEditing } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-export default function EditorCK() {
-    const [editorContent, setEditorContent] = useState('');
+export default function EditorCK({ children, callbackModified }) {
+    const [editorContent, setEditorContent] = useState(children);
+    useEffect(() => {
+        setEditorContent(children);
+    }, [children]);  // Re-run effect when `initialContent` changes
+
+    useEffect(() => { callbackModified(editorContent) }, [editorContent])
 
     // Handle content change
     const handleEditorChange = (event, editor) => {
@@ -11,21 +16,22 @@ export default function EditorCK() {
         setEditorContent(data);         // Store the content in state
         console.log("HTML Content:", data);
 
-        // If you want plain text:
-        const plainText = editor.editing.view.document.getRoot().getChild(0).data;
-        console.log("Plain Text Content:", plainText);
+        // const plainText = editor.editing.view.document.getRoot().getChild(0).data;
+        // console.log("Plain Text Content:", plainText);
     };
 
     return (
         <div className="App">
             <CKEditor
                 editor={ClassicEditor}
-                data="<p>Type something here!</p>" // Initial content
-                onChange={handleEditorChange}      // Call function on change
+                data={editorContent}
+                onChange={handleEditorChange}
+                config={{
+                    enterMode: 20,
+                }}
             />
-            {/* Display HTML Content */}
-            <h3>Editor Content:</h3>
-            <div>{editorContent}</div>
+            {/* <h3>Editor Content:</h3>
+            <div>{editorContent}</div> */}
         </div>
     );
 }

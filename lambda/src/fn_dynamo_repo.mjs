@@ -2,20 +2,20 @@
 // import { DynamoDBDocument } from '@aws-sdk/lib-dynamodb';
 // const dynamo = DynamoDBDocument.from(new DynamoDB());
 
+const tableName = 'tbCrud';
+
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
     DynamoDBDocumentClient,
     // ScanCommand, // not recommended
-    PutCommand,
     // GetCommand, // ?
+    PutCommand,
     DeleteCommand,
     UpdateCommand,
     QueryCommand
 } from "@aws-sdk/lib-dynamodb";
 const client = new DynamoDBClient({});
 const dynamo = DynamoDBDocumentClient.from(client);
-
-const tableName = 'tbCrud2';
 
 ////////////////////////////////////////////////
 
@@ -33,7 +33,8 @@ export const fnDynamoQuery = async (args_) => {
         ExpressionAttributeValues: {
             ":partVal": "0",
             ":sortVal": "0"
-        }
+        },
+        //Limit: 10
         //ProjectionExpression: 'orderId, orderDate, totalAmount',  // Specify the attributes you want
     };
 
@@ -57,7 +58,7 @@ export const fnDynamoQuery = async (args_) => {
 
         for (let filter of args_.filters) {
             if (filter.key === "search") {
-                params.FilterExpression = 'contains(title, :filterVal) OR contains(descr, :filterVal)';
+                params.FilterExpression = 'contains(titleLower, :filterVal)';
                 params.ExpressionAttributeValues[":filterVal"] = filter.val;
             } else {
                 params.FilterExpression = '#filterKey = :filterVal'
@@ -67,6 +68,9 @@ export const fnDynamoQuery = async (args_) => {
 
         }
 
+        if (args_.index !== "role")
+            params.Limit = 10
+
     }
 
     console.log("QueryCommand():", params);
@@ -74,10 +78,10 @@ export const fnDynamoQuery = async (args_) => {
     const command = new QueryCommand(params);
     try {
         const data = await dynamo.send(command);
-        //console.log(data)
+        console.log(data)
         return {
             statusCode: data.$metadata.httpStatusCode,
-            data: data.Items
+            data: data
         };
     } catch (error) {
         console.log(error)

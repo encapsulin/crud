@@ -41,7 +41,7 @@ function Crud() {
       setLoadingDirs(true);
       let data_dir = await restGet(config.URL_API + "?role=dir");
       setLoadingDirs(false);
-      setDataDirs(data_dir.data);
+      setDataDirs(data_dir.data.Items);
       setSelectedDir(dataDirs[0]);
     };
     fetchDataDirs();
@@ -55,7 +55,7 @@ function Crud() {
       setLoadingDocs(true);
       let url = config.URL_API + `?parent=${selectedDir.skid}`;
       let data_json = await restGet(url);
-      setDataDocs(data_json.data);
+      setDataDocs(data_json.data.Items);
       setLoadingDocs(false);
     };
     fetchDataDocs();
@@ -65,7 +65,7 @@ function Crud() {
     setSelectedDir({ title: "Search: " + str })
     setLoadingDocs(true);
     let data_search = await restGet(config.URL_API + "?search=" + str);
-    setDataDocs(data_search.data);
+    setDataDocs(data_search.data.Items);
     setLoadingDocs(false);
   }
 

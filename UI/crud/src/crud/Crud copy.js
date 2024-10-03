@@ -3,9 +3,9 @@ import './style-align.css';
 import './style-button.css';
 import Header from './header/Header'
 import Footer from './footer/Footer'
-import DirsTree from './core/DirsTree'
-import Docs from './core/Docs'
-import ItemEdit from './core/ItemEdit'
+import DirsTree from './crud/DirsTree'
+import Docs from './crud/Docs'
+import ItemEdit from './crud/ItemEdit'
 import { useState, useEffect } from 'react';
 import config from './config.js'
 import { restGet } from './misc/utils/restGet.js'
@@ -33,6 +33,9 @@ function Crud() {
   const [dataDirs, setDataDirs] = useState([]);
   const [selectedDir, setSelectedDir] = useState({ skid: 0 });
 
+  const [dataDocs, setDataDocs] = useState([]);
+  const [loadingDocs, setLoadingDocs] = useState(false);
+
   useEffect(() => {
     const fetchDataDirs = async () => {
       setLoadingDirs(true);
@@ -44,13 +47,26 @@ function Crud() {
     fetchDataDirs();
   }, [reload])
 
-  //TODO
+  useEffect(() => {
+    const fetchDataDocs = async () => {
+      if (selectedDir === undefined || selectedDir.skid === undefined || selectedDir.skid === null)
+        return;
+
+      setLoadingDocs(true);
+      let url = config.URL_API + `?parent=${selectedDir.skid}`;
+      let data_json = await restGet(url);
+      setDataDocs(data_json.data.Items);
+      setLoadingDocs(false);
+    };
+    fetchDataDocs();
+  }, [selectedDir])
+
   async function callbackSearch(str) {
     setSelectedDir({ title: "Search: " + str })
-    //setLoadingDocs(true);
+    setLoadingDocs(true);
     let data_search = await restGet(config.URL_API + "?search=" + str);
-    //setDataDocs(data_search.data.Items);
-    //setLoadingDocs(false);
+    setDataDocs(data_search.data.Items);
+    setLoadingDocs(false);
   }
 
   return (<>
@@ -61,7 +77,7 @@ function Crud() {
         <DirsTree callbackSelectItem={callbackSelectItem} callbackReload={setReload} data={dataDirs}
           loading={loadingDirs} />
         <Docs callbackSelectItem={callbackSelectItem} selectedDir={selectedDir}
-          callbackReload={setReload} />
+          callbackReload={setReload} data={dataDocs} loading={loadingDocs} />
       </div>
       <Footer />
 

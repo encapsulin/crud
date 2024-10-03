@@ -1,4 +1,4 @@
-export default function DirsRaw2({ data, callbackSelectItem }) {
+export default function DirsRaw({ data, callbackSelectItem }) {
     return (
         <div className="align-row-right" style={{ backgroundColor: "white" }}>
 

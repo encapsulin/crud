@@ -111,3 +111,36 @@ hr {
 a {
     color: var(--color-blue);
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    /* Ensures borders collapse into a single line */
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+
+th,
+td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    /* Light gray border for table cells */
+}
+
+th {
+    background-color: silver;
+    /* Light gray background for header */
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+    /* Zebra stripes for table rows */
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+    /* Slightly darker gray when hovering over a row */
+}

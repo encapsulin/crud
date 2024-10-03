@@ -1,11 +1,12 @@
-source ./sh/cfg.sh   # Or use . ./vars.sh
+pwd
+source ./lambda/tests.sh/cfg.sh   # Or use . ./vars.sh
 # -H "Authorization: Bearer your_token"
 
 params = ""
 params1 = "parent=0&role=dir"
-params2 = "parent=0&role=doc"
+params2 = "parent=20240929_160937_354"
 
-curl -X GET "$URL?$params1"
+curl -X GET "$URL?$params2"
 
 #curl -X GET "$URL?filter=role&filterVal=doc"
 

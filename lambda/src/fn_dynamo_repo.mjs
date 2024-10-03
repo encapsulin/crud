@@ -33,7 +33,8 @@ export const fnDynamoQuery = async (args_) => {
         ExpressionAttributeValues: {
             ":partVal": "0",
             ":sortVal": "0"
-        }
+        },
+        //Limit: 10
         //ProjectionExpression: 'orderId, orderDate, totalAmount',  // Specify the attributes you want
     };
 
@@ -67,6 +68,9 @@ export const fnDynamoQuery = async (args_) => {
 
         }
 
+        if (args_.index !== "role")
+            params.Limit = 10
+
     }
 
     console.log("QueryCommand():", params);
@@ -74,10 +78,10 @@ export const fnDynamoQuery = async (args_) => {
     const command = new QueryCommand(params);
     try {
         const data = await dynamo.send(command);
-        //console.log(data)
+        console.log(data)
         return {
             statusCode: data.$metadata.httpStatusCode,
-            data: data.Items
+            data: data
         };
     } catch (error) {
         console.log(error)

@@ -11,13 +11,20 @@ export default function Docs({ callbackSelectItem, selectedDir }) {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [pageSkid, setPageSkid] = useState(0);
-    // {
-    //     "LastEvaluatedKey": {
-    //         "pkid": "0",
-    //         "parent": "20240929_160937_354",
-    //         "skid": "20241003_120229_865"
-    //     }
-    // }
+
+    const fetchDataDirs = async () => {
+        if (selectedDir === undefined || selectedDir.skid === undefined || selectedDir.skid === null)
+            return;
+
+        let url = config.URL_API + `?parent=${selectedDir.skid}&role=dir`;
+
+        setLoading(true);
+        let resp = await restGet(url);
+        setLoading(false);
+
+        //setData(resp.data.Items);
+        setDataDirs(resp.data.Items);
+    };
 
     const fetchDataDocs = async () => {
         if (selectedDir === undefined || selectedDir.skid === undefined || selectedDir.skid === null)
@@ -30,29 +37,23 @@ export default function Docs({ callbackSelectItem, selectedDir }) {
         setLoading(false);
 
         //setData(resp.data.Items);
-        setData(prev => [...prev, ...resp.data.Items]);
+        setDataDocs(prev => [...prev, ...resp.data.Items]);
 
         if (resp.data.LastEvaluatedKey !== undefined)
             setPageSkid(resp.data.LastEvaluatedKey.skid);
-
     };
 
     useEffect(() => {
         setData([])
         setPageSkid(0)
+        fetchDataDirs();
         fetchDataDocs();
     }, [selectedDir])
 
     const [dataDirs, setDataDirs] = useState([]);
     const [dataDocs, setDataDocs] = useState([]);
 
-    useEffect(() => {
-        setDataDocs(data.filter(o => o.role === "doc"));
-        setDataDirs(data.filter(o => o.role === "dir"));
-    }, [data])
-
     const { getToken } = useAuthData();
-
 
     return (<div className="containerCell" style={{
         width: "100%",

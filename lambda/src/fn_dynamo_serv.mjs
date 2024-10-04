@@ -7,35 +7,99 @@ import { fnDatePlusDHM, fnTtlMins, fnDateToIso } from './fn_datez.mjs'
 export const dynamo_serv_query = async (args) => {
     console.log("dynamo_serv_query():", args);
 
-    let data = [];
-    let params = { index: null, filters: [] }
+    let params = {
+        KeyConditionExpression: 'pkid = :pkidV AND skid >= :sortV',
+        ExpressionAttributeValues: { ':pkidV': '0', ':sortV': '0' },
+        TableName: 'tbCrud',
+        ScanIndexForward: false,
+        Limit: 2
+        //ProjectionExpression: 'orderId, orderDate, totalAmount',  // Specify the attributes you want
+    };
 
-    // define index
-    if (params.index === null && args.skid !== undefined) {
-        params.index = "skid"
-        params.indexVal = args.skid;
-    }
-    if (params.index === null && args.parent !== undefined) {
-        params.index = "parent"
-        params.indexVal = args.parent;
-    }
-    if (params.index === null && args.role !== undefined) {
-        params.index = "role"
-        params.indexVal = args.role;
+    if (args.skid !== undefined) {
+        params.KeyConditionExpression = 'pkid = :pkidV AND #sortK = :sortV';
+        params.ExpressionAttributeNames = { '#sortK': 'skid' }
+        params.ExpressionAttributeValues = { ':pkidV': '0', ':sortV': args.skid }
     }
 
-    //define filters
-    if (params.index !== "parent" && args.parent !== undefined) {
-        params.filters.push({ key: "parent", val: args.parent });
+    if (args.parent !== undefined) {
+        params.IndexName = 'parent-index';
+        params.KeyConditionExpression = 'pkid = :pkidV AND #sortK = :sortV';
+        params.ExpressionAttributeNames = { '#sortK': 'parent' };
+        params.ExpressionAttributeValues = { ':pkidV': '0', ":sortV": args.parent };
+        params.Limit = 2;
+        if (args.parent === '0') {
+            delete params.IndexName;
+            params.KeyConditionExpression = 'pkid = :pkidV AND #sortK >= :sortV';
+            params.ExpressionAttributeNames = { '#sortK': 'skid' };
+            params.ExpressionAttributeValues = { ':pkidV': '0', ":sortV": '0' };
+        }
+        if (args.pageNext !== undefined && args.pageNext !== '0') {
+            delete params.IndexName;
+            params.KeyConditionExpression = 'pkid = :pkidV AND #sortK < :sortV';
+            params.FilterExpression = '#filterK = :filterV';
+            params.ExpressionAttributeNames = { '#sortK': 'skid', '#filterK': 'parent' };
+            params.ExpressionAttributeValues = { ':pkidV': '0', ':sortV': args.pageNext, ':filterV': args.parent };
+        }
     }
-    if (params.index !== "role" && args.role !== undefined) {
-        params.filters.push({ key: "role", val: args.role });
+
+    if (args.role !== undefined) {
+        params.IndexName = 'role-index';
+        params.KeyConditionExpression = 'pkid = :pkidV AND #sortK = :sortV';
+        params.ExpressionAttributeNames = { '#sortK': 'role' }
+        params.ExpressionAttributeValues = { ':pkidV': '0', ':sortV': args.role }
+        delete params.Limit;
     }
+
+    // const params = {
+    //     TableName: 'crud',                // DynamoDB table name
+    //     IndexName: 'title-index',         // Local Secondary Index (LSI) to use for filtering by title
+    //     KeyConditionExpression: '#pkid = :pkidVal',  // Query by partition key (since we're using an LSI)
+    //     FilterExpression: 'contains(#title, :titleSubstring)',  // Filter for titles containing a substring
+    //     ExpressionAttributeNames: {
+    //       '#pkid': 'pkid',               // Partition key attribute
+    //       '#title': 'title'              // 'title' attribute in LSI
+    //     },
+    //     ExpressionAttributeValues: {
+    //       ':pkidVal': '0',               // Value of the partition key (adjust as necessary)
+    //       ':titleSubstring': 'example'   // Substring to search for within the title
+    //     },
+    //     Limit: 10                        // Limit the number of results returned
+    //   };
+    //TODO
     if (args.search !== undefined) {
-        params.filters.push({ key: "search", val: args.search });
+        params.IndexName = 'title-index';
+        params.FilterExpression = 'contains(titleLower, :filterV)';
+        params.ExpressionAttributeValues[':filterV'] = args.search;
+        // if (args.parent !== undefined) {
+        //     params.KeyConditionExpression = '#pkid = :pkidVal AND #sortKey = :roleV';
+        //     params.ExpressionAttributeNames = { '#sortKey': 'parent' };
+        //     params.ExpressionAttributeValues[':filterV'] = args.search;
+        // }
     }
 
-    data = await fnDynamoQuery(params);
+    // params = {
+    //     TableName: tableName,              // DynamoDB table name
+    //     // IndexName: 'parent-index',      // Local Secondary Index to use for filtering by parent
+    //     KeyConditionExpression: '#pkid = :pkidVal AND #skid < :skidVal',  // pkid = partition key, parent filter
+    //     FilterExpression: '#parent = :parentVal',  // Filter skid > 321
+    //     ExpressionAttributeNames: {
+    //         '#pkid': 'pkid',             // Partition key
+    //         '#parent': 'parent',         // 'parent' attribute in LSI
+    //         '#skid': 'skid'              // 'skid' attribute for sorting and filtering
+    //     },
+    //     ExpressionAttributeValues: {
+    //         ':pkidVal': '0',             // Value of the partition key (adjust as necessary)
+    //         ':parentVal': '20240929_160937_354',         // Parent attribute value to filter by
+    //         ':skidVal': '20241003_205037_857'              // Skid value filter
+    //     },
+    //     ScanIndexForward: false,        // Sort results by skid in descending order
+    //     Limit: 3                        // Limit the result to 3 items
+    // };
+
+
+
+    let data = await fnDynamoQuery(params);
     return data;
 };
 

@@ -4,12 +4,13 @@ import DirsRaw from './DirsRaw.jsx';
 import { useAuthData } from '../misc/context/AuthDataContext.js';
 import config from '../config.js'
 import { restGet } from '../misc/utils/restGet.js'
+import DocsPage from './DocsPage.jsx';
 
 export default function Docs({ callbackSelectItem, selectedDir }) {
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [pageNextSkid, setPageNextSkid] = useState(0);
+    const [pageSkid, setPageSkid] = useState(0);
     // {
     //     "LastEvaluatedKey": {
     //         "pkid": "0",
@@ -18,21 +19,26 @@ export default function Docs({ callbackSelectItem, selectedDir }) {
     //     }
     // }
 
+    const fetchDataDocs = async () => {
+        if (selectedDir === undefined || selectedDir.skid === undefined || selectedDir.skid === null)
+            return;
+
+        setLoading(true);
+        let url = config.URL_API + `?parent=${selectedDir.skid}&pageNext=${pageSkid}`;
+        setLoading(false);
+
+        let resp = await restGet(url);
+        //setData(resp.data.Items);
+        setData(prev => [...prev, ...resp.data.Items]);
+
+        if (resp.data.LastEvaluatedKey !== undefined)
+            setPageSkid(resp.data.LastEvaluatedKey.skid);
+
+    };
+
     useEffect(() => {
-        const fetchDataDocs = async () => {
-            if (selectedDir === undefined || selectedDir.skid === undefined || selectedDir.skid === null)
-                return;
-
-            setLoading(true);
-            let url = config.URL_API + `?parent=${selectedDir.skid}`;
-            setLoading(false);
-
-            let respjson = await restGet(url);
-            setData(respjson.data.Items);
-            if (respjson.LastEvaluatedKey !== undefined)
-                setPageNextSkid(respjson.LastEvaluatedKey.skid);
-
-        };
+        setData([])
+        setPageSkid(0)
         fetchDataDocs();
     }, [selectedDir])
 
@@ -69,31 +75,9 @@ export default function Docs({ callbackSelectItem, selectedDir }) {
 
         <DirsRaw data={dataDirs} callbackSelectItem={callbackSelectItem} />
 
-        {dataDocs.map((item, key) => (
-            <div>
-                <div key={key} style={{
-                    marginBottom: "0.5rem",
-                    border: "1px solid silver",
-                    padding: "1rem",
-                    borderRadius: "5px"
-                }}>
-                    <div className='align-row'>
-                        <img src='img/file.svg' alt='file' />
-                        <b style={{ margin: '0 0.25rem', color: "var(--color-dark)" }}>{item.title}</b>
-                        {getToken() ? <img src='img/pencil-square.svg' alt='edit'
-                            onClick={() => callbackSelectItem({ skid: item.skid, role: "doc" }, "w")}
-                            className='cursorPointer' /> : null}
-                    </div>
+        <DocsPage data={dataDocs} callbackSelectItem={callbackSelectItem} />
 
-                    <hr />
-                    {/* <div style={{ fontSize: "0.75rem" }}>/ <a href="#">Categ1</a> / categ11</div> */}
-                    {/* <div >{item.descr}</div> */}
-                    <div dangerouslySetInnerHTML={{ __html: item.descr }} />
-                </div>
-
-                <div>{pageNextSkid ? pageNextSkid : null}</div>
-            </div>
-        ))}
+        {pageSkid ? (<button onClick={fetchDataDocs}>Get next 10</button>) : null}
 
     </div>)
 }

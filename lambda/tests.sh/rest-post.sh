@@ -1,10 +1,12 @@
 pwd
-source ./lambda/tests.sh/cfg.sh
+source ./lambda/tests.sh/config.sh
  
-for i in {1..100}; do
+for i in {1..10}; do
     strDT=$(date +'%Y%m%d-%H%M%S')
     strDT="${strDT}.${i}"
-    echo $strDT
+# strDT="20241003-203917.196"
+     echo $strDT
+
 
 curl -X POST $URL \
 -H "Content-Type: application/json" \

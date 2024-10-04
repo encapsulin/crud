@@ -23,11 +23,12 @@ export default function Docs({ callbackSelectItem, selectedDir }) {
         if (selectedDir === undefined || selectedDir.skid === undefined || selectedDir.skid === null)
             return;
 
-        setLoading(true);
         let url = config.URL_API + `?parent=${selectedDir.skid}&pageNext=${pageSkid}`;
+
+        setLoading(true);
+        let resp = await restGet(url);
         setLoading(false);
 
-        let resp = await restGet(url);
         //setData(resp.data.Items);
         setData(prev => [...prev, ...resp.data.Items]);
 
@@ -71,11 +72,12 @@ export default function Docs({ callbackSelectItem, selectedDir }) {
         </div>
         <hr />
         {/* Title Skid Parent Role */}
-        <Loading loading={loading} />
 
         <DirsRaw data={dataDirs} callbackSelectItem={callbackSelectItem} />
 
         <DocsPage data={dataDocs} callbackSelectItem={callbackSelectItem} />
+
+        <Loading loading={loading} />
 
         {pageSkid ? (<button onClick={fetchDataDocs}>Get next 10</button>) : null}
 

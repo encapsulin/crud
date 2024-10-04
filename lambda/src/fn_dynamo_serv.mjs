@@ -29,10 +29,11 @@ export const dynamo_serv_query = async (args) => {
         params.ExpressionAttributeValues = { ':pkidV': '0', ":sortV": args.parent };
         params.Limit = 2;
         if (args.parent === '0') {
-            delete params.IndexName;
-            params.KeyConditionExpression = 'pkid = :pkidV AND #sortK >= :sortV';
-            params.ExpressionAttributeNames = { '#sortK': 'skid' };
-            params.ExpressionAttributeValues = { ':pkidV': '0', ":sortV": '0' };
+            //delete params.IndexName;
+            // params.FilterExpression = '#filterK = :filterV';
+            // params.KeyConditionExpression = 'pkid = :pkidV AND #sortK >= :sortV';
+            // params.ExpressionAttributeNames = { '#sortK': 'skid' , '#filterK':'parent'};
+            // params.ExpressionAttributeValues = { ':pkidV': '0', ":sortV": '0' ,':filterV':args.parent};
         }
         if (args.pageNext !== undefined && args.pageNext !== '0') {
             delete params.IndexName;

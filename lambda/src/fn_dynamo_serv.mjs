@@ -13,7 +13,7 @@ export const dynamo_serv_query = async (args) => {
         ExpressionAttributeValues: { ':pkidV': '0', ':sortV': '0' },
         TableName: 'tbCrud',
         ScanIndexForward: false,
-        Limit: 2
+        Limit: 10
         //ProjectionExpression: 'orderId, orderDate, totalAmount',  // Specify the attributes you want
     };
 

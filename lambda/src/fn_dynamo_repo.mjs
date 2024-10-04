@@ -20,58 +20,7 @@ const dynamo = DynamoDBDocumentClient.from(client);
 ////////////////////////////////////////////////
 
 /////////////////////////////////////////////////
-export const fnDynamoQuery = async (args_) => {
-    //defaults
-    let params = {
-        TableName: tableName,
-        ScanIndexForward: false,
-        KeyConditionExpression: "#partKey = :partVal AND #sortKey >= :sortVal",
-        ExpressionAttributeNames: {
-            '#partKey': 'pkid', // Partition key
-            '#sortKey': 'skid', // LSI sort key
-        },
-        ExpressionAttributeValues: {
-            ":partVal": "0",
-            ":sortVal": "0"
-        },
-        //Limit: 10
-        //ProjectionExpression: 'orderId, orderDate, totalAmount',  // Specify the attributes you want
-    };
-
-    //customize defaults
-    if (args_) {
-
-        if (args_.index !== null) {
-            params.KeyConditionExpression = "#partKey = :partVal AND #sortKey = :sortVal";
-            params.ExpressionAttributeValues = { ":partVal": "0", ":sortVal": args_.indexVal }
-
-            if (args_.index === "skid") {
-                params.ExpressionAttributeNames = { '#partKey': 'pkid', '#sortKey': 'skid' }
-            } else if (args_.index === "parent") {
-                params.IndexName = 'parent-index';  // Name of your LSI
-                params.ExpressionAttributeNames = { '#partKey': 'pkid', '#sortKey': 'parent' }
-            } else if (args_.index === "role") {
-                params.IndexName = 'role-index';  // Name of your LSI
-                params.ExpressionAttributeNames = { '#partKey': 'pkid', '#sortKey': 'role' }
-            }
-        }
-
-        for (let filter of args_.filters) {
-            if (filter.key === "search") {
-                params.FilterExpression = 'contains(titleLower, :filterVal)';
-                params.ExpressionAttributeValues[":filterVal"] = filter.val;
-            } else {
-                params.FilterExpression = '#filterKey = :filterVal'
-                params.ExpressionAttributeNames["#filterKey"] = filter.key
-                params.ExpressionAttributeValues[":filterVal"] = filter.val;
-            }
-
-        }
-
-        if (args_.index !== "role")
-            params.Limit = 10
-
-    }
+export const fnDynamoQuery = async (params) => {
 
     console.log("QueryCommand():", params);
 

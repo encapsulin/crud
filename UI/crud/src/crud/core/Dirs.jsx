@@ -3,7 +3,7 @@ import Loading from '../misc/loading/Loading.jsx'
 import { buildTree } from './buildTree.js';
 import { useAuthData } from '../misc/context/AuthDataContext.js';
 
-export default function DirsTree({ callbackSelectItem, data, loading }) {
+export default function Dirs({ callbackSelectItem, data, loading }) {
 
     const [itemSelected, setItemSelected] = useState(0);
 

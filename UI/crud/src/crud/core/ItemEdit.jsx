@@ -47,9 +47,9 @@ export default function ItemEdit({ data, callbackModified }) {
         ///////////////////////
         const fetchDataTree = async () => {
             setLoadingTree(true);
-            let data_json = await restGet(config.URL_API + "?role=dir");
+            let resp = await restGet(config.URL_API + "?role=dir");
             setLoadingTree(false);
-            setDataTree(buildTree(data_json.data));
+            setDataTree(buildTree(resp.data.Items));
         };
         fetchDataTree();
 
@@ -61,10 +61,10 @@ export default function ItemEdit({ data, callbackModified }) {
         ///////////////////////////////
         const fetchData = async () => {
             setLoading(true);
-            let data_json = await restGet(config.URL_API + "?skid=" + data.skid);
+            let resp = await restGet(config.URL_API + "?skid=" + data.skid);
             setLoading(false);
             //console.log(data_json.data[0]);
-            setFormData(() => data_json.data[0]);
+            setFormData(() => resp.data.Items[0]);
         };
         fetchData();
 
@@ -122,7 +122,7 @@ export default function ItemEdit({ data, callbackModified }) {
 
     return (
         <>
-            <ModalDialog ref={refModal} title={modalTitle} >
+            <ModalDialog ref={refModal} title={modalTitle} callbackClose={() => refModal.current.close()}>
                 <form onSubmit={handleSubmit} >
                     {/* {JSON.stringify(formData)} */}
                     <div className='containerRowSides'>

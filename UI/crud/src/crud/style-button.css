@@ -45,5 +45,9 @@ button.tab {
     border-bottom: 2px solid silver;
     color: var(--color-blue);
     margin: 0 5px;
+}
 
+button.light {
+    background: white;
+    color: var(--color-dark);
 }

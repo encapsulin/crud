@@ -7,35 +7,64 @@ import { fnDatePlusDHM, fnTtlMins, fnDateToIso } from './fn_datez.mjs'
 export const dynamo_serv_query = async (args) => {
     console.log("dynamo_serv_query():", args);
 
-    let data = [];
-    let params = { index: null, filters: [] }
+    let params = {
+        KeyConditionExpression: 'pkid = :pkidV AND #sortK = :sortV',
+        ExpressionAttributeNames: { '#sortK': 'skid' },
+        ExpressionAttributeValues: { ':pkidV': '0', ':sortV': '0' },
+        TableName: 'tbCrud',
+        ScanIndexForward: false,
+        Limit: 10
+        //ProjectionExpression: 'orderId, orderDate, totalAmount',  // Specify the attributes you want
+    };
 
-    // define index
-    if (params.index === null && args.skid !== undefined) {
-        params.index = "skid"
-        params.indexVal = args.skid;
-    }
-    if (params.index === null && args.parent !== undefined) {
-        params.index = "parent"
-        params.indexVal = args.parent;
-    }
-    if (params.index === null && args.role !== undefined) {
-        params.index = "role"
-        params.indexVal = args.role;
+    if (args.skid !== undefined) {
+        params.ExpressionAttributeValues[':sortV'] = args.skid;
     }
 
-    //define filters
-    if (params.index !== "parent" && args.parent !== undefined) {
-        params.filters.push({ key: "parent", val: args.parent });
+    if (args.parent !== undefined) {
+        params.IndexName = 'parent-index';
+        params.KeyConditionExpression = 'pkid = :pkidV AND #sortK = :sortV';
+        params.ExpressionAttributeNames['#sortK'] = 'parent';
+        params.ExpressionAttributeValues[':sortV'] = args.parent;
     }
-    if (params.index !== "role" && args.role !== undefined) {
-        params.filters.push({ key: "role", val: args.role });
+
+    //?
+    if (args.role !== undefined) {
+        if (args.role === 'dir')
+            delete params.Limit;
+        if (params.IndexName === undefined) {
+            params.IndexName = 'role-index';
+            params.KeyConditionExpression = 'pkid = :pkidV AND #sortK = :sortV';
+            params.ExpressionAttributeNames['#sortK'] = 'role';
+            params.ExpressionAttributeValues[':sortV'] = args.role;
+        } else {
+            params.FilterExpression = '#roleK = :roleV';
+            params.ExpressionAttributeNames['#roleK'] = 'role';
+            params.ExpressionAttributeValues[':roleV'] = args.role;
+        }
+
     }
+
+    //?
+    if (args.pageNext !== undefined && args.pageNext !== '0') {
+        params.ExclusiveStartKey = {
+            pkid: '0',                          // Partition key value from the previous query result
+            skid: args.pageNext,      // Sort key value from the previous query result
+            parent: args.parent
+        };
+    }
+
+    //TODO
     if (args.search !== undefined) {
-        params.filters.push({ key: "search", val: args.search });
+        params.IndexName = 'title-index';
+        params.FilterExpression = 'contains(titleLower, :filterV)';
+        params.ExpressionAttributeValues[':filterV'] = args.search;
     }
 
-    data = await fnDynamoQuery(params);
+
+
+
+    let data = await fnDynamoQuery(params);
     return data;
 };
 

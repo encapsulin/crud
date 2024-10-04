@@ -3,17 +3,7 @@ import { handler } from "./index.mjs"
 //let event = await fn_file("_test_event.json");
 let event_post = {
     body: "{\"title\":\"value11\", \"descr\":\"\", \"skid\":\"20240918_204036_548\"}",
-    httpMethod: "GET",
-    queryStringParameters: {
-        //role: "dir",
-        search: "asdf"
-
-        // skid: "20240917_133512_234",
-        //parent: "0", role: "dir",
-        // parent: "0", role: "doc",
-        // filter: "role", filterVal: "dir"
-
-    }
+    httpMethod: "POST"
 }
 
 let event_auth = {
@@ -25,14 +15,29 @@ let event_get = {
     // body: "{\"title\":\"value11\", \"descr\":\"\", \"skid\":\"20240918_204036_548\"}",
     httpMethod: "GET",
     queryStringParameters: {
-        //role: "dir",
-        //search: "asdf"
-        // skid: "20240917_133512_234",
-        parent: "0", 
-        //role: "dir",
+        // skid: "20241004_204806_966",
+
+        // role: "dir",
+        // ok
+
+        //   parent: "0", 
+        //   role: "dir",
+        //   ok
+
+        // parent: "0", 
+        // role: "doc",
+
         //parent: "20240929_160937_354",
-        pageNext: "0",
-        //pageNext: "20241003_203819_073",
+        //role: "doc",
+        //pageNext: "0",
+        //pageNext: "20241004_185811_288",
+
+        //search: "asdf"
+
+        parent:"20241004_204843_611",
+        pageNext:"20241004_212358_157",
+        role:"doc"
+
     }
 }
 

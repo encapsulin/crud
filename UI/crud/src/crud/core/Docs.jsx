@@ -8,29 +8,30 @@ import DocsPage from './DocsPage.jsx';
 
 export default function Docs({ callbackSelectItem, selectedDir }) {
 
-    const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [pageSkid, setPageSkid] = useState(0);
 
     const fetchDataDirs = async () => {
-        if (selectedDir === undefined || selectedDir.skid === undefined || selectedDir.skid === null)
-            return;
+        console.log("selectedDir:", selectedDir);
+        let selectedDirskid = 0;
+        if (selectedDir !== undefined && selectedDir.skid !== undefined)
+            selectedDirskid = selectedDir.skid;
 
-        let url = config.URL_API + `?parent=${selectedDir.skid}&role=dir`;
+        let url = config.URL_API + `?parent=${selectedDirskid}&role=dir`;
 
         setLoading(true);
         let resp = await restGet(url);
         setLoading(false);
 
-        //setData(resp.data.Items);
         setDataDirs(resp.data.Items);
     };
 
-    const fetchDataDocs = async () => {
-        if (selectedDir === undefined || selectedDir.skid === undefined || selectedDir.skid === null)
-            return;
+    const fetchDataDocs = async (pageSkid_ = 0) => {
+        let selectedDirskid = 0;
+        if (selectedDir !== undefined && selectedDir.skid !== undefined)
+            selectedDirskid = selectedDir.skid;
 
-        let url = config.URL_API + `?parent=${selectedDir.skid}&pageNext=${pageSkid}`;
+        let url = config.URL_API + `?parent=${selectedDirskid}&pageNext=${pageSkid_}&role=doc`;
 
         setLoading(true);
         let resp = await restGet(url);
@@ -39,12 +40,18 @@ export default function Docs({ callbackSelectItem, selectedDir }) {
         //setData(resp.data.Items);
         setDataDocs(prev => [...prev, ...resp.data.Items]);
 
-        if (resp.data.LastEvaluatedKey !== undefined)
+        if (resp.data.LastEvaluatedKey !== undefined
+            && dataDocs.length > 0
+            && dataDocs[dataDocs.length - 1].skid !== resp.data.LastEvaluatedKey.skid)
             setPageSkid(resp.data.LastEvaluatedKey.skid);
+        else
+            setPageSkid(0);
+
     };
 
     useEffect(() => {
-        setData([])
+        setDataDirs([])
+        setDataDocs([])
         setPageSkid(0)
         fetchDataDirs();
         fetchDataDocs();
@@ -80,7 +87,7 @@ export default function Docs({ callbackSelectItem, selectedDir }) {
 
         <Loading loading={loading} />
 
-        {pageSkid ? (<button onClick={fetchDataDocs}>Get next 10</button>) : null}
+        {pageSkid ? (<button onClick={() => fetchDataDocs(pageSkid)}>Get next 10</button>) : null}
 
     </div>)
 }

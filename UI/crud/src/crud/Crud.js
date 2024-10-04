@@ -3,7 +3,7 @@ import './style-align.css';
 import './style-button.css';
 import Header from './header/Header'
 import Footer from './footer/Footer'
-import DirsTree from './core/DirsTree'
+import DirsTree from './core/Dirs'
 import Docs from './core/Docs'
 import ItemEdit from './core/ItemEdit'
 import { useState, useEffect } from 'react';

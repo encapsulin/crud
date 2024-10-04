@@ -1,3 +1,4 @@
-source ./lambda/tests.sh/config.sh
+pwd
+source ./passwords.sh
  
 curl -X OPTIONS $URL 

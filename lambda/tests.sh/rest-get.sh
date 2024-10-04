@@ -1,6 +1,5 @@
 pwd
-source ./lambda/tests.sh/cfg.sh   # Or use . ./vars.sh
-# -H "Authorization: Bearer your_token"
+source ./passwords.sh
 
 params = ""
 params1 = "parent=0&role=dir"

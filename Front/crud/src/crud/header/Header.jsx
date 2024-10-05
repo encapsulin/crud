@@ -21,7 +21,7 @@ export default function Header({ callbackSearch }) {
     return (<><div className="Header align-row-space">
         CRUD
 
-        <input type="text" placeholder='Search:'
+        <input type="text" placeholder='Search by title:'
             name="searchString" value={searchString}
             onChange={(e) => fnSearch(e.target.value)}
         />

@@ -7,7 +7,7 @@ let event_post = {
 }
 
 let event_auth = {
-    body: "{\"uid\":\"demo1\", \"pwd\":\"fa23-8d20-41b0-aw4\"}",
+    body: "{\"uid\":\"demo\", \"pwd\":\"fa23-8d20-41b0-aw41\"}",
     httpMethod: "POST"
 }
 
@@ -34,20 +34,18 @@ let event_get = {
 
         //search: "asdf"
 
-        parent:"20241004_204843_611",
-        pageNext:"20241004_212358_157",
-        role:"doc"
+        parent: "20241004_204843_611",
+        pageNext: "20241004_212358_157",
+        role: "doc"
 
     }
 }
 
+let event_search = {
+    httpMethod: "GET",
+    queryStringParameters: {
+        search: "2024"
+    }
+}
 //console.log(typeof event);
-handler(event_get);
-
-    // skid: '20241003_205038_621',
-    // skid: '20241003_205037_857',
-    // skid: '20241003_205037_174',
-    
-//20241003_205037_174
-//20241003_205036_462
-//20241003_205035_647
+handler(event_search);

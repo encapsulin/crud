@@ -46,9 +46,9 @@ function Crud() {
 
   //TODO
   async function callbackSearch(str) {
-    setSelectedDir({ title: "Search: " + str })
+    setSelectedDir({ title: "Search: " + str, search: str })
     //setLoadingDocs(true);
-    let data_search = await restGet(config.URL_API + "?search=" + str);
+    //let data_search = await restGet(config.URL_API + "?search=" + str);
     //setDataDocs(data_search.data.Items);
     //setLoadingDocs(false);
   }

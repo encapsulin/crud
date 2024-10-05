@@ -42,8 +42,10 @@ let event_get = {
 }
 
 let event_search = {
-    body: "{\"uid\":\"demo\", \"pwd\":\"fa23-8d20-41b0-aw41\"}",
-    httpMethod: "POST"
+    httpMethod: "GET",
+    queryStringParameters: {
+        search: "2024"
+    }
 }
 //console.log(typeof event);
-handler(event_get);
+handler(event_search);

@@ -13,11 +13,12 @@ export default function Docs({ callbackSelectItem, selectedDir }) {
 
     const fetchDataDirs = async () => {
         console.log("selectedDir:", selectedDir);
-        let selectedDirskid = 0;
-        if (selectedDir !== undefined && selectedDir.skid !== undefined)
-            selectedDirskid = selectedDir.skid;
+        setDataDirs([]);
+        let url = config.URL_API + `?parent=0&role=dir`;
 
-        let url = config.URL_API + `?parent=${selectedDirskid}&role=dir`;
+        if (selectedDir !== undefined && selectedDir.skid !== undefined) {
+            url = config.URL_API + `?parent=${selectedDir.skid}&role=dir`;
+        }
 
         setLoading(true);
         let resp = await restGet(url);
@@ -27,11 +28,18 @@ export default function Docs({ callbackSelectItem, selectedDir }) {
     };
 
     const fetchDataDocs = async (pageSkid_ = 0) => {
-        let selectedDirskid = 0;
-        if (selectedDir !== undefined && selectedDir.skid !== undefined)
-            selectedDirskid = selectedDir.skid;
 
-        let url = config.URL_API + `?parent=${selectedDirskid}&pageNext=${pageSkid_}&role=doc`;
+        let url = config.URL_API + `?role=doc&pageNext=${pageSkid_}`;
+
+        if (selectedDir) {
+            if (selectedDir.skid !== undefined) {
+                url += `&parent=${selectedDir.skid}`;
+            }
+            if (selectedDir.search !== undefined) {
+                url += `&search=${selectedDir.search}`;
+            }
+        } else
+            url += `&parent=0`;
 
         setLoading(true);
         let resp = await restGet(url);
@@ -50,7 +58,6 @@ export default function Docs({ callbackSelectItem, selectedDir }) {
     };
 
     useEffect(() => {
-        setDataDirs([])
         setDataDocs([])
         setPageSkid(0)
         fetchDataDirs();

@@ -45,24 +45,24 @@ export const dynamo_serv_query = async (args) => {
 
     }
 
+    //TODO
+    if (args.search !== undefined) {
+        params.IndexName = 'titleLower-index';
+        // params.FilterExpression = 'contains(titleLower, :titleLowerV)';
+        params.KeyConditionExpression = 'pkid = :pkidV AND begins_with(#titleLowerK, :titleLowerV)';
+        params.ExpressionAttributeNames = { '#titleLowerK': 'titleLower' };
+        params.ExpressionAttributeValues = { ':pkidV': '0', ':titleLowerV': args.search };
+    }
+
     //?
     if (args.pageNext !== undefined && args.pageNext !== '0') {
         params.ExclusiveStartKey = {
             pkid: '0',                          // Partition key value from the previous query result
             skid: args.pageNext,      // Sort key value from the previous query result
-            parent: args.parent
         };
+        if (args.parent !== undefined)
+            params.ExclusiveStartKey['parent'] = args.parent;
     }
-
-    //TODO
-    if (args.search !== undefined) {
-        params.IndexName = 'title-index';
-        params.FilterExpression = 'contains(titleLower, :filterV)';
-        params.ExpressionAttributeValues[':filterV'] = args.search;
-    }
-
-
-
 
     let data = await fnDynamoQuery(params);
     return data;

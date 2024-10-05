@@ -7,6 +7,8 @@ export async function restGet(url) {
 
     try {
         console.log(url);
+        if (!url)
+            return;
         const response = await fetch(url);
         console.log(response);
         // if (!response.ok) {

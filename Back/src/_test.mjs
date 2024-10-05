@@ -41,5 +41,9 @@ let event_get = {
     }
 }
 
+let event_search = {
+    body: "{\"uid\":\"demo\", \"pwd\":\"fa23-8d20-41b0-aw41\"}",
+    httpMethod: "POST"
+}
 //console.log(typeof event);
 handler(event_get);

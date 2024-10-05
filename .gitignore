@@ -1,4 +1,4 @@
 *.zip
 password*
 node_modules/
-tmp/
+

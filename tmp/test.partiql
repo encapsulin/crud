@@ -1,0 +1,3 @@
+-- SELECT * FROM "tbCrud" WHERE "pkid" = '0' AND "skid" = '0'
+-- SELECT * FROM "tbCrud"."parent-index" WHERE "pkid" = '0' AND "parent" = '20241005_114104_144'
+-- SELECT * FROM "tbCrud"."titleLower-index" WHERE "pkid" = '0' AND CONTAINS("titleLower", '2024')

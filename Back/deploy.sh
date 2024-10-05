@@ -1,5 +1,5 @@
 pwd
-cd lambda/src
+cd ./Back/src
 
 rm -f ../crud.zip ; zip -r ../crud.zip index.mjs fn_*
 # ls -alrt; date

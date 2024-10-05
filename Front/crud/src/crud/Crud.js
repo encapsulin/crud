@@ -31,7 +31,7 @@ function Crud() {
 
   const [loadingDirs, setLoadingDirs] = useState(false);
   const [dataDirs, setDataDirs] = useState([]);
-  const [selectedDir, setSelectedDir] = useState({ skid: 0 });
+  const [selectedDir, setSelectedDir] = useState(null);
 
   useEffect(() => {
     const fetchDataDirs = async () => {
@@ -47,10 +47,6 @@ function Crud() {
   //TODO
   async function callbackSearch(str) {
     setSelectedDir({ title: "Search: " + str, search: str })
-    //setLoadingDocs(true);
-    //let data_search = await restGet(config.URL_API + "?search=" + str);
-    //setDataDocs(data_search.data.Items);
-    //setLoadingDocs(false);
   }
 
   return (<>

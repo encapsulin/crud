@@ -49,6 +49,7 @@ export default function Docs({ callbackSelectItem, selectedDir }) {
 
     useEffect(() => {
         setData([])
+        setDataDocs([])
         setPageSkid(0)
         fetchData();
     }, [selectedDir])

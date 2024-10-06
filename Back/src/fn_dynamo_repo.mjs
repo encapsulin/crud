@@ -4,7 +4,7 @@
 
 const tableName = 'tbCrud';
 
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient, DynamoDB } from "@aws-sdk/client-dynamodb";
 import {
     DynamoDBDocumentClient,
     // ScanCommand, // not recommended

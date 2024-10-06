@@ -7,7 +7,7 @@ for i in {1..1000}; do
     strDT=$(date +'%Y%m%d-%H%M%S')
     strDT="${strDT}.${i}"
 # strDT="20241003-203917.196"
-     echo "\n" $strDT
+     echo -e "\n" $strDT
 
 
 curl -X POST $URL \

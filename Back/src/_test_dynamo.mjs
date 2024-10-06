@@ -10,10 +10,10 @@ let lastEvaluatedKey = {
 }
 const params = {
     Statement: `SELECT * FROM "tbCrud"."titleLower-index" 
-        WHERE "pkid" = '0' AND CONTAINS("titleLower", '20241006-09500') `,
-    //Limit: 5,
+        WHERE "pkid" = '0' AND CONTAINS("titleLower", '20241006-0950') `,
+    Limit: 10,
     //ExclusiveStartKey: lastEvaluatedKey,
-    //ReturnConsumedCapacity: 'TOTAL'
+    ReturnConsumedCapacity: 'TOTAL'
 };
 
 console.log("params:", params)
@@ -119,8 +119,12 @@ function executePaginatedStatement(params, callback) {
                 return;
             }
 
+            console.log(data)
             const items = data.Items || [];
             allItems = allItems.concat(items);
+
+            if (items.length === 0)
+                delete params.Limit;
 
             const nextToken = data.NextToken;  // Store NextToken from response
 

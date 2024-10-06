@@ -2,6 +2,8 @@ pwd
 fn=../../passwords.sh
 ls -l $fn
 source $fn
+ldtStart=$(date)
+echo $ldtStart
 
 for i in {1..1000}; do
     strDT=$(date +'%Y%m%d-%H%M%S')
@@ -18,7 +20,10 @@ response=$(curl -X POST $URL \
 
 echo $response
 if echo "$response" | grep -q "data is not defined"; then
-    sleep 3
+    sleep 2
 fi
 
 done
+
+echo $ldtStart
+date

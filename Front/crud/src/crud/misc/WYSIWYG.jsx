@@ -2,7 +2,7 @@ import { CKEditor, Enter, Essentials, Paragraph, HeadingEditing } from '@ckedito
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { useState, useEffect } from 'react';
 
-export default function EditorCK({ children, callbackModified }) {
+export default function WYSIWYG({ children, callbackModified }) {
     const [editorContent, setEditorContent] = useState(children);
     useEffect(() => {
         setEditorContent(children);

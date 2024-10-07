@@ -7,8 +7,7 @@ import { restPost } from '../misc/utils/restPost.js'
 import { restGet } from '../misc/utils/restGet.js'
 import { restDelete } from '../misc/utils/restDelete.js'
 import { buildTree } from './buildTree.js';
-//import EditorCK from '../misc/EditorCK';
-// import EditorQuill from '../misc/EditorQuill';
+import WYSIWYG from '../misc/WYSIWYG';
 
 export default function ItemEdit({ data, callbackModified }) {
 
@@ -158,7 +157,7 @@ export default function ItemEdit({ data, callbackModified }) {
                         value={formData.descr}
                         onChange={(e) => handleInputChange(e.target.name, e.target.value)}></textarea>
                     <br />
-                    {/* <EditorCK callbackModified={(value) => handleInputChange("descr", value)}>{formData.descr}</EditorCK> */}
+                    <WYSIWYG callbackModified={(value) => handleInputChange("descr", value)}>{formData.descr}</WYSIWYG>
                     <br />
                     <div className='containerRowSides'>
                         <Loading loading={loading} />

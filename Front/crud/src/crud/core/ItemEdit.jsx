@@ -158,7 +158,7 @@ export default function ItemEdit({ data, callbackModified }) {
                         value={formData.descr}
                         onChange={(e) => handleInputChange(e.target.name, e.target.value)}></textarea>
                     <br />
-                    {/* <EditorCK callbackModified={(value) => handleInputChange("descr", value)}>{formData.descr}</EditorCK> */}
+                    {/* {<EditorQuill callbackModified={(value) => handleInputChange("descr", value)} data={formData.descr}></EditorQuill>} */}
                     <br />
                     <div className='containerRowSides'>
                         <Loading loading={loading} />

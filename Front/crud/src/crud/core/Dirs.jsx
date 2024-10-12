@@ -18,7 +18,10 @@ export default function Dirs({ callbackSelectItem, data, loading }) {
 
         return data_.map((item) => (
             <div key={item.skid}>
-                <div className={`align-row hover ${item.skid === itemSelected.skid ? 'hovered' : null}`}
+                <div className={`align-row hover 
+                ${item.skid === itemSelected.skid ? 'hovered' : null}
+                ${tab_ === 0 ? 'bold' : null}
+                `}
                     onClick={() => handleItemSelect(item)}
                 >
                     {'\u00A0'.repeat(tab_ * 5)}

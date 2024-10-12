@@ -1,6 +1,6 @@
 export default function DirsRaw({ data, callbackSelectItem }) {
     return (
-        <div className="align-row-right" style={{ backgroundColor: "white" }}>
+        <div className="align-row-right-" style={{ backgroundColor: "white" }}>
 
             {data.map(item => (
                 <span key={item.skid} >

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>React with JSON Parsing</title>
+    <!-- React and ReactDOM from CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // React Component to fetch and display JSON data
+        function MyApp() {
+            const [data, setData] = React.useState(null);
+
+            // Fetching JSON data using useEffect
+            React.useEffect(() => {
+                fetch('data.json') // Ensure data.json is in the same directory
+                    .then(response => response.json()) // Parsing JSON file
+                    .then(jsonData => setData(jsonData))
+                    .catch(error => console.error('Error fetching the JSON data:', error));
+            }, []);
+
+            // Rendering the data or a loading message
+            if (!data) {
+                return <h1>Loading data...</h1>;
+            }
+
+            return (
+                <div>
+                    <h1>Parsed JSON Data:</h1>
+                    <pre>{JSON.stringify(data, null, 2)}</pre> {/* Display the JSON data */}
+                </div>
+            );
+        }
+
+        // Render the component into the root div
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<MyApp />);
+    </script>
+
+    <!--
+    Ensure you have a data.json file in the same directory as this HTML file for this to work.
+    Sample JSON structure in 'data.json':
+    {
+        "name": "John",
+        "age": 30,
+        "city": "New York"
+    }
+    -->
+
+</body>
+
+</html>

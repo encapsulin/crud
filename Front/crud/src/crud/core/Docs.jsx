@@ -17,7 +17,7 @@ export default function Docs({ callbackSelectItem, selectedDir }) {
     const [dataDirs, setDataDirs] = useState([]);
     const [dataDocs, setDataDocs] = useState([]);
 
-    const fetchData = async (pageSkid_ = 0) => {
+    const fetchData = async (pageSkid_ = 0, append = false) => {
 
         let url = config.URL_API + `?pageNext=${pageSkid_}`;
 
@@ -35,8 +35,10 @@ export default function Docs({ callbackSelectItem, selectedDir }) {
         let resp = await restGet(url);
         setLoading(false);
 
-        //setData(resp.data.Items);
-        setData(prev => [...prev, ...resp.data.Items]);
+        if (append)
+            setData(prev => [...prev, ...resp.data.Items]);
+        else
+            setData(resp.data.Items);
 
         if (resp.data.LastEvaluatedKey !== undefined
             && data.length > 0
@@ -85,7 +87,7 @@ export default function Docs({ callbackSelectItem, selectedDir }) {
 
         <Loading loading={loading} />
 
-        {pageSkid ? (<button onClick={() => fetchData(pageSkid)}>Get next 10</button>) : null}
+        {pageSkid ? (<button onClick={() => fetchData(pageSkid, true)}>Get next 10</button>) : null}
 
     </div>)
 }

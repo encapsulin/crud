@@ -9,3 +9,4 @@ aws lambda update-function-code \
 --zip-file fileb://../crud.zip
 
 npm install
+rm -f ../crud.zip 

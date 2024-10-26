@@ -12,7 +12,7 @@ export default function AuthLogIn({ callbackClose }) {
 
   const [loading, setLoading] = useState(false)
   const [uid, setUid] = useState("demo")
-  const [pwd, setPwd] = useState("fa23-8d20-41b0-aw41")
+  const [pwd, setPwd] = useState("a37f6018-f42f-432b-bF02-eda9!f58b7a2")
 
   const { setToken } = useAuthData();
 

@@ -1,0 +1,18 @@
+
+
+h1 {
+    color: green;
+}
+
+.divrow1 {
+    display: flex; /* Align all child elements in a row */
+    justify-content: flex-start; /* Align elements to the left (default) */
+    gap: 15px; /* Optional: Space between the nested elements */
+}
+
+.div-row > * {
+    display: inline-block; /* Align child elements in a row */
+
+}
+
+

@@ -1,0 +1,173 @@
+[
+  {
+    "id": 1682057446175,
+    "title": "Dir",
+    "parentId": 0,
+    "nodes": [
+      {
+        "id": 1682057459634,
+        "title": "doc",
+        "parentId": 1682057446175,
+        "nodes": [],
+        "role": 2
+      }
+    ],
+    "role": 1
+  },
+  {
+    "id": 1681945452618,
+    "title": "fullstack",
+    "parentId": 0,
+    "nodes": [
+      {
+        "id": 1681945453908,
+        "title": "frontend",
+        "parentId": 1681945452618,
+        "nodes": [
+          {
+            "id": 1681945454074,
+            "title": "angular",
+            "parentId": 1681945453908,
+            "nodes": [],
+            "role": 2
+          },
+          {
+            "id": 1681945454193,
+            "title": "react",
+            "parentId": 1681945453908,
+            "nodes": [],
+            "role": 2
+          },
+          {
+            "id": 1681946593915,
+            "title": "vue js",
+            "parentId": 1681945453908,
+            "nodes": [],
+            "role": 2
+          }
+        ],
+        "role": 1
+      },
+      {
+        "id": 1681947340856,
+        "title": "devops",
+        "parentId": 1681945452618,
+        "nodes": [
+          {
+            "id": 1681947362449,
+            "title": "k8s",
+            "parentId": 1681947340856,
+            "nodes": [],
+            "role": 2
+          },
+          {
+            "id": 1681947441909,
+            "title": "gitlab",
+            "parentId": 1681947340856,
+            "nodes": [],
+            "role": 2
+          },
+          {
+            "id": 1681947374969,
+            "title": "docker",
+            "parentId": 1681947340856,
+            "nodes": [],
+            "role": 2
+          }
+        ],
+        "role": 1
+      },
+      {
+        "id": 1681945454310,
+        "title": "backend",
+        "parentId": 1681945452618,
+        "nodes": [
+          {
+            "id": 1681945454576,
+            "title": "aws",
+            "parentId": 1681945454310,
+            "nodes": [
+              {
+                "id": 1681946957126,
+                "title": "lambdas",
+                "parentId": 1681945454576,
+                "nodes": [],
+                "role": 2
+              }
+            ],
+            "role": 1
+          },
+          {
+            "id": 1681946857088,
+            "title": "db",
+            "parentId": 1681945454310,
+            "nodes": [
+              {
+                "id": 1681946763244,
+                "title": "sql",
+                "parentId": 1681946857088,
+                "nodes": [
+                  {
+                    "id": 1681946933252,
+                    "title": "postgres",
+                    "parentId": 1681946763244,
+                    "nodes": [],
+                    "role": 2
+                  }
+                ],
+                "role": 1
+              },
+              {
+                "id": 1681946873484,
+                "title": "nosql",
+                "parentId": 1681946857088,
+                "nodes": [
+                  {
+                    "id": 1681946914247,
+                    "title": "mongo",
+                    "parentId": 1681946873484,
+                    "nodes": [],
+                    "role": 2
+                  },
+                  {
+                    "id": 1681945454436,
+                    "title": "dynamo",
+                    "parentId": 1681946873484,
+                    "nodes": [],
+                    "role": 2
+                  }
+                ],
+                "role": 1
+              }
+            ],
+            "role": 1
+          },
+          {
+            "id": 1681945454692,
+            "title": "spring",
+            "parentId": 1681945454310,
+            "nodes": [
+              {
+                "id": 1681947080363,
+                "title": "data jpa",
+                "parentId": 1681945454692,
+                "nodes": [],
+                "role": 2
+              },
+              {
+                "id": 1681946977196,
+                "title": "security",
+                "parentId": 1681945454692,
+                "nodes": [],
+                "role": 2
+              }
+            ],
+            "role": 1
+          }
+        ],
+        "role": 1
+      }
+    ],
+    "role": 1
+  }
+]

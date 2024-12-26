@@ -1,0 +1,42 @@
+[
+  {
+    "id": 6,
+    "title": "Item1 for categR1",
+    "descr": null,
+    "price": 0.0,
+    "categId": 6,
+    "quantity": 0
+  },
+  {
+    "id": 7,
+    "title": "Item1 for categR1C1",
+    "descr": null,
+    "price": 0.0,
+    "categId": 7,
+    "quantity": 0
+  },
+  {
+    "id": 8,
+    "title": "Item1 for categR1C1C1",
+    "descr": null,
+    "price": 0.0,
+    "categId": 8,
+    "quantity": 0
+  },
+  {
+    "id": 9,
+    "title": "Item1 for categR1C2",
+    "descr": null,
+    "price": 0.0,
+    "categId": 9,
+    "quantity": 0
+  },
+  {
+    "id": 10,
+    "title": "Item1 for categR2",
+    "descr": null,
+    "price": 0.0,
+    "categId": 10,
+    "quantity": 0
+  }
+]

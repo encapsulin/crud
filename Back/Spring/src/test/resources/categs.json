@@ -1,0 +1,49 @@
+[
+  {
+    "id": 6,
+    "title": "Root1",
+    "descr": null,
+    "items": null,
+    "parentId": null,
+    "sortPosition": null,
+    "children": [
+      {
+        "id": 7,
+        "title": "Root1/Child1",
+        "descr": null,
+        "items": null,
+        "parentId": 6,
+        "sortPosition": null,
+        "children": [
+          {
+            "id": 8,
+            "title": "Root1/Child1/Child1",
+            "descr": null,
+            "items": null,
+            "parentId": 7,
+            "sortPosition": null,
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "title": "Root1/Child2",
+        "descr": null,
+        "items": null,
+        "parentId": 6,
+        "sortPosition": null,
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Root2",
+    "descr": null,
+    "items": null,
+    "parentId": null,
+    "sortPosition": null,
+    "children": []
+  }
+]

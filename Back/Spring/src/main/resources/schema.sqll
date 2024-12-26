@@ -1,0 +1,4 @@
+drop table if exists test_entity cascade ;
+drop sequence if exists test_entity_seq;
+create sequence test_entity_seq start with 1 increment by 50;
+create table test_entity (id integer not null, title varchar(255), primary key (id));

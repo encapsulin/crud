@@ -1,0 +1,1 @@
+http GET http://localhost:8080/api/nodes/get/1681945452618

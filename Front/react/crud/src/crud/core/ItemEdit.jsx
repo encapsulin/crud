@@ -1,5 +1,5 @@
 import ModalDialog from '../misc/modal/ModalDialog';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, lazy, useEffect, Suspense } from 'react';
 import Loading from '../misc/loading/Loading'
 import config from '../config.js'
 import React from 'react';
@@ -7,9 +7,12 @@ import { restPost } from '../misc/utils/restPost.js'
 import { restGet } from '../misc/utils/restGet.js'
 import { restDelete } from '../misc/utils/restDelete.js'
 import { buildTree } from './buildTree.js';
-import WYSIWYG from '../misc/WYSIWYG';
+//import WYSIWYG from '../misc/MyEditor';
+const MyEditor = lazy(() => import('../misc/MyEditor'));
 
 export default function ItemEdit({ data, callbackModified }) {
+
+    const [editable, setEditable] = useState(false);
 
     const refModal = useRef();
 
@@ -151,13 +154,21 @@ export default function ItemEdit({ data, callbackModified }) {
                         value={formData.title}
                         onChange={(e) => handleInputChange(e.target.name, e.target.value)}
                     />
+
                     <br />
-                    <textarea placeholder='Description:' className='textarea-field'
-                        name="descr"
-                        value={formData.descr}
-                        onChange={(e) => handleInputChange(e.target.name, e.target.value)}></textarea>
-                    <br />
-                    <WYSIWYG callbackModified={(value) => handleInputChange("descr", value)}>{formData.descr}</WYSIWYG>
+
+                    {editable ? (
+                        <Suspense fallback={<div>Loading editor...</div>}>
+                            <MyEditor callbackModified={(value) => handleInputChange("descr", value)} editable={editable}>{formData.descr}</MyEditor>
+                        </Suspense>
+                    ) : (<>
+                        <textarea placeholder='Description:' className='textarea-field'
+                            name="descr"
+                            value={formData.descr}
+                            onChange={(e) => handleInputChange(e.target.name, e.target.value)}></textarea>
+                    </>
+                    )}
+                    <a onClick={() => setEditable(!editable)}>CKEditor</a>
                     <br />
                     <div className='containerRowSides'>
                         <Loading loading={loading} />

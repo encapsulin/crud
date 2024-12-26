@@ -1,0 +1,6 @@
+pwd
+#cd Front/crud
+cd crud
+npm run build
+#sed -i 's/="\//=".\//g' ./build/index.html
+aws s3 sync ./build/ s3://encaps.click/

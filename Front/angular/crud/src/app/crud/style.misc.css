@@ -3,6 +3,13 @@ color: #444;
     font-family:Arial, Helvetica, sans-serif;
 }
 
+body {
+  margin: 0;
+  background-image: url('/img/bgr.jpg');
+  background-repeat: repeat; /* This will repeat the image both horizontally and vertically */
+  background-attachment: fixed; /* Optional: Make the background stay fixed while scrolling */
+}
+
 .imground {
     width: 100px; /* Adjust size as needed */
     height: 100px; /* Ensure it's square for a perfect circle */

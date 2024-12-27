@@ -5,6 +5,7 @@
     margin: 0.5rem;
     padding: 1rem;
     display: inline-block;
+    background-color: white;
     /* width: auto; */
 }
 
@@ -26,5 +27,10 @@
 
 .divrow > * {
     display: inline-block; /* Align child elements in a row */
+}
 
+.divrowvert {
+    display: flex;
+  justify-content: flex-start; /* Horizontal alignment (optional) */
+  align-items: flex-start; 
 }

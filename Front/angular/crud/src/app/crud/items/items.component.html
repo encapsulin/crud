@@ -4,11 +4,11 @@
         @for (item of items; track item.id){
    
             <div class="container">
-                <div class="divrow">
+                <h3>{{item.title}}</h3> 
+                <div class="divrowvert" >
                     <img  src={{item.img}} class="imground" style="margin-right: 1rem;">
-                    <span>
-                        <h2>{{item.title}}</h2> {{item.price}}/кг
-                        <hr/>
+                    <span style="justify-content: center; align-items: center; ">
+                        {{item.price}}/кг
                         <div>{{item.descr}} <button class="btn-round">...</button> </div>
                     </span>
                 </div>

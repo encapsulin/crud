@@ -4,17 +4,8 @@
         <!-- *ngFor="let item of items" -->
         @for (item of items; track item.id){
    
-      
-                <div class="container">
-                    <div class="divrowvert">
-                        <img  src={{item.img}} class="imground" style="margin-right: 1rem;">
-                        <span>
-                            <b style="margin: 1rem;">{{item.title}}</b>   
-                            <div>{{item.descr}}, <b>€{{item.price}}гр</b></div>
-                            <button class="btn-round">...</button>
-                        </span>
-                    </div>
-                    </div>
+            <app-item [item]="item"></app-item>
+            
     }
 
 

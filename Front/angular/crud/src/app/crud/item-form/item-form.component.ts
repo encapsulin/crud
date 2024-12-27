@@ -1,6 +1,7 @@
 import { ItemService } from './../item/item.service';
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Item } from '../item/item.model';
 
 @Component({
   selector: 'app-item-form',
@@ -13,6 +14,7 @@ export class ItemFormComponent {
   private itemService = inject(ItemService);
   itemForm: FormGroup;
   @Output() closePanel= new EventEmitter<'SUBMIT'>()
+  @Input() item!: Item;
 
   constructor(private fb: FormBuilder){
     this.itemForm = this.fb.group({

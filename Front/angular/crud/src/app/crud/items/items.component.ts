@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ItemComponent } from './item/item.component';
-import { Item } from './item/item.model';
-import { ItemService } from './item/item.service';
-import { ItemFormComponent } from './item-form/item-form.component';
+import { ItemComponent } from '../item/item.component';
+import { Item } from '../item/item.model';
+import { ItemService } from '../item/item.service';
+import { ItemFormComponent } from '../item-form/item-form.component';
 
 @Component({
   selector: 'app-items',
@@ -14,12 +14,34 @@ import { ItemFormComponent } from './item-form/item-form.component';
 
 export class ItemsComponent {
   items: Item[] = [];
-  showModal = false;
+  showModal:boolean = false;
+  item:Item = {
+    id: 0,
+    title: '',
+    descr: '',
+    price: '',
+    img: ''
+  }
   
   constructor(private itemService: ItemService) {}
 
   ngOnInit(): void {
     this.items = this.itemService.getItems(); // Fetch items on component initialization
   }
+
+  itemGet(id:number){
+    this.item = this.itemService.getItem(id);
+  }
+
+    // Function to show modal
+    openModal(id:number) {
+      this.showModal = true;
+      console.log(id)
+    }
+  
+    // Function to close modal
+    closeModal() {
+      this.showModal = false;
+    }
 }
 

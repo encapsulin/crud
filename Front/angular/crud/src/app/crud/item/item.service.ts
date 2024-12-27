@@ -26,4 +26,18 @@ export class ItemService {
   putItem(item_:Item){
     console.log("putItem",item_)
   }
+
+  getItem(id: number): Item {
+    // throw new Error('Method not implemented.');
+    console.log(id);
+    let item:Item = {
+      id: 0,
+      title: 't',
+      descr: 'd',
+      price: '',
+      img: ''
+    }
+    return item;
+  }
+
 }

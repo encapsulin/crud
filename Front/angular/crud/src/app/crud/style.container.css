@@ -38,7 +38,7 @@
 /* landscape/portrait */
 @media (orientation: portrait) {
     .container {
-        display: block;
-        width: auto; 
+        /* display: block;
+        width: auto;  */
     }
   }

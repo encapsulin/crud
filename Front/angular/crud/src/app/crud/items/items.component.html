@@ -1,11 +1,15 @@
 
-<button class="btn-round">+</button>
+<button class="btn-round" (click)="showModal = true">+</button>
 <div></div>
         <!-- *ngFor="let item of items" -->
         @for (item of items; track item.id){
    
             <app-item [item]="item"></app-item>
             
+    }
+
+    @if(showModal){
+    <app-item-form (closePanel)="showModal=false"></app-item-form>
     }
 
 

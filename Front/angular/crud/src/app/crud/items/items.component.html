@@ -1,0 +1,30 @@
+
+<div class="container">
+
+    <div class="div-row">
+        <h2>Items:</h2>
+        <button class="btn-round">+</button>
+    </div>
+
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+        <!-- *ngFor="let item of items" -->
+        @for (item of items; track item.id){
+        <tr >
+            <td>{{item.title}}</td>
+            <td>{{item.descr}}</td>
+            <td>{{item.price}}</td>
+            <td><button class="btn-round">...</button> </td>
+        </tr>
+    }
+    </table>
+      
+
+</div>
+
+

@@ -1,0 +1,31 @@
+* {
+color: #444;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.imground {
+    width: 100px; /* Adjust size as needed */
+    height: 100px; /* Ensure it's square for a perfect circle */
+    border-radius: 50%; /* Makes the image round */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
+    border: 2px solid #ccc; /* Optional: Add a border */
+  }
+
+  hr {
+    border: 1px solid rgb(235, 235, 235);
+  }
+
+  h1 {
+  
+}
+
+.divrow1 {
+    display: flex; /* Align all child elements in a row */
+    justify-content: flex-start; /* Align elements to the left (default) */
+    gap: 15px; /* Optional: Space between the nested elements */
+}
+
+.divrow > * {
+    display: inline-block; /* Align child elements in a row */
+
+}

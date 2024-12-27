@@ -1,19 +1,16 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';  // Import CommonModule
+import { ItemsComponent } from './items/items.component';
+import { HeaderComponent } from './header/header.component';
 
 
 @Component({
   selector: 'app-crud',
-  imports: [CommonModule],
+  imports: [ ItemsComponent, HeaderComponent],
   templateUrl: './crud.component.html',
-  styleUrls: ['./crud.component.css','style.btn.css','style.container.css']
+  styleUrls: ['./crud.component.css']
 })
 export class CrudComponent {
-  items = [
-    {"id":1,"title":"asdf","descr":"descr1","price":4},
-    {"id":2,"title":"asdf2","descr":"descr1","price":6},
-    {"id":3,"title":"asdf3","descr":"descr1","price":5}
-  ]
+
 
   constructor(){
 

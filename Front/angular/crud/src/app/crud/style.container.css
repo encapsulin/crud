@@ -6,7 +6,7 @@
     padding: 1rem;
     display: inline-block;
     background-color: white;
-    /* width: auto; */
+     width: 20rem; 
 }
 
 /* .divcenter1 {
@@ -34,3 +34,11 @@
   justify-content: flex-start; /* Horizontal alignment (optional) */
   align-items: flex-start; 
 }
+
+/* landscape/portrait */
+@media (orientation: portrait) {
+    .container {
+        display: block;
+        width: auto; 
+    }
+  }

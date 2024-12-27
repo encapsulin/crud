@@ -1,9 +1,9 @@
 .btn-round {
     width: 1.5rem;
     height: 1.5rem; /* Set a fixed height (same as width for a perfect circle) */
-    background-color: rgb(0, 123, 255);
-    color: white; /* White text */
-    border: none; /* Remove the border */
+    background-color: white;
+    color:  rgb(0, 123, 255); /* White text */
+    border: 1px solid  rgb(0, 123, 255); /* Remove the border */
     border-radius: 50%; /* Make it round */
     cursor: pointer; /* Show pointer cursor on hover */
     text-align: center; /* Center text horizontally */

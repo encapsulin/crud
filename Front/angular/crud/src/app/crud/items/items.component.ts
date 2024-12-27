@@ -31,12 +31,14 @@ export class ItemsComponent {
 
   itemGet(id:number){
     this.item = this.itemService.getItem(id);
+    console.log(this.item)
   }
 
     // Function to show modal
     openModal(id:number) {
       this.showModal = true;
       console.log(id)
+      this.itemGet(id);
     }
   
     // Function to close modal

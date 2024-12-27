@@ -19,6 +19,20 @@ export class ItemService {
     {"id":7,"title":"Холодець","descr":" (свин + кур)","price":"4/300", "img":"img/1.jpeg"}
   ]
 
+  getItem(id: number): Item {
+    // throw new Error('Method not implemented.');
+    console.log(id);
+     let item = this.items.find(item => item.id === id) ?? {
+      id: 0,
+      title: '',
+      descr: '',
+      price: '0',
+      img: ''
+     }
+
+    return item;
+  }
+
   getItems(): Item[]{
     return this.items;
   }
@@ -27,17 +41,10 @@ export class ItemService {
     console.log("putItem",item_)
   }
 
-  getItem(id: number): Item {
-    // throw new Error('Method not implemented.');
-    console.log(id);
-    let item:Item = {
-      id: 0,
-      title: 't',
-      descr: 'd',
-      price: '',
-      img: ''
-    }
-    return item;
+  getItemById(id: number): any {
+    return this.items.find(item => item.id === id);
   }
+
+
 
 }

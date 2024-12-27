@@ -3,7 +3,7 @@
 		<form [formGroup]="itemForm" (ngSubmit)="handleSubmit()">
 			<div>
 				<label for="task-name">Title</label>
-				<input id="task-name" formControlName="title" value="t1"/>
+				<input id="task-name" formControlName="title" [(ngModel)]="item.title"/>
 				<div class="divRed">
 					Title is required.
 				</div>
@@ -12,7 +12,7 @@
 			</div>
 			<div>
 				<label for="task-description">Description</label>
-				<textarea id="task-description" formControlName="descr" >d1</textarea>
+				<textarea id="task-description" formControlName="descr" [(ngModel)]="item.descr"></textarea>
 			</div>
 
 			<div>

@@ -9,8 +9,10 @@ import { Component } from '@angular/core';
 })
 export class ItemsComponent {
   items = [
-    {"id":1,"title":"asdf","descr":"descr1","price":4},
-    {"id":2,"title":"asdf2","descr":"descr1","price":6},
-    {"id":3,"title":"asdf3","descr":"descr1","price":5}
+    {"id":1,"title":"asdf","descr":"descr1","price":4, "img":"img/logo.png"},
+    {"id":2,"title":"asdf2","descr":"descr1","price":6, "img":"img/logo.png"},
+    {"id":3,"title":"asdf3","descr":"descr1","price":5, "img":"img/logo.png"},
+    {"id":1,"title":"asdf","descr":"descr1","price":4, "img":"img/logo.png"},
+    {"id":2,"title":"asdf2","descr":"descr1","price":6, "img":"img/logo.png"}
   ]
 }

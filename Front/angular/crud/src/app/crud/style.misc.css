@@ -19,13 +19,3 @@ color: #444;
   
 }
 
-.divrow1 {
-    display: flex; /* Align all child elements in a row */
-    justify-content: flex-start; /* Align elements to the left (default) */
-    gap: 15px; /* Optional: Space between the nested elements */
-}
-
-.divrow > * {
-    display: inline-block; /* Align child elements in a row */
-
-}

@@ -2,6 +2,29 @@
     border: 1px solid silver;
     border-radius: 0.5rem;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
-    margin: 1rem;
+    margin: 0.5rem;
     padding: 1rem;
+    display: inline-block;
+    /* width: auto; */
+}
+
+/* .divcenter1 {
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+} */
+
+.divcenter {
+    text-align: center; 
+}
+
+/* .divrow1 {
+    display: flex; 
+    justify-content: flex-start;
+    gap: 15px; 
+} */
+
+.divrow > * {
+    display: inline-block; /* Align child elements in a row */
+
 }

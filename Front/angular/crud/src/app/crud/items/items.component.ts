@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
 })
 export class ItemsComponent {
   items = [
-    {"id":1,"title":"Вареники","descr":" з сиром солоні ","price":4, "img":"img/1.jpeg"},
+    {"id":1,"title":"Вареники","descr":" з сиром солоні ","price":4, "img":"img/2.jpeg"},
     {"id":2,"title":"Вареники","descr":" з сиром солодкі","price":6, "img":"img/2.jpeg"},
     {"id":3,"title":"Вареники ","descr":"(картопля)","price":5, "img":"img/3.jpeg"},
     {"id":1,"title":"Вареники ","descr":"(картопля, печінка)","price":4, "img":"img/4.jpeg"},

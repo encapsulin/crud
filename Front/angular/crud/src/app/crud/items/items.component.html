@@ -1,18 +1,21 @@
 
-
+<button class="btn-round">+</button>
+<div></div>
         <!-- *ngFor="let item of items" -->
         @for (item of items; track item.id){
    
-            <div class="container">
-                <h3>{{item.title}}</h3> 
-                <div class="divrowvert" >
-                    <img  src={{item.img}} class="imground" style="margin-right: 1rem;">
-                    <span style="justify-content: center; align-items: center; ">
-                        {{item.price}}/кг
-                        <div>{{item.descr}} <button class="btn-round">...</button> </div>
-                    </span>
-                </div>
-                </div>
+      
+                <div class="container">
+                    <div class="divrowvert">
+                        <img  src={{item.img}} class="imground" style="margin-right: 1rem;">
+                        <span>
+                            <h3>{{item.title}}</h3> 
+                            
+                            <div>{{item.descr}}, <b>€{{item.price}}/100g</b>
+                                <button class="btn-round">...</button></div>
+                        </span>
+                    </div>
+                    </div>
     }
 
 

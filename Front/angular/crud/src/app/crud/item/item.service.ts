@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Item } from './item.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
+const URL_API = "https://csdbevdga8.execute-api.us-east-1.amazonaws.com/fnDomkuh"
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemService {
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
 
   items = [
     {"id":1,"title":"Вареники","descr":" з сиром солоні ","price":"1/100", "img":"img/2.jpeg"},
@@ -26,19 +29,31 @@ export class ItemService {
       id: 0,
       title: '',
       descr: '',
-      price: '0',
+      price: '1/100',
       img: ''
      }
 
     return item;
   }
 
-  getItems(): Item[]{
+  getItems():Item[]{
     return this.items;
   }
 
-  putItem(item_:Item){
-    console.log("putItem",item_)
+  getItemsHttp(): Observable<Item[]>{
+    return this.http.get<Item[]>(URL_API);
+    //return this.items;
+  }
+
+  // postItem(item:Item){
+  //   console.log("postItem",item)
+  //   return this.http.post(URL_API,{...item})
+  // }
+
+  postItem(item: Item): Observable<any> {
+    const headers = { 'Content-Type': 'application/json' };
+    console.log("postItem", item);
+    return this.http.post(URL_API, { ...item }, { headers });
   }
 
   getItemById(id: number): any {

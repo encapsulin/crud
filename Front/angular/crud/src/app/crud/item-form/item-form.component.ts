@@ -19,14 +19,22 @@ export class ItemFormComponent {
   constructor(private fb: FormBuilder){
     this.itemForm = this.fb.group({
       title: [''],
-      descr: ['']
+      descr: [''] ,
+      img: [''],
+      price: ['']
     })
   }
 
   handleSubmit(){
     console.log("handleSubmit");
     const item = {...this.itemForm.value}
-    this.itemService.putItem(item);
+    
+    //this.itemService.postItem(item);
+    this.itemService.postItem(item).subscribe({
+      next: (response) => console.log('Item added:', response),
+      error: (err) => console.error('Error adding item:', err)
+    });
+    
     this.closePanel.emit('SUBMIT')
   }
 

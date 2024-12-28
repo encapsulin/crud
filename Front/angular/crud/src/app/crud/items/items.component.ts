@@ -1,19 +1,21 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ItemComponent } from '../item/item.component';
 import { Item } from '../item/item.model';
 import { ItemService } from '../item/item.service';
 import { ItemFormComponent } from '../item-form/item-form.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-items',
-  imports: [CommonModule, ItemComponent,ItemFormComponent],
+  imports: [CommonModule, ItemComponent,ItemFormComponent, AsyncPipe],
   templateUrl: './items.component.html',
   styleUrl: './items.component.css'
 })
 
 export class ItemsComponent {
   items: Item[] = [];
+  //items$! : Observable<Item[]>;
   showModal:boolean = false;
   item:Item = {
     id: 0,
@@ -23,7 +25,14 @@ export class ItemsComponent {
     img: ''
   }
   
-  constructor(private itemService: ItemService) {}
+  constructor(private itemService: ItemService) {
+    //this.updateItems();
+  }
+
+  updateItems(){
+      //this.items$ = this.itemService.getItems();
+
+  }
 
   ngOnInit(): void {
     this.items = this.itemService.getItems(); // Fetch items on component initialization
@@ -45,5 +54,7 @@ export class ItemsComponent {
     closeModal() {
       this.showModal = false;
     }
+
+ 
 }
 

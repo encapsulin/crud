@@ -46,6 +46,7 @@
 	margin-bottom: 5px;
 	font-weight: 500;
 	color: #555;
+	text-align: left;
 }
 
 /* Input Styles */
@@ -157,14 +158,6 @@
 
 .modal-content form div {
 	margin-bottom: 15px;
-}
-
-/* Label Styles */
-.modal-content form label {
-	display: block;
-	margin-bottom: 5px;
-	font-weight: 500;
-	color: #555;
 }
 
 /* Input Styles */

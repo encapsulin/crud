@@ -18,6 +18,7 @@ export class ItemFormComponent {
 
   constructor(private fb: FormBuilder){
     this.itemForm = this.fb.group({
+      skid:[''],
       title: [''],
       descr: [''] ,
       img: [''],

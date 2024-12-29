@@ -18,7 +18,7 @@ export class ItemsComponent {
   //items$! : Observable<Item[]>;
   showModal:boolean = false;
   item:Item = {
-    id: 0,
+    skid: '',
     title: '',
     descr: '',
     price: '',
@@ -38,13 +38,13 @@ export class ItemsComponent {
     this.items = this.itemService.getItems(); // Fetch items on component initialization
   }
 
-  itemGet(id:number){
+  itemGet(id:string){
     this.item = this.itemService.getItem(id);
     console.log(this.item)
   }
 
     // Function to show modal
-    openModal(id:number) {
+    openModal(id:string) {
       this.showModal = true;
       console.log(id)
       this.itemGet(id);

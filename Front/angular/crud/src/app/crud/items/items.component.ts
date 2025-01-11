@@ -1,4 +1,4 @@
-import { AsyncPipe, CommonModule } from '@angular/common';
+import {  CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ItemComponent } from '../item/item.component';
 import { Item } from '../item/item.model';
@@ -8,34 +8,37 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-items',
-  imports: [CommonModule, ItemComponent,ItemFormComponent, AsyncPipe],
+  imports: [CommonModule, ItemComponent,ItemFormComponent],
   templateUrl: './items.component.html',
   styleUrl: './items.component.css'
 })
 
 export class ItemsComponent {
   items: Item[] = [];
-  //items$! : Observable<Item[]>;
   showModal:boolean = false;
   item:Item = {
     skid: '',
     title: '',
     descr: '',
     price: '',
-    img: ''
+    img: '',
+    role:''
   }
   
   constructor(private itemService: ItemService) {
-    //this.updateItems();
-  }
-
-  updateItems(){
-      //this.items$ = this.itemService.getItems();
-
   }
 
   ngOnInit(): void {
-    this.items = this.itemService.getItems(); // Fetch items on component initialization
+    //this.items = this.itemService.getItems(); 
+    this.itemService.getItemsObs().subscribe(
+      (items) => {
+        console.log('Parsed Items:', items);
+        this.items = items; // Use the parsed Items
+      },
+      (error) => {
+        console.error('Error fetching items:', error);
+      }
+    );
   }
 
   itemGet(id:string){

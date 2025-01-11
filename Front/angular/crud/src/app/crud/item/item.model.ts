@@ -3,5 +3,6 @@ export interface Item {
     title: string,
     descr: string,
     price: string,
-    img: string
+    img: string,
+    role: string
 }

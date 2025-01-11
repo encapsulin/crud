@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Item } from './item.model';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-
-const URL_API = "https://csdbevdga8.execute-api.us-east-1.amazonaws.com/fnDomkuh"
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemService {
+  private URL_API = "https://csdbevdga8.execute-api.us-east-1.amazonaws.com/fnDomkuh"
 
   constructor(private http:HttpClient) { }
 
-  items = [
-    {"skid":'1',"title":"Вареники","descr":" з сиром солоні ","price":"1/100", "img":"img/2.jpeg"},
-    {"skid":'2',"title":"Вареники","descr":" з сиром солодкі","price":"1/100", "img":"img/2.jpeg"},
-    {"skid":'3',"title":"Вареники","descr":"(картопля)","price":"1/100", "img":"img/3.jpeg"},
-    {"skid":'4',"title":"Вареники","descr":"(картопля, печінка)","price":"1/100", "img":"img/4.jpeg"},
-    {"skid":'5',"title":"Пельмені","descr":"(свин)","price":"1/100", "img":"img/5.jpeg"},
-    {"skid":'6',"title":"Пельмені","descr":" (кур)","price":"1/100", "img":"img/6.jpeg"},
-    {"skid":'7',"title":"Холодець","descr":" (свин + кур)","price":"4/300", "img":"img/1.jpeg"}
+  items:Item[] = [
+    {"skid":'1',"title":"Вареники","descr":" з сиром солоні ","price":"1/100", "img":"img/2.jpeg","role":"doc"},
+    // {"skid":'2',"title":"Вареники","descr":" з сиром солодкі","price":"1/100", "img":"img/2.jpeg","role":"doc"},
+    // {"skid":'3',"title":"Вареники","descr":"(картопля)","price":"1/100", "img":"img/3.jpeg","role":"doc"},
+    // {"skid":'4',"title":"Вареники","descr":"(картопля, печінка)","price":"1/100", "img":"img/4.jpeg","role":"doc"},
+    {"skid":'5',"title":"Пельмені","descr":"(свин)","price":"1/100", "img":"img/5.jpeg","role":"doc"},
+    // {"skid":'6',"title":"Пельмені","descr":" (кур)","price":"1/100", "img":"img/6.jpeg","role":"doc"},
+    {"skid":'7',"title":"Холодець","descr":" (свин + кур)","price":"4/300", "img":"img/1.jpeg","role":"doc"}
   ]
 
   getItem(id: string): Item {
@@ -30,31 +30,20 @@ export class ItemService {
       title: '',
       descr: '',
       price: '1/100',
-      img: ''
+      img: '',
+      role:''
      }
 
     return item;
   }
 
-  getItems():Item[]{
-    return this.items;
-  }
 
-  getItemsHttp(): Observable<Item[]>{
-    return this.http.get<Item[]>(URL_API);
-    //return this.items;
-  }
-
-  // postItem(item:Item){
-  //   console.log("postItem",item)
-  //   return this.http.post(URL_API,{...item})
-  // }
-
-  postItem(item: Item): Observable<any> {
+  postItem(item: Item): any {
     console.log("postItem", item);
-    // let 
     const headers = { 'Content-Type': 'application/json' };
-    return this.http.post(URL_API, { ...item }, { headers });
+    return this.http.post(this.URL_API, { ...item }, { headers }).subscribe(data=>{
+      console.log(data);
+    });
   }
 
   getItemById(id: string): any {
@@ -62,5 +51,51 @@ export class ItemService {
   }
 
 
+  // getItems1():Item[]{
+  //   this.http.get(`${this.URL_API}?role=doc`)
+  //   .pipe(map(data=>{
+  //     console.log("map:", data)
+      
+  //   }))
+  //   .subscribe(data=>{
+  //     console.log("subscribe:",data);
+  //   })
+  //   return this.items;
+  // }
+
+  getItemsObs(): Observable<Item[]> {
+    return this.http.get<any>(`${this.URL_API}?role=doc`).pipe(
+      map((response) => {
+        if (response.statusCode === 200 && response.data && response.data.Items) {
+          return response.data.Items.map((item: any) => ({
+            img: item.img || '',
+            role: item.role || '',
+            descr: item.descr || '',
+            pkid: item.pkid || '',
+            skid: item.skid || '',
+            titleLower: item.titleLower || '',
+            parent: item.parent || '',
+            price: item.price || '',
+            title: item.title || '',
+          }));
+        }
+        console.error('Unexpected response structure:', response);
+        return [];
+      })
+    );
+  }
+  
+  // getItems():Item[]{
+  //   this.getItemsObs().subscribe(
+  //     (items) => {
+  //       console.log('Parsed Items:', items);
+  //       this.items = items; // Use the parsed Items
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching items:', error);
+  //     }
+  //   );
+  //   return this.items ;
+  // }
 
 }

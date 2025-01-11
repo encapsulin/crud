@@ -1,11 +1,8 @@
 
 <button class="btn-round" (click)="openModal('0')">+</button>
-<div></div>
-        <!-- *ngFor="let item of items" -->
-        @for (item of items ; track item.skid){
+<div *ngFor="let item of items">
             <app-item [item]="item" (openModal)="openModal(item.skid)"></app-item>
-        }
-
+        </div>
     @if(showModal){
     <app-item-form [item]="item" (closePanel)="closeModal()"></app-item-form>
     }

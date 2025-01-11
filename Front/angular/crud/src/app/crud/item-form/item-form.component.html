@@ -2,7 +2,6 @@
 	<div class="modal-content">
 		<form [formGroup]="itemForm" (ngSubmit)="handleSubmit()">
 			<div>
-				<label for="task-name">Title</label>
 				<input id="task-name" formControlName="title" [(ngModel)]="item.title"/>
 				<!-- <div class="divRed">
 					Title is required.
@@ -11,17 +10,15 @@
 
 			</div>
 			<div>
-				<label for="task-description">Description</label>
 				<textarea id="task-description" formControlName="descr" [(ngModel)]="item.descr"></textarea>
 			</div>
 
 			<div>
-				<label for="task-img">Image</label>
+				<label for="task-img">Pict</label>
 				<input id="task-img" formControlName="img" [(ngModel)]="item.img"/>
 			</div>
 
 			<div style="text-align: left;">
-				<label for="task-price">Price</label>
 				€<input id="task-price" formControlName="price" [(ngModel)]="item.price" 
 				style="width: 5rem;"
 				/>гр

@@ -3,6 +3,7 @@ import { fnDatePlusDHM, fnTtlMins, fnDateToIso } from './fn_datez.mjs'
 
 //let data = await getParentsRecurs("0")
 //console.log(data)
+const tableName = 'tbDomkuh2';
 
 export const dynamo_serv_query = async (args) => {
     console.log("dynamo_serv_query():", args);
@@ -11,7 +12,7 @@ export const dynamo_serv_query = async (args) => {
         KeyConditionExpression: 'pkid = :pkidV AND #sortK = :sortV',
         ExpressionAttributeNames: { '#sortK': 'skid' },
         ExpressionAttributeValues: { ':pkidV': '0', ':sortV': '0' },
-        TableName: 'tbCrud',
+        TableName: tableName,
         ScanIndexForward: false,
         Limit: 10
         //ProjectionExpression: 'orderId, orderDate, totalAmount',  // Specify the attributes you want

@@ -29,12 +29,13 @@ export class ItemFormComponent {
   handleSubmit(){
     console.log("handleSubmit");
     const item = {...this.itemForm.value}
-    
+    item.role = "doc";
     //this.itemService.postItem(item);
-    this.itemService.postItem(item).subscribe({
-      next: (response) => console.log('Item added:', response),
-      error: (err) => console.error('Error adding item:', err)
-    });
+    this.itemService.postItem(item);//.subscribe({
+      //next: (response) => console.log('Item added:', response),
+      //error: (err) => console.error('Error adding item:', err)
+     /// console.log('Item added:'),
+    //});
     
     this.closePanel.emit('SUBMIT')
   }

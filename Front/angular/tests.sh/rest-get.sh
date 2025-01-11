@@ -1,15 +1,7 @@
-pwd
-source ./passwords.sh
+cd "$(dirname "$0")"; pwd
+source ./url.sh
 
-params = ""
-params1 = "parent=0&role=dir"
-params2 = "parent=20240929_160937_354"
-page0="0"
-page1="20241003_120331_298"
-params3 = "parent=20240929_160937_354&page=$page1"
-
-
-curl -X GET "$URL?$params3"
+curl -X GET "$URL?role=doc"
 
 #curl -X GET "$URL?filter=role&filterVal=doc"
 

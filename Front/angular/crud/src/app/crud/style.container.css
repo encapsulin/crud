@@ -42,3 +42,10 @@
         width: auto;  */
     }
   }
+
+
+.divRowProportial{
+    display: flex;
+    justify-content: space-evenly; /* Equal space between and around items */
+    align-items: center;
+}

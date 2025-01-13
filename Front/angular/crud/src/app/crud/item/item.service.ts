@@ -85,6 +85,9 @@ export class ItemService {
     );
   }
   
+  getItems():Item[]{
+    return this.items.slice()
+  }
   // getItems():Item[]{
   //   this.getItemsObs().subscribe(
   //     (items) => {
@@ -98,4 +101,11 @@ export class ItemService {
   //   return this.items ;
   // }
 
+  itemDelete(skid: string): any {
+    console.log(`itemDelete(${skid})`);
+    const headers = { 'Content-Type': 'application/json' };
+    return this.http.delete(`${this.URL_API}?skid=${skid}`, { headers }).subscribe(data=>{
+      console.log(data);
+    });
+  }
 }

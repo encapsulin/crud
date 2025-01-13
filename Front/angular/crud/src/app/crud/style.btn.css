@@ -8,5 +8,30 @@
     cursor: pointer; /* Show pointer cursor on hover */
     text-align: center; /* Center text horizontally */
     font-weight: bold;
+}
 
+.btn {
+    padding: 0.5rem 1rem;
+    background-color: white;
+    color:  rgb(0, 123, 255); /* White text */
+    border: 1px solid  silver;
+    border-radius: 0.5rem; /* Make it round */
+    cursor: pointer; /* Show pointer cursor on hover */
+    text-align: center; /* Center text horizontally */
+    font-weight: bold;
+}
+
+.bgRed {
+    background-color: red;
+    color:  white;
+}
+
+.bgOk {
+    background-color: dodgerblue;
+    color:  white;
+}
+
+.bgCancel {
+    background-color: rgb(244, 244, 244);
+    color:  rgb(31, 31, 31);
 }

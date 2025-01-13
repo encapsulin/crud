@@ -43,4 +43,9 @@ export class ItemFormComponent {
   handleCancel(){
     this.closePanel.emit('SUBMIT')
   }
+
+  handleDelete(){
+    this.itemService.itemDelete(this.item.skid);
+    //this.closePanel.emit('SUBMIT')
+  }
 }

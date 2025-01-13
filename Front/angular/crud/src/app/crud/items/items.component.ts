@@ -30,7 +30,6 @@ export class ItemsComponent {
 
   ngOnInit(): void {
     //this.items = this.itemService.getItems(); 
-    // this.items = this.itemService.items;
 
     this.itemService.getItemsObs().subscribe(
       (items) => {

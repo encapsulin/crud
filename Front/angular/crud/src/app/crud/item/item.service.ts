@@ -22,20 +22,20 @@ export class ItemService {
     {"skid":'7',"title":"Холодець","descr":" (свин + кур)","price":"4/300", "img":"img/1.jpeg","role":"doc"}
   ]
 
-  getItem(id: string): Item {
-    // throw new Error('Method not implemented.');
-    console.log(id);
-     let item = this.items.find(item => item.skid === id) ?? {
-      skid: '',
-      title: '',
-      descr: '',
-      price: '1/100',
-      img: '',
-      role:''
-     }
+  // getItem(id: string): Item {
+  //   // throw new Error('Method not implemented.');
+  //   console.log(`getItem(${id})`);
+  //    let item = this.items.find(item => item.skid === id) ?? {
+  //     skid: '',
+  //     title: '?',
+  //     descr: '',
+  //     price: '1/100',
+  //     img: '',
+  //     role:''
+  //    }
 
-    return item;
-  }
+  //   return item;
+  // }
 
 
   postItem(item: Item): any {
@@ -46,9 +46,9 @@ export class ItemService {
     });
   }
 
-  getItemById(id: string): any {
-    return this.items.find(item => item.skid === id);
-  }
+  // getItemById(id: string): any {
+  //   return this.items.find(item => item.skid === id);
+  // }
 
 
   // getItems1():Item[]{

@@ -30,6 +30,8 @@ export class ItemsComponent {
 
   ngOnInit(): void {
     //this.items = this.itemService.getItems(); 
+    // this.items = this.itemService.items;
+
     this.itemService.getItemsObs().subscribe(
       (items) => {
         console.log('Parsed Items:', items);
@@ -39,18 +41,34 @@ export class ItemsComponent {
         console.error('Error fetching items:', error);
       }
     );
+
   }
 
   itemGet(id:string){
-    this.item = this.itemService.getItem(id);
+    this.item = this.getItem(id);
     console.log(this.item)
+  }
+
+  getItem(id: string): Item {
+    // throw new Error('Method not implemented.');
+    console.log(`getItem(${id})`);
+     let item = this.items.find(item => item.skid === id) ?? {
+      skid: '',
+      title: '?',
+      descr: '',
+      price: '1/100',
+      img: '',
+      role:''
+     }
+
+    return item;
   }
 
     // Function to show modal
     openModal(id:string) {
-      this.showModal = true;
       console.log(id)
       this.itemGet(id);
+      this.showModal = true;
     }
   
     // Function to close modal
